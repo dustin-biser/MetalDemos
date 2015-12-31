@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0C9474D91C339EB1005933AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9474D81C339EB1005933AC /* AppDelegate.swift */; };
-		0C9474DB1C339EB1005933AC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9474DA1C339EB1005933AC /* ViewController.swift */; };
+		0C9474DB1C339EB1005933AC /* MetalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9474DA1C339EB1005933AC /* MetalViewController.swift */; };
 		0C9474DD1C339EB1005933AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C9474DC1C339EB1005933AC /* Assets.xcassets */; };
 		0C9474E01C339EB2005933AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C9474DE1C339EB2005933AC /* Main.storyboard */; };
 /* End PBXBuildFile section */
@@ -16,7 +16,7 @@
 /* Begin PBXFileReference section */
 		0C9474D51C339EB1005933AC /* MetalSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C9474D81C339EB1005933AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0C9474DA1C339EB1005933AC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0C9474DA1C339EB1005933AC /* MetalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalViewController.swift; sourceTree = "<group>"; };
 		0C9474DC1C339EB1005933AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0C9474DF1C339EB2005933AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0C9474E11C339EB2005933AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,7 +53,7 @@
 			isa = PBXGroup;
 			children = (
 				0C9474D81C339EB1005933AC /* AppDelegate.swift */,
-				0C9474DA1C339EB1005933AC /* ViewController.swift */,
+				0C9474DA1C339EB1005933AC /* MetalViewController.swift */,
 				0C9474DC1C339EB1005933AC /* Assets.xcassets */,
 				0C9474DE1C339EB2005933AC /* Main.storyboard */,
 				0C9474E11C339EB2005933AC /* Info.plist */,
@@ -131,7 +131,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C9474DB1C339EB1005933AC /* ViewController.swift in Sources */,
+				0C9474DB1C339EB1005933AC /* MetalViewController.swift in Sources */,
 				0C9474D91C339EB1005933AC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,6 +273,7 @@
 				0C9474E61C339EB2005933AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
