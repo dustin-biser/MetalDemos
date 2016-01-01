@@ -7,20 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C3FECE31C365814002E69FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C3FECE21C365814002E69FE /* Main.storyboard */; };
 		0C9474D91C339EB1005933AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9474D81C339EB1005933AC /* AppDelegate.swift */; };
 		0C9474DB1C339EB1005933AC /* MetalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9474DA1C339EB1005933AC /* MetalViewController.swift */; };
 		0C9474DD1C339EB1005933AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C9474DC1C339EB1005933AC /* Assets.xcassets */; };
-		0C9474E01C339EB2005933AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C9474DE1C339EB2005933AC /* Main.storyboard */; };
 		0CFE24551C35B9790057AF8D /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0CFE24541C35B9790057AF8D /* Shaders.metal */; };
 		0CFE24571C35C6C70057AF8D /* ResourceIndices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFE24561C35C6C70057AF8D /* ResourceIndices.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C3FECE21C365814002E69FE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0C9474D51C339EB1005933AC /* MetalSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C9474D81C339EB1005933AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0C9474DA1C339EB1005933AC /* MetalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalViewController.swift; sourceTree = "<group>"; };
 		0C9474DC1C339EB1005933AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		0C9474DF1C339EB2005933AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0C9474E11C339EB2005933AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0CFE24541C35B9790057AF8D /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		0CFE24561C35C6C70057AF8D /* ResourceIndices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceIndices.swift; sourceTree = "<group>"; };
@@ -57,11 +57,11 @@
 		0C9474D71C339EB1005933AC /* MetalSwift */ = {
 			isa = PBXGroup;
 			children = (
+				0C3FECE21C365814002E69FE /* Main.storyboard */,
 				0CFE24541C35B9790057AF8D /* Shaders.metal */,
 				0C9474D81C339EB1005933AC /* AppDelegate.swift */,
 				0C9474DA1C339EB1005933AC /* MetalViewController.swift */,
 				0C9474DC1C339EB1005933AC /* Assets.xcassets */,
-				0C9474DE1C339EB2005933AC /* Main.storyboard */,
 				0C9474E11C339EB2005933AC /* Info.plist */,
 				0CFE24561C35C6C70057AF8D /* ResourceIndices.swift */,
 				0CFE24581C36004C0057AF8D /* BridgingHeader.h */,
@@ -127,8 +127,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C3FECE31C365814002E69FE /* Main.storyboard in Resources */,
 				0C9474DD1C339EB1005933AC /* Assets.xcassets in Resources */,
-				0C9474E01C339EB2005933AC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,17 +147,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		0C9474DE1C339EB2005933AC /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0C9474DF1C339EB2005933AC /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		0C9474E21C339EB2005933AC /* Debug */ = {
