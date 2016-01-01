@@ -11,6 +11,8 @@
 		0C9474DB1C339EB1005933AC /* MetalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9474DA1C339EB1005933AC /* MetalViewController.swift */; };
 		0C9474DD1C339EB1005933AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C9474DC1C339EB1005933AC /* Assets.xcassets */; };
 		0C9474E01C339EB2005933AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C9474DE1C339EB2005933AC /* Main.storyboard */; };
+		0CFE24551C35B9790057AF8D /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0CFE24541C35B9790057AF8D /* Shaders.metal */; };
+		0CFE24571C35C6C70057AF8D /* ResourceIndices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFE24561C35C6C70057AF8D /* ResourceIndices.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,9 @@
 		0C9474DC1C339EB1005933AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0C9474DF1C339EB2005933AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0C9474E11C339EB2005933AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0CFE24541C35B9790057AF8D /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		0CFE24561C35C6C70057AF8D /* ResourceIndices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceIndices.swift; sourceTree = "<group>"; };
+		0CFE24581C36004C0057AF8D /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,11 +57,14 @@
 		0C9474D71C339EB1005933AC /* MetalSwift */ = {
 			isa = PBXGroup;
 			children = (
+				0CFE24541C35B9790057AF8D /* Shaders.metal */,
 				0C9474D81C339EB1005933AC /* AppDelegate.swift */,
 				0C9474DA1C339EB1005933AC /* MetalViewController.swift */,
 				0C9474DC1C339EB1005933AC /* Assets.xcassets */,
 				0C9474DE1C339EB2005933AC /* Main.storyboard */,
 				0C9474E11C339EB2005933AC /* Info.plist */,
+				0CFE24561C35C6C70057AF8D /* ResourceIndices.swift */,
+				0CFE24581C36004C0057AF8D /* BridgingHeader.h */,
 			);
 			path = MetalSwift;
 			sourceTree = "<group>";
@@ -131,8 +139,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CFE24551C35B9790057AF8D /* Shaders.metal in Sources */,
 				0C9474DB1C339EB1005933AC /* MetalViewController.swift in Sources */,
 				0C9474D91C339EB1005933AC /* AppDelegate.swift in Sources */,
+				0CFE24571C35C6C70057AF8D /* ResourceIndices.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,6 +249,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = none.MetalSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = MetalSwift/BridgingHeader.h;
 			};
 			name = Debug;
 		};
@@ -251,6 +262,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = none.MetalSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = MetalSwift/BridgingHeader.h;
 			};
 			name = Release;
 		};
