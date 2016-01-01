@@ -31,7 +31,7 @@ vertex VertexOutput vertexFunction (
     VertexOutput vOut;
     
     vOut.position = float4(v_in.position, 1.0);
-    vOut.color = half4(0.7, 0.2, 0.2, 1.0);
+    vOut.color = half4(0.65, 0.3, 0.3, 1.0);
     
     return vOut;
 }

@@ -50,6 +50,7 @@ class MetalViewController: NSViewController {
         mtkView.colorPixelFormat = MTLPixelFormat.BGRA8Unorm
         mtkView.depthStencilPixelFormat = MTLPixelFormat.Depth32Float_Stencil8
         mtkView.preferredFramesPerSecond = 30
+        mtkView.framebufferOnly = true
     }
     
     //-----------------------------------------------------------------------------------
@@ -149,6 +150,9 @@ class MetalViewController: NSViewController {
         let commandBuffer = commandQueue.commandBuffer()
         
         let renderPassDescriptor = mtkView.currentRenderPassDescriptor!
+        renderPassDescriptor.colorAttachments[0].clearColor =
+                MTLClearColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.0)
+        
         
         //-- Setup Render Encoder:
         do {
