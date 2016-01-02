@@ -137,6 +137,34 @@ class MetalViewController: NSViewController {
     }
     
     //-----------------------------------------------------------------------------------
+    private func encodeRenderCommandsInto (
+        commandBuffer: MTLCommandBuffer,
+        using renderPassDescriptor: MTLRenderPassDescriptor
+    ) {
+        let renderEncoder =
+            commandBuffer.renderCommandEncoderWithDescriptor(renderPassDescriptor)
+        
+        renderEncoder.pushDebugGroup("Triangle")
+        renderEncoder.setViewport(
+            MTLViewport(
+                originX: 0,
+                originY: 0,
+                width: Double(mtkView.drawableSize.width),
+                height: Double(mtkView.drawableSize.height),
+                znear: 0,
+                zfar: 1)
+        )
+        renderEncoder.setDepthStencilState(depthStencilState)
+        
+        renderEncoder.setRenderPipelineState(pipelineState)
+        renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, atIndex: 0)
+        
+        renderEncoder.drawPrimitives(MTLPrimitiveType.Triangle, vertexStart: 0, vertexCount: 3)
+        renderEncoder.endEncoding()
+        renderEncoder.popDebugGroup()
+    }
+    
+    //-----------------------------------------------------------------------------------
     /// Main render method
     private func render() {
         // Allow the renderer to preflight frames on the CPU (using a semapore as
@@ -152,32 +180,10 @@ class MetalViewController: NSViewController {
         let renderPassDescriptor = mtkView.currentRenderPassDescriptor!
         renderPassDescriptor.colorAttachments[0].clearColor =
                 MTLClearColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.0)
+        renderPassDescriptor.depthAttachment.clearDepth = 1.0
         
         
-        //-- Setup Render Encoder:
-        do {
-            let renderEncoder =
-            commandBuffer.renderCommandEncoderWithDescriptor(renderPassDescriptor)
-            
-            renderEncoder.pushDebugGroup("Triangle")
-            renderEncoder.setViewport(
-                MTLViewport(
-                    originX: 0,
-                    originY: 0,
-                    width: Double(mtkView.drawableSize.width),
-                    height: Double(mtkView.drawableSize.height),
-                    znear: 0,
-                    zfar: 1)
-            )
-            renderEncoder.setDepthStencilState(depthStencilState)
-            
-            renderEncoder.setRenderPipelineState(pipelineState)
-            renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, atIndex: 0)
-            
-            renderEncoder.drawPrimitives(MTLPrimitiveType.Triangle, vertexStart: 0, vertexCount: 3)
-            renderEncoder.endEncoding()
-            renderEncoder.popDebugGroup()
-        }
+        encodeRenderCommandsInto(commandBuffer, using: renderPassDescriptor)
         
         commandBuffer.presentDrawable(mtkView.currentDrawable!)
         
@@ -190,7 +196,6 @@ class MetalViewController: NSViewController {
         
         // Push command buffer to GPU for execution.
         commandBuffer.commit()
-    
     }
     
 } // end class MetalViewController
@@ -200,14 +205,12 @@ extension MetalViewController : MTKViewDelegate {
 
     //-----------------------------------------------------------------------------------
     // Called whenever the drawableSize of the view will change
-    // MTKViewDelegate
     func mtkView(view: MTKView, drawableSizeWillChange size: CGSize) {
         self.reshape()
     }
 
     //-----------------------------------------------------------------------------------
     // Called on the delegate when it is asked to render into the view
-    // MTKViewDelegate
     func drawInMTKView(view: MTKView) {
         autoreleasepool {
             self.render()
