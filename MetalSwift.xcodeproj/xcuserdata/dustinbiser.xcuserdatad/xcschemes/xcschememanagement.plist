@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>MetalCube.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>MetalTriangle.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +17,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0C3FED041C3B7D1E002E69FE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>0C9474D41C339EB1005933AC</key>
 		<dict>
 			<key>primary</key>
