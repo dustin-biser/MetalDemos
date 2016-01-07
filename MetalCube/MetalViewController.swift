@@ -163,24 +163,20 @@ class MetalViewController: NSViewController {
         // Create a vertex descriptor
         let vertexDescriptor = MTLVertexDescriptor()
         
-        let vertexBufferIndex = Int(VertexBufferIndex.rawValue)
-        
         //-- Vertex Positions, attribute description:
-        let positionIndex = Int(PositionAttributeIndex.rawValue)
-        let positionAttributeDescriptor = vertexDescriptor.attributes[positionIndex]
+        let positionAttributeDescriptor = vertexDescriptor.attributes[PositionAttributeIndex.rawValue]
         positionAttributeDescriptor.format = MTLVertexFormat.Float3
         positionAttributeDescriptor.offset = 0
-        positionAttributeDescriptor.bufferIndex = vertexBufferIndex
+        positionAttributeDescriptor.bufferIndex = VertexBufferIndex.rawValue
         
         //-- Vertex Normals, attribute description:
-        let normalIndex = Int(NormalAttributeIndex.rawValue)
-        let normalAttributeDescriptor = vertexDescriptor.attributes[normalIndex]
+        let normalAttributeDescriptor = vertexDescriptor.attributes[NormalAttributeIndex.rawValue]
         normalAttributeDescriptor.format = MTLVertexFormat.Float3
         normalAttributeDescriptor.offset = sizeof(Float32) * 3
-        normalAttributeDescriptor.bufferIndex = vertexBufferIndex
+        normalAttributeDescriptor.bufferIndex = VertexBufferIndex.rawValue
         
         //-- Vertex buffer layout description:
-        let vertexBufferLayoutDescriptor = vertexDescriptor.layouts[vertexBufferIndex]
+        let vertexBufferLayoutDescriptor = vertexDescriptor.layouts[VertexBufferIndex.rawValue]
         vertexBufferLayoutDescriptor.stride = sizeof(Float32) * 6
         vertexBufferLayoutDescriptor.stepRate = 1
         vertexBufferLayoutDescriptor.stepFunction = MTLVertexStepFunction.PerVertex
@@ -227,7 +223,7 @@ class MetalViewController: NSViewController {
         let renderEncoder =
             commandBuffer.renderCommandEncoderWithDescriptor(renderPassDescriptor)
         
-        renderEncoder.pushDebugGroup("Triangle")
+        renderEncoder.pushDebugGroup("Cube")
         renderEncoder.setViewport(
             MTLViewport(
                 originX: 0,
@@ -240,9 +236,18 @@ class MetalViewController: NSViewController {
         renderEncoder.setDepthStencilState(depthStencilState)
         
         renderEncoder.setRenderPipelineState(pipelineState)
-        renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, atIndex: 0)
-        let frameUniformBufferIndex = Int(FrameUniformBufferIndex.rawValue)
-        renderEncoder.setVertexBuffer(frameUniformBuffer, offset: 0, atIndex: frameUniformBufferIndex)
+        
+        renderEncoder.setVertexBuffer(
+                vertexBuffer,
+                offset: 0,
+                atIndex: VertexBufferIndex.rawValue
+        )
+        
+        renderEncoder.setVertexBuffer(
+                frameUniformBuffer,
+                offset: 0,
+                atIndex: FrameUniformBufferIndex.rawValue
+        )
         
         renderEncoder.drawPrimitives(
                 MTLPrimitiveType.Triangle,
