@@ -18,6 +18,7 @@
 		0C3FED121C3B7D1E002E69FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C3FECF61C3B7D14002E69FE /* Assets.xcassets */; };
 		0C3FED131C3B7D1E002E69FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C3FECF91C3B7D14002E69FE /* Main.storyboard */; };
 		0C3FED1B1C3B7D48002E69FE /* MetalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3FECFA1C3B7D14002E69FE /* MetalViewController.swift */; };
+		0C3FED2B1C3DD3C0002E69FE /* MatrixTransforms.c in Sources */ = {isa = PBXBuildFile; fileRef = 0C3FED2A1C3DD3C0002E69FE /* MatrixTransforms.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,8 @@
 		0C3FED191C3B7D1E002E69FE /* MetalCube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalCube.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C3FED1D1C3C38E1002E69FE /* ShaderResourceIndices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderResourceIndices.h; sourceTree = "<group>"; };
 		0C3FED261C3D9EE0002E69FE /* ShaderUniforms.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderUniforms.h; sourceTree = "<group>"; };
+		0C3FED291C3DCAAC002E69FE /* MatrixTransforms.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatrixTransforms.h; sourceTree = "<group>"; };
+		0C3FED2A1C3DD3C0002E69FE /* MatrixTransforms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MatrixTransforms.c; sourceTree = "<group>"; };
 		0C9474D51C339EB1005933AC /* MetalTriangle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalTriangle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -87,6 +90,8 @@
 				0C3FECFC1C3B7D14002E69FE /* Shaders.metal */,
 				0C3FED1D1C3C38E1002E69FE /* ShaderResourceIndices.h */,
 				0C3FED261C3D9EE0002E69FE /* ShaderUniforms.h */,
+				0C3FED291C3DCAAC002E69FE /* MatrixTransforms.h */,
+				0C3FED2A1C3DD3C0002E69FE /* MatrixTransforms.c */,
 			);
 			path = MetalCube;
 			sourceTree = "<group>";
@@ -209,6 +214,7 @@
 				0C3FED0C1C3B7D1E002E69FE /* AppDelegate.swift in Sources */,
 				0C3FED1B1C3B7D48002E69FE /* MetalViewController.swift in Sources */,
 				0C3FED061C3B7D1E002E69FE /* Shaders.metal in Sources */,
+				0C3FED2B1C3DD3C0002E69FE /* MatrixTransforms.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

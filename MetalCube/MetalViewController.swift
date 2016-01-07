@@ -76,6 +76,10 @@ class MetalViewController: NSViewController {
     
     var inflightSemaphore = dispatch_semaphore_create(numPreflightFrames)
     
+    var frameUniformBuffer : MTLBuffer! = nil
+    var viewMatrix       : matrix_float4x4 = matrix_identity_float4x4
+    var projectionMatrix : matrix_float4x4 = matrix_identity_float4x4
+    
     
     //-----------------------------------------------------------------------------------
     override func viewDidLoad() {
@@ -83,8 +87,23 @@ class MetalViewController: NSViewController {
 
         self.setupMetal()
         self.setupView()
+        self.setFrameUniforms()
+        self.uploadVertexBufferData()
         self.preparePipelineState()
         self.prepareDepthStencilState()
+    }
+    
+    //-----------------------------------------------------------------------------------
+    private func setupMetal() {
+        device = MTLCreateSystemDefaultDevice()
+        if device == nil {
+            print("Error creating default MTLDevice.")
+            fatalError()
+        }
+        
+        commandQueue = device.newCommandQueue()
+        
+        defaultShaderLibrary = device.newDefaultLibrary()
     }
 
     //-----------------------------------------------------------------------------------
@@ -99,16 +118,31 @@ class MetalViewController: NSViewController {
     }
     
     //-----------------------------------------------------------------------------------
-    private func setupMetal() {
-        device = MTLCreateSystemDefaultDevice()
-        if device == nil {
-            print("Error creating default MTLDevice.")
-            fatalError()
-        }
+    private func setFrameUniforms() {
         
-        commandQueue = device.newCommandQueue()
+        frameUniformBuffer = device.newBufferWithLength (
+                sizeof(FrameUniforms),
+                options: .CPUCacheModeDefaultCache
+        )
         
-        defaultShaderLibrary = device.newDefaultLibrary()
+        var frameUniforms = FrameUniforms()
+        frameUniforms.modelMatrix = matrix_identity_float4x4
+        frameUniforms.viewMatrix = matrix_from_rotation(0.2, 1, 1, 0)
+        frameUniforms.projectionMatrix = self.projectionMatrix
+        frameUniforms.normalMatrix = matrix_identity_float4x4
+        
+        memcpy(frameUniformBuffer.contents(), &frameUniforms, sizeof(FrameUniforms))
+    }
+    
+    //-----------------------------------------------------------------------------------
+    private func uploadVertexBufferData() {
+        let numBytes = CubeVertexData.count * sizeof(Float32)
+        vertexBuffer = device.newBufferWithBytes (
+            CubeVertexData,
+            length: numBytes,
+            options: .OptionCPUCacheModeDefault
+        )
+        vertexBuffer.label = "CubeVertexData"
     }
     
     //-----------------------------------------------------------------------------------
@@ -136,6 +170,7 @@ class MetalViewController: NSViewController {
         let positionAttributeDescriptor = vertexDescriptor.attributes[positionIndex]
         positionAttributeDescriptor.format = MTLVertexFormat.Float3
         positionAttributeDescriptor.offset = 0
+        positionAttributeDescriptor.bufferIndex = vertexBufferIndex
         
         //-- Vertex Normals, attribute description:
         let normalIndex = Int(NormalAttributeIndex.rawValue)
@@ -149,15 +184,6 @@ class MetalViewController: NSViewController {
         vertexBufferLayoutDescriptor.stride = sizeof(Float32) * 6
         vertexBufferLayoutDescriptor.stepRate = 1
         vertexBufferLayoutDescriptor.stepFunction = MTLVertexStepFunction.PerVertex
-        
-        
-        //-- Setup vertex buffer:
-        let numBytes = CubeVertexData.count * sizeof(Float32)
-        vertexBuffer = device.newBufferWithBytes(CubeVertexData,
-            length: numBytes,
-            options: .OptionCPUCacheModeDefault)
-        vertexBuffer.label = "CubeVertexData"
-        
         
         
         //-- Render Pipeline Descriptor:
@@ -185,7 +211,12 @@ class MetalViewController: NSViewController {
     
     //-----------------------------------------------------------------------------------
     private func reshape() {
-        
+        let width = Float(self.view.bounds.size.width)
+        let height = Float(self.view.bounds.size.height)
+        let aspect = width / height
+        let fovy = Float(65.0) * (Float(M_PI) / Float(180.0))
+        projectionMatrix = matrix_from_perspective_fov_aspectLH(fovy, aspect,
+            Float(0.1), Float(100))
     }
     
     //-----------------------------------------------------------------------------------
@@ -210,6 +241,8 @@ class MetalViewController: NSViewController {
         
         renderEncoder.setRenderPipelineState(pipelineState)
         renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, atIndex: 0)
+        let frameUniformBufferIndex = Int(FrameUniformBufferIndex.rawValue)
+        renderEncoder.setVertexBuffer(frameUniformBuffer, offset: 0, atIndex: frameUniformBufferIndex)
         
         renderEncoder.drawPrimitives(
                 MTLPrimitiveType.Triangle,

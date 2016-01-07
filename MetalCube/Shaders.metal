@@ -34,7 +34,9 @@ vertex VertexOutput vertexFunction (
 ) {
     VertexOutput vOut;
     
-    vOut.position = float4(v_in.position, 1.0);
+    float4 pWorld = frameUniforms.modelMatrix * float4(v_in.position, 1.0);
+    float4 pEye = frameUniforms.viewMatrix * pWorld;
+    vOut.position = frameUniforms.projectionMatrix * pEye;
     vOut.color = half4(half3(v_in.normal), 1.0);
     
     return vOut;
