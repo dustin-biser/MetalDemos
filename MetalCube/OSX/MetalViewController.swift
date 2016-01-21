@@ -13,9 +13,9 @@ import MetalKit
 private let numPreflightFrames = 3
 
 
-private let kWidth  : Float32 = 0.75;
-private let kHeight : Float32 = 0.75;
-private let kDepth  : Float32 = 0.75;
+private let kWidth  : Float32 = 0.5;
+private let kHeight : Float32 = 0.5;
+private let kDepth  : Float32 = 0.5;
 
 private let CubeVertexData : [Float32] = [
 //           Postions                  Normals
@@ -62,6 +62,7 @@ private let CubeVertexData : [Float32] = [
     -kWidth,  kHeight, -kDepth,     0.0,  0.0, -1.0
 ]
 
+private let numInflightCommands = 3
 
 class MetalViewController: NSViewController {
     
@@ -76,9 +77,11 @@ class MetalViewController: NSViewController {
     
     var inflightSemaphore = dispatch_semaphore_create(numPreflightFrames)
     
-    var frameUniformBuffer : MTLBuffer! = nil
-    var viewMatrix       : matrix_float4x4 = matrix_identity_float4x4
-    var projectionMatrix : matrix_float4x4 = matrix_identity_float4x4
+    var frameUniformBuffers = [MTLBuffer!](count: numInflightCommands, repeatedValue: nil)
+    var currentUniformBufferIndex : Int = 0
+    
+    var rotationAngle : Float = 0.8 //0.0
+    let rotationDelta : Float = 0.0 //0.01
     
     
     //-----------------------------------------------------------------------------------
@@ -87,7 +90,7 @@ class MetalViewController: NSViewController {
 
         self.setupMetal()
         self.setupView()
-        self.setFrameUniforms()
+        self.allocateUniformBuffers()
         self.uploadVertexBufferData()
         self.preparePipelineState()
         self.prepareDepthStencilState()
@@ -113,25 +116,50 @@ class MetalViewController: NSViewController {
         mtkView.sampleCount = 4
         mtkView.colorPixelFormat = MTLPixelFormat.BGRA8Unorm
         mtkView.depthStencilPixelFormat = MTLPixelFormat.Depth32Float_Stencil8
-        mtkView.preferredFramesPerSecond = 30
+        mtkView.preferredFramesPerSecond = 60
         mtkView.framebufferOnly = true
     }
     
     //-----------------------------------------------------------------------------------
+    private func allocateUniformBuffers() {
+        for index in frameUniformBuffers.indices {
+            frameUniformBuffers[index] = device.newBufferWithLength (
+                    //TODO: Make sure sizeof should be used here rather than strideof due to FrameUniforms being a C-type, which adds padding.
+                    sizeof(FrameUniforms),
+                    options: .CPUCacheModeDefaultCache
+            )
+        }
+        print("sizeof(FrameUniforms): \(sizeof(FrameUniforms))")
+    }
+    
+    //-----------------------------------------------------------------------------------
     private func setFrameUniforms() {
+        rotationAngle += rotationDelta
+        var modelMatrix = matrix_from_rotation(rotationAngle, 1, 1, 0)
+        modelMatrix = matrix_multiply(matrix_from_translation(0.0, 0.0, 2.0), modelMatrix)
         
-        frameUniformBuffer = device.newBufferWithLength (
-                sizeof(FrameUniforms),
-                options: .CPUCacheModeDefaultCache
-        )
+        // Projection Matrix:
+        let width = Float(self.view.bounds.size.width)
+        let height = Float(self.view.bounds.size.height)
+        let aspect = width / height
+        let fovy = Float(65.0) * (Float(M_PI) / Float(180.0))
+        let projectionMatrix = matrix_from_perspective_fov_aspectLH(fovy, aspect,
+            Float(0.1), Float(100))
+        
+        let viewMatrix = matrix_identity_float4x4
+        var modelView = matrix_multiply(viewMatrix, modelMatrix)
+        let normalMatrix = sub_matrix_float3x3(&modelView)
         
         var frameUniforms = FrameUniforms()
-        frameUniforms.modelMatrix = matrix_identity_float4x4
-        frameUniforms.viewMatrix = matrix_from_rotation(0.2, 1, 1, 0)
-        frameUniforms.projectionMatrix = self.projectionMatrix
-        frameUniforms.normalMatrix = matrix_identity_float4x4
+        frameUniforms.modelMatrix = modelMatrix
+        frameUniforms.viewMatrix = viewMatrix
+        frameUniforms.projectionMatrix = projectionMatrix
+        frameUniforms.normalMatrix = normalMatrix
         
-        memcpy(frameUniformBuffer.contents(), &frameUniforms, sizeof(FrameUniforms))
+        //TODO: Make sure sizeof should be used here rather than strideof due to FrameUniforms being a C-type, which adds padding.
+        memcpy(frameUniformBuffers[currentUniformBufferIndex].contents(), &frameUniforms, sizeof(FrameUniforms))
+        
+        currentUniformBufferIndex = (currentUniformBufferIndex + 1) % frameUniformBuffers.count
     }
     
     //-----------------------------------------------------------------------------------
@@ -143,6 +171,18 @@ class MetalViewController: NSViewController {
             options: .OptionCPUCacheModeDefault
         )
         vertexBuffer.label = "CubeVertexData"
+    }
+    
+    //-----------------------------------------------------------------------------------
+    private func reshape() {
+//        let width = Float(self.view.bounds.size.width)
+//        let height = Float(self.view.bounds.size.height)
+//        let aspect = width / height
+//        let fovy = Float(65.0) * (Float(M_PI) / Float(180.0))
+//        let projectionMatrix = matrix_from_perspective_fov_aspectLH(fovy, aspect,
+//            Float(0.1), Float(100))
+        
+        //TODO: Need to copy projectionMatrix to frameUniformBuffer for use in next frame.
     }
     
     //-----------------------------------------------------------------------------------
@@ -206,20 +246,14 @@ class MetalViewController: NSViewController {
     }
     
     //-----------------------------------------------------------------------------------
-    private func reshape() {
-        let width = Float(self.view.bounds.size.width)
-        let height = Float(self.view.bounds.size.height)
-        let aspect = width / height
-        let fovy = Float(65.0) * (Float(M_PI) / Float(180.0))
-        projectionMatrix = matrix_from_perspective_fov_aspectLH(fovy, aspect,
-            Float(0.1), Float(100))
-    }
-    
-    //-----------------------------------------------------------------------------------
-    private func encodeRenderCommandsInto (
-        commandBuffer: MTLCommandBuffer,
-        using renderPassDescriptor: MTLRenderPassDescriptor
-    ) {
+    private func encodeRenderCommandsInto (commandBuffer: MTLCommandBuffer) {
+        // Get the current MTLRenderPassDescriptor and set it's color and depth
+        // clear values:
+        let renderPassDescriptor = mtkView.currentRenderPassDescriptor!
+        renderPassDescriptor.colorAttachments[0].clearColor =
+                MTLClearColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.0)
+        renderPassDescriptor.depthAttachment.clearDepth = 1.0
+        
         let renderEncoder =
             commandBuffer.renderCommandEncoderWithDescriptor(renderPassDescriptor)
         
@@ -244,7 +278,7 @@ class MetalViewController: NSViewController {
         )
         
         renderEncoder.setVertexBuffer(
-                frameUniformBuffer,
+                frameUniformBuffers[currentUniformBufferIndex],
                 offset: 0,
                 atIndex: FrameUniformBufferIndex.rawValue
         )
@@ -261,42 +295,41 @@ class MetalViewController: NSViewController {
     //-----------------------------------------------------------------------------------
     /// Main render method
     private func render() {
-        // Allow the renderer to preflight frames on the CPU (using a semapore as
-        // a guard) and commit them to the GPU.  This semaphore will get signaled
-        // once the GPU completes a frame's work via addCompletedHandler callback
-        // below, signifying the CPU can go ahead and prepare another frame.
-        dispatch_semaphore_wait(inflightSemaphore, DISPATCH_TIME_FOREVER);
-        
-        //--> Update any constant buffers here.
-        
-        let commandBuffer = commandQueue.commandBuffer()
-        
-        let renderPassDescriptor = mtkView.currentRenderPassDescriptor!
-        renderPassDescriptor.colorAttachments[0].clearColor =
-                MTLClearColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.0)
-        renderPassDescriptor.depthAttachment.clearDepth = 1.0
-        
-        
-        encodeRenderCommandsInto(commandBuffer, using: renderPassDescriptor)
-        
-        commandBuffer.presentDrawable(mtkView.currentDrawable!)
-        
-        
-        // Once GPU has completed executing the commands wihin this buffer, signal
-        // the semaphore and allow the CPU to proceed in constructing the next frame.
-        commandBuffer.addCompletedHandler() { buffer in
-                dispatch_semaphore_signal(self.inflightSemaphore)
+        for var i = 0; i < numInflightCommands; ++i {
+            // Allow the renderer to preflight frames on the CPU (using a semapore as
+            // a guard) and commit them to the GPU.  This semaphore will get signaled
+            // once the GPU completes a frame's work via addCompletedHandler callback
+            // below, signifying the CPU can go ahead and prepare another frame.
+            dispatch_semaphore_wait(inflightSemaphore, DISPATCH_TIME_FOREVER);
+            
+            setFrameUniforms()
+            
+            let commandBuffer = commandQueue.commandBuffer()
+            
+            encodeRenderCommandsInto(commandBuffer)
+            
+            commandBuffer.presentDrawable(mtkView.currentDrawable!)
+            
+            
+            // Once GPU has completed executing the commands wihin this buffer, signal
+            // the semaphore and allow the CPU to proceed in constructing the next frame.
+            commandBuffer.addCompletedHandler() { mtlCommandbuffer in
+                let didWake = dispatch_semaphore_signal(self.inflightSemaphore)
+                if didWake != 0 {
+                    print("Thread woken.")
+                }
+            }
+            
+            // Push command buffer to GPU for execution.
+            commandBuffer.commit()
         }
-        
-        // Push command buffer to GPU for execution.
-        commandBuffer.commit()
     }
     
 } // end class MetalViewController
 
 
 
-
+// MARK: - MTKViewDelegate extension
 extension MetalViewController : MTKViewDelegate {
 
     //-----------------------------------------------------------------------------------

@@ -79,7 +79,21 @@ matrix_float4x4 matrix_from_rotation (
             0.0f,
         },
         
-        .columns[3] = { 0.0f, 0.0f, 0.0f, 1.0f
-        }
+        .columns[3] = { 0.0f, 0.0f, 0.0f, 1.0f }
+    };
+}
+
+//---------------------------------------------------------------------------------------
+matrix_float3x3 sub_matrix_float3x3 (
+        const matrix_float4x4 * m
+) {
+    vector_float4 col0 = m->columns[0];
+    vector_float4 col1 = m->columns[1];
+    vector_float4 col2 = m->columns[2];
+    
+    return (matrix_float3x3) {
+        .columns[0] = {col0.x, col0.y, col0.z},
+        .columns[1] = {col1.x, col1.y, col1.z},
+        .columns[2] = {col2.x, col2.y, col2.z}
     };
 }
