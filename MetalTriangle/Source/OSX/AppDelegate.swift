@@ -1,6 +1,5 @@
 //
 //  AppDelegate.swift
-//  MetalSwift
 //
 //  Created by Dustin on 12/30/15.
 //  Copyright © 2015 none. All rights reserved.

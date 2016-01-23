@@ -7,42 +7,59 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C3FECF21C3B7B44002E69FE /* ResourceIndices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3FECEB1C3B7B44002E69FE /* ResourceIndices.swift */; };
 		0C3FED2B1C3DD3C0002E69FE /* MatrixTransforms.c in Sources */ = {isa = PBXBuildFile; fileRef = 0C3FED2A1C3DD3C0002E69FE /* MatrixTransforms.c */; };
 		0CA2BEA21C5187BA00D905EC /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BE9D1C5187BA00D905EC /* Shaders.metal */; };
-		0CA2BEA61C51880000D905EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CA2BEA11C5187BA00D905EC /* Main.storyboard */; };
-		0CA2BEA71C51880300D905EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CA2BE9F1C5187BA00D905EC /* Assets.xcassets */; };
-		0CA2BEAB1C51893F00D905EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BEA91C51893F00D905EC /* AppDelegate.swift */; };
-		0CA2BEAC1C51893F00D905EC /* MetalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BEAA1C51893F00D905EC /* MetalViewController.swift */; };
 		0CA2BEB81C5189D800D905EC /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BEAF1C5189D800D905EC /* Shaders.metal */; };
 		0CA2BEB91C5189D800D905EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CA2BEB11C5189D800D905EC /* Assets.xcassets */; };
 		0CA2BEBB1C5189D800D905EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CA2BEB31C5189D800D905EC /* Main.storyboard */; };
 		0CA2BEBC1C5189D800D905EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BEB61C5189D800D905EC /* AppDelegate.swift */; };
 		0CA2BEBD1C5189D800D905EC /* MetalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BEB71C5189D800D905EC /* MetalViewController.swift */; };
+		0CA2BF0F1C5418B000D905EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CA2BF071C5418B000D905EC /* Assets.xcassets */; };
+		0CA2BF131C5418B000D905EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CA2BF091C5418B000D905EC /* LaunchScreen.storyboard */; };
+		0CA2BF151C5418B000D905EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CA2BF0A1C5418B000D905EC /* Main.storyboard */; };
+		0CA2BF181C5418B000D905EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0CA2BF0C1C5418B000D905EC /* Assets.xcassets */; };
+		0CA2BF1C1C5418B000D905EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CA2BF0E1C5418B000D905EC /* Main.storyboard */; };
+		0CA2BF301C54378500D905EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BF291C54378500D905EC /* AppDelegate.swift */; };
+		0CA2BF321C54378500D905EC /* MetalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BF2A1C54378500D905EC /* MetalViewController.swift */; };
+		0CA2BF341C54378500D905EC /* MetalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BF2B1C54378500D905EC /* MetalRenderer.swift */; };
+		0CA2BF351C54378500D905EC /* MetalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BF2B1C54378500D905EC /* MetalRenderer.swift */; };
+		0CA2BF371C54378500D905EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BF2D1C54378500D905EC /* AppDelegate.swift */; };
+		0CA2BF391C54378500D905EC /* MetalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BF2E1C54378500D905EC /* MetalViewController.swift */; };
+		0CA2BF3A1C54378500D905EC /* ResourceIndices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BF2F1C54378500D905EC /* ResourceIndices.swift */; };
+		0CA2BF3B1C54378500D905EC /* ResourceIndices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BF2F1C54378500D905EC /* ResourceIndices.swift */; };
+		0CA2BF3C1C54404B00D905EC /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0CA2BE9D1C5187BA00D905EC /* Shaders.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0C3FECE71C3B7B44002E69FE /* BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BridgingHeader.h; path = MetalTriangle/BridgingHeader.h; sourceTree = "<group>"; };
-		0C3FECEB1C3B7B44002E69FE /* ResourceIndices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ResourceIndices.swift; path = MetalTriangle/ResourceIndices.swift; sourceTree = "<group>"; };
 		0C3FECF71C3B7D14002E69FE /* BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 		0C3FED191C3B7D1E002E69FE /* MetalCube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalCube.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C3FED1D1C3C38E1002E69FE /* ShaderResourceIndices.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderResourceIndices.h; sourceTree = "<group>"; };
 		0C3FED261C3D9EE0002E69FE /* ShaderUniforms.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderUniforms.h; sourceTree = "<group>"; };
 		0C3FED291C3DCAAC002E69FE /* MatrixTransforms.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MatrixTransforms.h; sourceTree = "<group>"; };
 		0C3FED2A1C3DD3C0002E69FE /* MatrixTransforms.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MatrixTransforms.c; sourceTree = "<group>"; };
-		0C9474D51C339EB1005933AC /* MetalTriangle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalTriangle.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0C9474D51C339EB1005933AC /* MetalTriangle-OSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MetalTriangle-OSX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CA2BE9D1C5187BA00D905EC /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
-		0CA2BE9F1C5187BA00D905EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		0CA2BEA01C5187BA00D905EC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0CA2BEA11C5187BA00D905EC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		0CA2BEA91C51893F00D905EC /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0CA2BEAA1C51893F00D905EC /* MetalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalViewController.swift; sourceTree = "<group>"; };
 		0CA2BEAF1C5189D800D905EC /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		0CA2BEB11C5189D800D905EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0CA2BEB21C5189D800D905EC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0CA2BEB31C5189D800D905EC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0CA2BEB61C5189D800D905EC /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0CA2BEB71C5189D800D905EC /* MetalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalViewController.swift; sourceTree = "<group>"; };
+		0CA2BEC21C5328BF00D905EC /* MetalTriangle-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MetalTriangle-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CA2BF071C5418B000D905EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0CA2BF081C5418B000D905EC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0CA2BF091C5418B000D905EC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0CA2BF0A1C5418B000D905EC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		0CA2BF0C1C5418B000D905EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0CA2BF0D1C5418B000D905EC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0CA2BF0E1C5418B000D905EC /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		0CA2BF271C54378500D905EC /* BridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		0CA2BF291C54378500D905EC /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0CA2BF2A1C54378500D905EC /* MetalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalViewController.swift; sourceTree = "<group>"; };
+		0CA2BF2B1C54378500D905EC /* MetalRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalRenderer.swift; sourceTree = "<group>"; };
+		0CA2BF2D1C54378500D905EC /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0CA2BF2E1C54378500D905EC /* MetalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalViewController.swift; sourceTree = "<group>"; };
+		0CA2BF2F1C54378500D905EC /* ResourceIndices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceIndices.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +77,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0CA2BEBF1C5328BF00D905EC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -67,9 +91,8 @@
 			isa = PBXGroup;
 			children = (
 				0CA2BE9C1C5187BA00D905EC /* Assets */,
-				0CA2BE9E1C5187BA00D905EC /* Data */,
-				0CA2BEAD1C51896700D905EC /* iOS */,
-				0CA2BEA81C51893F00D905EC /* OSX */,
+				0CA2BF261C54378500D905EC /* Source */,
+				0CA2BF051C5418B000D905EC /* Data */,
 			);
 			path = MetalTriangle;
 			sourceTree = SOURCE_ROOT;
@@ -94,8 +117,6 @@
 			isa = PBXGroup;
 			children = (
 				0C3FECE41C3B7B44002E69FE /* MetalTriangle */,
-				0C3FECE71C3B7B44002E69FE /* BridgingHeader.h */,
-				0C3FECEB1C3B7B44002E69FE /* ResourceIndices.swift */,
 				0C3FECF41C3B7D14002E69FE /* MetalCube */,
 				0C9474D61C339EB1005933AC /* Products */,
 			);
@@ -104,8 +125,9 @@
 		0C9474D61C339EB1005933AC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0C9474D51C339EB1005933AC /* MetalTriangle.app */,
+				0C9474D51C339EB1005933AC /* MetalTriangle-OSX.app */,
 				0C3FED191C3B7D1E002E69FE /* MetalCube.app */,
+				0CA2BEC21C5328BF00D905EC /* MetalTriangle-iOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -116,32 +138,6 @@
 				0CA2BE9D1C5187BA00D905EC /* Shaders.metal */,
 			);
 			path = Assets;
-			sourceTree = "<group>";
-		};
-		0CA2BE9E1C5187BA00D905EC /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				0CA2BE9F1C5187BA00D905EC /* Assets.xcassets */,
-				0CA2BEA01C5187BA00D905EC /* Info.plist */,
-				0CA2BEA11C5187BA00D905EC /* Main.storyboard */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
-		0CA2BEA81C51893F00D905EC /* OSX */ = {
-			isa = PBXGroup;
-			children = (
-				0CA2BEA91C51893F00D905EC /* AppDelegate.swift */,
-				0CA2BEAA1C51893F00D905EC /* MetalViewController.swift */,
-			);
-			path = OSX;
-			sourceTree = "<group>";
-		};
-		0CA2BEAD1C51896700D905EC /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = iOS;
 			sourceTree = "<group>";
 		};
 		0CA2BEAE1C5189D800D905EC /* Assets */ = {
@@ -178,6 +174,66 @@
 			path = OSX;
 			sourceTree = "<group>";
 		};
+		0CA2BF051C5418B000D905EC /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				0CA2BF061C5418B000D905EC /* iOS */,
+				0CA2BF0B1C5418B000D905EC /* OSX */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		0CA2BF061C5418B000D905EC /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				0CA2BF071C5418B000D905EC /* Assets.xcassets */,
+				0CA2BF081C5418B000D905EC /* Info.plist */,
+				0CA2BF091C5418B000D905EC /* LaunchScreen.storyboard */,
+				0CA2BF0A1C5418B000D905EC /* Main.storyboard */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		0CA2BF0B1C5418B000D905EC /* OSX */ = {
+			isa = PBXGroup;
+			children = (
+				0CA2BF0C1C5418B000D905EC /* Assets.xcassets */,
+				0CA2BF0D1C5418B000D905EC /* Info.plist */,
+				0CA2BF0E1C5418B000D905EC /* Main.storyboard */,
+			);
+			path = OSX;
+			sourceTree = "<group>";
+		};
+		0CA2BF261C54378500D905EC /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				0CA2BF281C54378500D905EC /* iOS */,
+				0CA2BF2C1C54378500D905EC /* OSX */,
+				0CA2BF271C54378500D905EC /* BridgingHeader.h */,
+				0CA2BF2B1C54378500D905EC /* MetalRenderer.swift */,
+				0CA2BF2F1C54378500D905EC /* ResourceIndices.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		0CA2BF281C54378500D905EC /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				0CA2BF291C54378500D905EC /* AppDelegate.swift */,
+				0CA2BF2A1C54378500D905EC /* MetalViewController.swift */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		0CA2BF2C1C54378500D905EC /* OSX */ = {
+			isa = PBXGroup;
+			children = (
+				0CA2BF2E1C54378500D905EC /* MetalViewController.swift */,
+				0CA2BF2D1C54378500D905EC /* AppDelegate.swift */,
+			);
+			path = OSX;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -198,9 +254,9 @@
 			productReference = 0C3FED191C3B7D1E002E69FE /* MetalCube.app */;
 			productType = "com.apple.product-type.application";
 		};
-		0C9474D41C339EB1005933AC /* MetalTriangle */ = {
+		0C9474D41C339EB1005933AC /* MetalTriangle-OSX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0C9474E41C339EB2005933AC /* Build configuration list for PBXNativeTarget "MetalTriangle" */;
+			buildConfigurationList = 0C9474E41C339EB2005933AC /* Build configuration list for PBXNativeTarget "MetalTriangle-OSX" */;
 			buildPhases = (
 				0C9474D11C339EB1005933AC /* Sources */,
 				0C9474D21C339EB1005933AC /* Frameworks */,
@@ -210,9 +266,26 @@
 			);
 			dependencies = (
 			);
-			name = MetalTriangle;
+			name = "MetalTriangle-OSX";
 			productName = MetalSwift;
-			productReference = 0C9474D51C339EB1005933AC /* MetalTriangle.app */;
+			productReference = 0C9474D51C339EB1005933AC /* MetalTriangle-OSX.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0CA2BEC11C5328BF00D905EC /* MetalTriangle-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0CA2BED11C5328BF00D905EC /* Build configuration list for PBXNativeTarget "MetalTriangle-iOS" */;
+			buildPhases = (
+				0CA2BEBE1C5328BF00D905EC /* Sources */,
+				0CA2BEBF1C5328BF00D905EC /* Frameworks */,
+				0CA2BEC01C5328BF00D905EC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MetalTriangle-iOS";
+			productName = "MetalTriangle-iOS";
+			productReference = 0CA2BEC21C5328BF00D905EC /* MetalTriangle-iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -227,6 +300,10 @@
 				TargetAttributes = {
 					0C9474D41C339EB1005933AC = {
 						CreatedOnToolsVersion = 7.2;
+					};
+					0CA2BEC11C5328BF00D905EC = {
+						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 72886Z9JEN;
 					};
 				};
 			};
@@ -243,7 +320,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0C9474D41C339EB1005933AC /* MetalTriangle */,
+				0CA2BEC11C5328BF00D905EC /* MetalTriangle-iOS */,
+				0C9474D41C339EB1005933AC /* MetalTriangle-OSX */,
 				0C3FED041C3B7D1E002E69FE /* MetalCube */,
 			);
 		};
@@ -263,8 +341,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0CA2BEA61C51880000D905EC /* Main.storyboard in Resources */,
-				0CA2BEA71C51880300D905EC /* Assets.xcassets in Resources */,
+				0CA2BF1C1C5418B000D905EC /* Main.storyboard in Resources */,
+				0CA2BF181C5418B000D905EC /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0CA2BEC01C5328BF00D905EC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CA2BF0F1C5418B000D905EC /* Assets.xcassets in Resources */,
+				0CA2BF131C5418B000D905EC /* LaunchScreen.storyboard in Resources */,
+				0CA2BF151C5418B000D905EC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,10 +374,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0CA2BEAB1C51893F00D905EC /* AppDelegate.swift in Sources */,
+				0CA2BF351C54378500D905EC /* MetalRenderer.swift in Sources */,
+				0CA2BF391C54378500D905EC /* MetalViewController.swift in Sources */,
 				0CA2BEA21C5187BA00D905EC /* Shaders.metal in Sources */,
-				0CA2BEAC1C51893F00D905EC /* MetalViewController.swift in Sources */,
-				0C3FECF21C3B7B44002E69FE /* ResourceIndices.swift in Sources */,
+				0CA2BF3B1C54378500D905EC /* ResourceIndices.swift in Sources */,
+				0CA2BF371C54378500D905EC /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0CA2BEBE1C5328BF00D905EC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CA2BF3A1C54378500D905EC /* ResourceIndices.swift in Sources */,
+				0CA2BF321C54378500D905EC /* MetalViewController.swift in Sources */,
+				0CA2BF301C54378500D905EC /* AppDelegate.swift in Sources */,
+				0CA2BF341C54378500D905EC /* MetalRenderer.swift in Sources */,
+				0CA2BF3C1C54404B00D905EC /* Shaders.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,11 +521,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = MetalTriangle/Data/Info.plist;
+				INFOPLIST_FILE = MetalTriangle/Data/OSX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = none.MetalSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = MetalTriangle/BridgingHeader.h;
+				SWIFT_OBJC_BRIDGING_HEADER = MetalTriangle/Source/BridgingHeader.h;
 			};
 			name = Debug;
 		};
@@ -433,11 +534,42 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = MetalTriangle/Data/Info.plist;
+				INFOPLIST_FILE = MetalTriangle/Data/OSX/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = none.MetalSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = MetalTriangle/BridgingHeader.h;
+				SWIFT_OBJC_BRIDGING_HEADER = MetalTriangle/Source/BridgingHeader.h;
+			};
+			name = Release;
+		};
+		0CA2BED21C5328BF00D905EC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = MetalTriangle/Data/iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "none.MetalTriangle-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0CA2BED31C5328BF00D905EC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = MetalTriangle/Data/iOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "none.MetalTriangle-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -462,7 +594,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0C9474E41C339EB2005933AC /* Build configuration list for PBXNativeTarget "MetalTriangle" */ = {
+		0C9474E41C339EB2005933AC /* Build configuration list for PBXNativeTarget "MetalTriangle-OSX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0C9474E51C339EB2005933AC /* Debug */,
@@ -470,6 +602,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		0CA2BED11C5328BF00D905EC /* Build configuration list for PBXNativeTarget "MetalTriangle-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0CA2BED21C5328BF00D905EC /* Debug */,
+				0CA2BED31C5328BF00D905EC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
