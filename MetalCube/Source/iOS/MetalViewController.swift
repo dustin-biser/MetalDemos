@@ -1,20 +1,19 @@
 //
 //  MetalViewController.swift
 //
-//  Created by Dustin on 12/30/15.
-//  Copyright © 2015 none. All rights reserved.
+//  Created by Dustin on 1/23/16.
+//  Copyright © 2016 none. All rights reserved.
 //
 
-import AppKit
+import UIKit
 import MetalKit
 
-class MetalViewController: NSViewController {
-    
+class MetalViewController: UIViewController {
+
     @IBOutlet weak var mtkView: MTKView!
     
     var metalRenderer : MetalRenderer! = nil
     
-    //-----------------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,10 +22,13 @@ class MetalViewController: NSViewController {
         
         metalRenderer = MetalRenderer(withMTKView: mtkView)
     }
-    
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
 }
-
-
 
 extension MetalViewController : MTKViewDelegate {
 

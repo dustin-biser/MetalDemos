@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>MetalCube-iOS.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>MetalTriangle-OSX.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -33,6 +38,11 @@
 			<true/>
 		</dict>
 		<key>0CA2BEC11C5328BF00D905EC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0CA2BF7A1C5452CD00D905EC</key>
 		<dict>
 			<key>primary</key>
 			<true/>

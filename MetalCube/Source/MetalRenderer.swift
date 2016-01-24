@@ -86,7 +86,6 @@ class MetalRenderer {
         mtkView = view
         
         self.setupMetal()
-        
         self.setupView()
         
         self.prepareDepthStencilState()
@@ -125,12 +124,10 @@ class MetalRenderer {
     private func allocateUniformBuffers() {
         for index in frameUniformBuffers.indices {
             frameUniformBuffers[index] = device.newBufferWithLength (
-                    //TODO: Make sure sizeof should be used here rather than strideof due to FrameUniforms being a C-type, which adds padding.
-                    sizeof(FrameUniforms),
+                    strideof(FrameUniforms),
                     options: .CPUCacheModeDefaultCache
             )
         }
-        print("sizeof(FrameUniforms): \(sizeof(FrameUniforms))")
     }
     
     //-----------------------------------------------------------------------------------
@@ -157,8 +154,8 @@ class MetalRenderer {
         frameUniforms.projectionMatrix = projectionMatrix
         frameUniforms.normalMatrix = normalMatrix
         
-        //TODO: Make sure sizeof should be used here rather than strideof due to FrameUniforms being a C-type, which adds padding.
-        memcpy(frameUniformBuffers[currentUniformBufferIndex].contents(), &frameUniforms, sizeof(FrameUniforms))
+        memcpy(frameUniformBuffers[currentUniformBufferIndex].contents(), &frameUniforms,
+            strideof(FrameUniforms))
         
         currentUniformBufferIndex = (currentUniformBufferIndex + 1) % frameUniformBuffers.count
     }
