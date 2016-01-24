@@ -1,16 +1,11 @@
 //
-//  ViewController.swift
-//  MetalSwift
+//  MetalRenderer.swift
 //
-//  Created by Dustin on 12/30/15.
-//  Copyright © 2015 none. All rights reserved.
+//  Created by Dustin on 1/23/16.
+//  Copyright © 2016 none. All rights reserved.
 //
 
-import AppKit
-import Metal
 import MetalKit
-
-private let numPreflightFrames = 3
 
 
 private let kWidth  : Float32 = 0.5;
@@ -64,10 +59,12 @@ private let CubeVertexData : [Float32] = [
 
 private let numInflightCommands = 3
 
-class MetalViewController: NSViewController {
-    
-    @IBOutlet weak var mtkView: MTKView!
 
+
+class MetalRenderer {
+
+    unowned var mtkView : MTKView
+    
     var device : MTLDevice!                        = nil
     var commandQueue : MTLCommandQueue!            = nil
     var defaultShaderLibrary : MTLLibrary!         = nil
@@ -75,25 +72,30 @@ class MetalViewController: NSViewController {
     var pipelineState : MTLRenderPipelineState!    = nil
     var depthStencilState : MTLDepthStencilState!  = nil
     
-    var inflightSemaphore = dispatch_semaphore_create(numPreflightFrames)
+    var inflightSemaphore = dispatch_semaphore_create(numInflightCommands)
     
     var frameUniformBuffers = [MTLBuffer!](count: numInflightCommands, repeatedValue: nil)
     var currentUniformBufferIndex : Int = 0
     
-    var rotationAngle : Float = 0.8 //0.0
-    let rotationDelta : Float = 0.0 //0.01
+    var rotationAngle : Float = 0.0
+    let rotationDelta : Float = 0.01
     
     
     //-----------------------------------------------------------------------------------
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    init(withMTKView view:MTKView) {
+        mtkView = view
+        
         self.setupMetal()
+        
         self.setupView()
-        self.allocateUniformBuffers()
-        self.uploadVertexBufferData()
-        self.preparePipelineState()
+        
         self.prepareDepthStencilState()
+        self.preparePipelineState()
+        
+        self.allocateUniformBuffers()
+        self.setFrameUniforms()
+        
+        self.allocateVertexBufferData()
     }
     
     //-----------------------------------------------------------------------------------
@@ -111,7 +113,6 @@ class MetalViewController: NSViewController {
 
     //-----------------------------------------------------------------------------------
     private func setupView() {
-        mtkView.delegate = self
         mtkView.device = device
         mtkView.sampleCount = 4
         mtkView.colorPixelFormat = MTLPixelFormat.BGRA8Unorm
@@ -139,8 +140,8 @@ class MetalViewController: NSViewController {
         modelMatrix = matrix_multiply(matrix_from_translation(0.0, 0.0, 2.0), modelMatrix)
         
         // Projection Matrix:
-        let width = Float(self.view.bounds.size.width)
-        let height = Float(self.view.bounds.size.height)
+        let width = Float(self.mtkView.bounds.size.width)
+        let height = Float(self.mtkView.bounds.size.height)
         let aspect = width / height
         let fovy = Float(65.0) * (Float(M_PI) / Float(180.0))
         let projectionMatrix = matrix_from_perspective_fov_aspectLH(fovy, aspect,
@@ -163,7 +164,7 @@ class MetalViewController: NSViewController {
     }
     
     //-----------------------------------------------------------------------------------
-    private func uploadVertexBufferData() {
+    private func allocateVertexBufferData() {
         let numBytes = CubeVertexData.count * sizeof(Float32)
         vertexBuffer = device.newBufferWithBytes (
             CubeVertexData,
@@ -174,7 +175,7 @@ class MetalViewController: NSViewController {
     }
     
     //-----------------------------------------------------------------------------------
-    private func reshape() {
+    func reshape(size: CGSize) {
 //        let width = Float(self.view.bounds.size.width)
 //        let height = Float(self.view.bounds.size.height)
 //        let aspect = width / height
@@ -294,7 +295,7 @@ class MetalViewController: NSViewController {
     
     //-----------------------------------------------------------------------------------
     /// Main render method
-    private func render() {
+    func render() {
         for var i = 0; i < numInflightCommands; ++i {
             // Allow the renderer to preflight frames on the CPU (using a semapore as
             // a guard) and commit them to the GPU.  This semaphore will get signaled
@@ -325,27 +326,4 @@ class MetalViewController: NSViewController {
         }
     }
     
-} // end class MetalViewController
-
-
-
-// MARK: - MTKViewDelegate extension
-extension MetalViewController : MTKViewDelegate {
-
-    //-----------------------------------------------------------------------------------
-    // Called whenever the drawableSize of the view will change
-    func mtkView(view: MTKView, drawableSizeWillChange size: CGSize) {
-        self.reshape()
-    }
-
-    //-----------------------------------------------------------------------------------
-    // Called on the delegate when it is asked to render into the view
-    func drawInMTKView(view: MTKView) {
-        autoreleasepool {
-            self.render()
-        }
-        
-    }
-
-} // end extension MetalViewController
-
+}

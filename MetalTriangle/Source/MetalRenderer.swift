@@ -135,7 +135,7 @@ class MetalRenderer {
     private func encodeRenderCommandsInto (
         commandBuffer: MTLCommandBuffer,
         using renderPassDescriptor: MTLRenderPassDescriptor
-        ) {
+    ) {
             let renderEncoder =
             commandBuffer.renderCommandEncoderWithDescriptor(renderPassDescriptor)
             
