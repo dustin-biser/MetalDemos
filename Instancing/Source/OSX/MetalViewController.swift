@@ -20,18 +20,29 @@ class MetalViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Make this MetalViewController the delegate of our MTKView.
+        // self will handle rendering the view
         mtkView.delegate = self
         
         metalRenderer = MetalRenderer(withMTKView: mtkView)
         
         
-        // Add self to Responder Chain so it can handle key and mouse input events.
+        //-- Add self to Responder Chain so it can handle key and mouse input events.
         // Responder Chain order:
         // MetalView -> ViewController -> Window -> WindowController
         mtkView.window?.initialFirstResponder = mtkView
         mtkView.nextResponder = self
         self.nextResponder = mtkView.window
+        
+        //-- Add mouse tracking to the MetalView:
+        let trackingOptions : NSTrackingAreaOptions = [
+            .InVisibleRect, .MouseMoved, .MouseEnteredAndExited, .ActiveInActiveApp
+        ]
+        mtkView.addTrackingArea(NSTrackingArea(
+            rect: mtkView.visibleRect,
+            options: trackingOptions,
+            owner: self,
+            userInfo: nil))
+    
     }
     
     //-----------------------------------------------------------------------------------
@@ -41,7 +52,17 @@ class MetalViewController: NSViewController {
     
     //-----------------------------------------------------------------------------------
     override func mouseEntered(theEvent: NSEvent) {
-        print("mouse entered window")
+        print("mouse entered view")
+    }
+    
+    //-----------------------------------------------------------------------------------
+    override func mouseExited(theEvent: NSEvent) {
+        print("mouse exited view")
+    }
+    
+    //-----------------------------------------------------------------------------------
+    override func mouseMoved(theEvent: NSEvent) {
+        print("mouse loc: \(theEvent.locationInWindow)")
     }
     
 }
@@ -61,7 +82,6 @@ extension MetalViewController : MTKViewDelegate {
         autoreleasepool {
             metalRenderer.render()
         }
-        
     }
 
 }

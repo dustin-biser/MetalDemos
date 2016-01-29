@@ -101,8 +101,7 @@ class MetalRenderer {
     private func setupMetal() {
         device = MTLCreateSystemDefaultDevice()
         if device == nil {
-            print("Error creating default MTLDevice.")
-            fatalError()
+            fatalError("Error creating default MTLDevice.")
         }
         
         commandQueue = device.newCommandQueue()
@@ -173,14 +172,7 @@ class MetalRenderer {
     
     //-----------------------------------------------------------------------------------
     func reshape(size: CGSize) {
-//        let width = Float(self.view.bounds.size.width)
-//        let height = Float(self.view.bounds.size.height)
-//        let aspect = width / height
-//        let fovy = Float(65.0) * (Float(M_PI) / Float(180.0))
-//        let projectionMatrix = matrix_from_perspective_fov_aspectLH(fovy, aspect,
-//            Float(0.1), Float(100))
         
-        //TODO: Need to copy projectionMatrix to frameUniformBuffer for use in next frame.
     }
     
     //-----------------------------------------------------------------------------------
@@ -188,14 +180,12 @@ class MetalRenderer {
         
         guard let vertexFunction = defaultShaderLibrary.newFunctionWithName("vertexFunction")
             else {
-                print("Error retrieving vertex function.")
-                fatalError()
+                fatalError("Error retrieving vertex function.")
         }
         
         guard let fragmentFunction = defaultShaderLibrary.newFunctionWithName("fragmentFunction")
             else {
-                print("Error retrieving fragment function.")
-                fatalError()
+                fatalError("Error retrieving fragment function.")
         }
     
         // Create a vertex descriptor
@@ -316,10 +306,7 @@ class MetalRenderer {
             // Once GPU has completed executing the commands wihin this buffer, signal
             // the semaphore and allow the CPU to proceed in constructing the next frame.
             commandBuffer.addCompletedHandler() { mtlCommandbuffer in
-                let didWake = dispatch_semaphore_signal(self.inflightSemaphore)
-                if didWake != 0 {
-                    print("Thread woken.")
-                }
+                dispatch_semaphore_signal(self.inflightSemaphore)
             }
             
             // Push command buffer to GPU for execution.
