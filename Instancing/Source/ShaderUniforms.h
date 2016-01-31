@@ -17,3 +17,7 @@ struct FrameUniforms {
     matrix_float4x4 projectionMatrix;
     matrix_float3x3 normalMatrix;
 };
+
+struct InstanceUniforms {
+    matrix_float4x4 modelMatrix;
+};

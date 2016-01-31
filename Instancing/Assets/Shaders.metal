@@ -20,8 +20,8 @@ constant half3 diffuse = half3(0.4, 0.4, 0.7);
 
 // Input to the vertex shader.
 struct VertexInput {
-    float3 position [[attribute(PositionAttributeIndex)]];
-    float3 normal   [[attribute(NormalAttributeIndex)]];
+    float3 position [[ attribute(PositionAttribute) ]];
+    float3 normal   [[ attribute(NormalAttribute) ]];
 };
 
 // Output from Vertex shader.
@@ -35,12 +35,15 @@ struct VertexOutput {
 //---------------------------------------------------------------------------------------
 // Vertex Function
 vertex VertexOutput vertexFunction (
-        VertexInput v_in [[stage_in]],
-        constant FrameUniforms & frameUniforms [[buffer(FrameUniformBufferIndex)]]
+        VertexInput v_in [[ stage_in ]],
+        constant InstanceUniforms * instanceUniforms [[ buffer(InstanceUniformBufferIndex) ]],
+        constant FrameUniforms & frameUniforms [[ buffer(FrameUniformBufferIndex) ]],
+        ushort iid [[ instance_id ]]
 ) {
     VertexOutput vOut;
     
     float4 pWorld = frameUniforms.modelMatrix * float4(v_in.position, 1.0);
+    pWorld = instanceUniforms[iid].modelMatrix * pWorld;
     float4 pEye = frameUniforms.viewMatrix * pWorld;
     
     vOut.eye_position = pEye.xyz;
@@ -54,7 +57,7 @@ vertex VertexOutput vertexFunction (
 //---------------------------------------------------------------------------------------
 // Fragment Function
 fragment half4 fragmentFunction (
-        VertexOutput f_in [[stage_in]]
+        VertexOutput f_in [[ stage_in ]]
 ) {
     float3 l = normalize(light_position - f_in.eye_position);
     float n_dot_l = dot(f_in.eye_normal.rgb, l);

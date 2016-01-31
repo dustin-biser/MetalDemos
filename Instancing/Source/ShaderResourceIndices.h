@@ -22,24 +22,23 @@
 
 
 #if defined(METAL)
-    typedef int int_type;
+    // Metal variables defined in program scope, must have the 'constant' address-space
+    // qualifier and be initialized during declaration.
+    typedef constant int int_type;
 #else
     typedef long int_type;
 #endif
 
+//---------------------------------------------------------------------------------------
+/// Vertex Attribute Indices:
+int_type PositionAttribute     = 0;
+int_type NormalAttribute       = 1;
+int_type TextureCoordAttribute = 2;
+
 
 //---------------------------------------------------------------------------------------
-/// Vertex attribute indices
-enum IndexForVertexAttribute : int_type {
-    PositionAttributeIndex      = 0,
-    NormalAttributeIndex        = 1,
-    TextureCoordAttributeIndex  = 2
-};
-
-//---------------------------------------------------------------------------------------
-/// Buffer indices
-enum IndexForBuffer : int_type {
-    VertexBufferIndex           = 0,
-    FrameUniformBufferIndex     = 1,
-    MaterialUniformBufferIndex  = 2
-};
+/// Vertex Buffer Indices
+int_type VertexBufferIndex             = 0;
+int_type FrameUniformBufferIndex       = 1;
+int_type InstanceUniformBufferIndex    = 2;
+int_type MaterialUniformBufferIndex    = 3;

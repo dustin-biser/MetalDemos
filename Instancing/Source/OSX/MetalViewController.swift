@@ -47,22 +47,22 @@ class MetalViewController: NSViewController {
     
     //-----------------------------------------------------------------------------------
     override func keyDown(theEvent: NSEvent) {
-        print("keydown event: \(theEvent)")
+//        print("keydown event: \(theEvent)")
     }
     
     //-----------------------------------------------------------------------------------
     override func mouseEntered(theEvent: NSEvent) {
-        print("mouse entered view")
+//        print("mouse entered view")
     }
     
     //-----------------------------------------------------------------------------------
     override func mouseExited(theEvent: NSEvent) {
-        print("mouse exited view")
+//        print("mouse exited view")
     }
     
     //-----------------------------------------------------------------------------------
     override func mouseMoved(theEvent: NSEvent) {
-        print("mouse loc: \(theEvent.locationInWindow)")
+//        print("mouse loc: \(theEvent.locationInWindow)")
     }
     
 }

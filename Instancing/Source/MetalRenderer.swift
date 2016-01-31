@@ -57,28 +57,33 @@ private let CubeVertexData : [Float32] = [
     -kWidth,  kHeight, -kDepth,     0.0,  0.0, -1.0
 ]
 
-private let numInflightCommands = 3
+private let numInflightCommandBuffers = 3
 
 
 
 class MetalRenderer {
 
+    // Use unowned here since mtkView must always be non-nil in order to render.
     unowned var mtkView : MTKView
     
     var device : MTLDevice!                        = nil
     var commandQueue : MTLCommandQueue!            = nil
     var defaultShaderLibrary : MTLLibrary!         = nil
-    var vertexBuffer : MTLBuffer!                  = nil
     var pipelineState : MTLRenderPipelineState!    = nil
     var depthStencilState : MTLDepthStencilState!  = nil
     
-    var inflightSemaphore = dispatch_semaphore_create(numInflightCommands)
     
-    var frameUniformBuffers = [MTLBuffer!](count: numInflightCommands, repeatedValue: nil)
-    var currentUniformBufferIndex : Int = 0
+    var inflightSemaphore = dispatch_semaphore_create(numInflightCommandBuffers)
+    
+    var vertexBuffer : MTLBuffer!                  = nil
+    var instanceBuffer : MTLBuffer!               = nil
+    var frameUniformBuffers = [MTLBuffer!](count: numInflightCommandBuffers, repeatedValue: nil)
+    var currentFrame : Int = 0
     
     var rotationAngle : Float = 0.0
     let rotationDelta : Float = 0.01
+    
+    var numCubeInstances : Int = 4
     
     
     //-----------------------------------------------------------------------------------
@@ -94,7 +99,8 @@ class MetalRenderer {
         self.allocateUniformBuffers()
         self.setFrameUniforms()
         
-        self.allocateVertexBufferData()
+        self.uploadInstanceData()
+        self.uploadVertexBufferData()
     }
     
     //-----------------------------------------------------------------------------------
@@ -102,6 +108,8 @@ class MetalRenderer {
         device = MTLCreateSystemDefaultDevice()
         if device == nil {
             fatalError("Error creating default MTLDevice.")
+        } else {
+            print("Metal Device: \(device)")
         }
         
         commandQueue = device.newCommandQueue()
@@ -143,7 +151,7 @@ class MetalRenderer {
         let projectionMatrix = matrix_from_perspective_fov_aspectLH(fovy, aspect,
             Float(0.1), Float(100))
         
-        let viewMatrix = matrix_identity_float4x4
+        let viewMatrix = matrix_from_translation(0.0, 0.0, 2.0)
         var modelView = matrix_multiply(viewMatrix, modelMatrix)
         let normalMatrix = sub_matrix_float3x3(&modelView)
         
@@ -153,21 +161,46 @@ class MetalRenderer {
         frameUniforms.projectionMatrix = projectionMatrix
         frameUniforms.normalMatrix = normalMatrix
         
-        memcpy(frameUniformBuffers[currentUniformBufferIndex].contents(), &frameUniforms,
+        memcpy(frameUniformBuffers[currentFrame].contents(), &frameUniforms,
             strideof(FrameUniforms))
         
-        currentUniformBufferIndex = (currentUniformBufferIndex + 1) % frameUniformBuffers.count
+        currentFrame = (currentFrame + 1) % frameUniformBuffers.count
     }
     
     //-----------------------------------------------------------------------------------
-    private func allocateVertexBufferData() {
+    private func uploadVertexBufferData() {
         let numBytes = CubeVertexData.count * sizeof(Float32)
         vertexBuffer = device.newBufferWithBytes (
             CubeVertexData,
             length: numBytes,
-            options: .OptionCPUCacheModeDefault
+            options: .OptionCPUCacheModeWriteCombined
         )
         vertexBuffer.label = "CubeVertexData"
+    }
+    
+    //-----------------------------------------------------------------------------------
+    private func uploadInstanceData() {
+        var instanceData0 = InstanceUniforms()
+        instanceData0.modelMatrix = matrix_from_translation(-1.0, -1.0, 0.0)
+        
+        var instanceData1 = InstanceUniforms()
+        instanceData1.modelMatrix = matrix_from_translation(1.0, -1.0, 0.0)
+        
+        var instanceData2 = InstanceUniforms()
+        instanceData2.modelMatrix = matrix_from_translation(-1.0, 1.0, 0.0)
+        
+        var instanceData3 = InstanceUniforms()
+        instanceData3.modelMatrix = matrix_from_translation(1.0, 1.0, 0.0)
+        
+        
+        let instanceData = [instanceData0, instanceData1, instanceData2, instanceData3]
+        
+        instanceBuffer = device.newBufferWithBytes(
+            instanceData,
+            length: strideof(InstanceUniforms) * numCubeInstances,
+            options: .CPUCacheModeWriteCombined
+        )
+        
     }
     
     //-----------------------------------------------------------------------------------
@@ -192,22 +225,19 @@ class MetalRenderer {
         let vertexDescriptor = MTLVertexDescriptor()
         
         //-- Vertex Positions, attribute description:
-        let positionAttributeDescriptor = vertexDescriptor.attributes[PositionAttributeIndex.rawValue]
-        positionAttributeDescriptor.format = MTLVertexFormat.Float3
-        positionAttributeDescriptor.offset = 0
-        positionAttributeDescriptor.bufferIndex = VertexBufferIndex.rawValue
+        vertexDescriptor.attributes[PositionAttribute].format = MTLVertexFormat.Float3
+        vertexDescriptor.attributes[PositionAttribute].offset = 0
+        vertexDescriptor.attributes[PositionAttribute].bufferIndex = VertexBufferIndex
         
         //-- Vertex Normals, attribute description:
-        let normalAttributeDescriptor = vertexDescriptor.attributes[NormalAttributeIndex.rawValue]
-        normalAttributeDescriptor.format = MTLVertexFormat.Float3
-        normalAttributeDescriptor.offset = sizeof(Float32) * 3
-        normalAttributeDescriptor.bufferIndex = VertexBufferIndex.rawValue
+        vertexDescriptor.attributes[NormalAttribute].format = MTLVertexFormat.Float3
+        vertexDescriptor.attributes[NormalAttribute].offset = sizeof(Float32) * 3
+        vertexDescriptor.attributes[NormalAttribute].bufferIndex = VertexBufferIndex
         
-        //-- Vertex buffer layout description:
-        let vertexBufferLayoutDescriptor = vertexDescriptor.layouts[VertexBufferIndex.rawValue]
-        vertexBufferLayoutDescriptor.stride = sizeof(Float32) * 6
-        vertexBufferLayoutDescriptor.stepRate = 1
-        vertexBufferLayoutDescriptor.stepFunction = MTLVertexStepFunction.PerVertex
+        //-- VertexBuffer layout description:
+        vertexDescriptor.layouts[VertexBufferIndex].stride = sizeof(Float32) * 6
+        vertexDescriptor.layouts[VertexBufferIndex].stepRate = 1
+        vertexDescriptor.layouts[VertexBufferIndex].stepFunction = .PerVertex
         
         
         //-- Render Pipeline Descriptor:
@@ -255,6 +285,8 @@ class MetalRenderer {
                 znear: 0,
                 zfar: 1)
         )
+        renderEncoder.setFrontFacingWinding(MTLWinding.Clockwise)
+        renderEncoder.setCullMode(MTLCullMode.Back)
         renderEncoder.setDepthStencilState(depthStencilState)
         
         renderEncoder.setRenderPipelineState(pipelineState)
@@ -262,24 +294,24 @@ class MetalRenderer {
         renderEncoder.setVertexBuffer(
                 vertexBuffer,
                 offset: 0,
-                atIndex: VertexBufferIndex.rawValue
+                atIndex: VertexBufferIndex
         )
         
         renderEncoder.setVertexBuffer(
-                frameUniformBuffers[currentUniformBufferIndex],
+                frameUniformBuffers[currentFrame],
                 offset: 0,
-                atIndex: FrameUniformBufferIndex.rawValue
+                atIndex: FrameUniformBufferIndex
         )
         
-        // TODO - change this to drawPrimitives(_ primitiveType: MTLPrimitiveType,
-        //        vertexStart vertexStart: Int,
-        //        vertexCount vertexCount: Int,
-        //        instanceCount instanceCount: Int)
-        renderEncoder.drawPrimitives(
-                MTLPrimitiveType.Triangle,
-                vertexStart: 0,
-                vertexCount: 36
+        renderEncoder.setVertexBuffer(
+                instanceBuffer,
+                offset: 0,
+                atIndex: InstanceUniformBufferIndex
         )
+        
+        renderEncoder.drawPrimitives( .Triangle,
+            vertexStart: 0, vertexCount: 36, instanceCount: numCubeInstances)
+        
         renderEncoder.endEncoding()
         renderEncoder.popDebugGroup()
     }
@@ -287,7 +319,7 @@ class MetalRenderer {
     //-----------------------------------------------------------------------------------
     /// Main render method
     func render() {
-        for var i = 0; i < numInflightCommands; ++i {
+        for var i = 0; i < numInflightCommandBuffers; ++i {
             // Allow the renderer to preflight frames on the CPU (using a semapore as
             // a guard) and commit them to the GPU.  This semaphore will get signaled
             // once the GPU completes a frame's work via addCompletedHandler callback
