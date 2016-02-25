@@ -9,57 +9,54 @@
 import Metal
 import MetalKit
 
-private let numPreflightFrames = 3
+struct MetalRenderDescriptor {
+    var device : MTLDevice
+    var shaderLibrary: MTLLibrary
+    var sampleCount : Int
+    var colorPixelFormat : MTLPixelFormat
+    var depthStencilPixelFormat : MTLPixelFormat
+    var stencilAttachmentPixelFormat : MTLPixelFormat
+    var framebufferWidth : Int
+    var framebufferHeight : Int
+}
 
 class MetalRenderer {
 
-    var device : MTLDevice!                        = nil
-    var commandQueue : MTLCommandQueue!            = nil
-    var defaultShaderLibrary : MTLLibrary!         = nil
-    var pipelineState : MTLRenderPipelineState!    = nil
-    var depthStencilState : MTLDepthStencilState!  = nil
+    var device : MTLDevice
+    var shaderLibrary: MTLLibrary
+    var sampleCount : Int
+    var colorPixelFormat : MTLPixelFormat
+    var depthStencilPixelFormat : MTLPixelFormat
+    var stencilAttachmentPixelFormat : MTLPixelFormat
+    var framebufferWidth : Int
+    var framebufferHeight : Int
     
-    var vertexBuffer : MTLBuffer!                  = nil
-    var indexBuffer : MTLBuffer!                   = nil
+    var pipelineState : MTLRenderPipelineState!   = nil
+    var depthStencilState : MTLDepthStencilState! = nil
+   
+    var vertexBuffer : MTLBuffer!                 = nil
+    var indexBuffer : MTLBuffer!                  = nil
     var numIndices : Int = 0
     
-    var inflightSemaphore = dispatch_semaphore_create(numPreflightFrames)
-    
-    unowned var mtkView : MTKView
     
     //-----------------------------------------------------------------------------------
-    init(withMTKView view:MTKView) {
-        mtkView = view
-        
-        self.setupMetal()
-        self.setupView()
+    init(descriptor : MetalRenderDescriptor) {
+        self.device = descriptor.device
+        self.shaderLibrary = descriptor.shaderLibrary
+        self.sampleCount = descriptor.sampleCount
+        self.colorPixelFormat = descriptor.colorPixelFormat
+        self.depthStencilPixelFormat = descriptor.depthStencilPixelFormat
+        self.stencilAttachmentPixelFormat = descriptor.stencilAttachmentPixelFormat
+        self.framebufferWidth = descriptor.framebufferWidth
+        self.framebufferHeight = descriptor.framebufferHeight
         
         self.uploadVertexData()
         
         self.prepareDepthStencilState()
+        
         self.preparePipelineState()
     }
-    
-    //-----------------------------------------------------------------------------------
-    private func setupMetal() {
-        device = MTLCreateSystemDefaultDevice()
-        if (device == nil) {
-            fatalError("Error creating default MTLDevice.")
-        }
-    
-        commandQueue = device.newCommandQueue()
-        defaultShaderLibrary = device.newDefaultLibrary()
-    }
 
-    //-----------------------------------------------------------------------------------
-    private func setupView() {
-        mtkView.device = device
-        mtkView.sampleCount = 1
-        mtkView.colorPixelFormat = MTLPixelFormat.BGRA8Unorm
-        mtkView.depthStencilPixelFormat = MTLPixelFormat.Depth32Float_Stencil8
-        mtkView.preferredFramesPerSecond = 60
-        mtkView.framebufferOnly = false
-    }
     
     //-----------------------------------------------------------------------------------
     private func uploadVertexData() {
@@ -97,12 +94,12 @@ class MetalRenderer {
     //-----------------------------------------------------------------------------------
     private func preparePipelineState() {
         
-        guard let vertexFunction = defaultShaderLibrary.newFunctionWithName("vertexFunction")
+        guard let vertexFunction = shaderLibrary.newFunctionWithName("vertexFunction")
             else {
                 fatalError("Error retrieving vertex function.")
         }
         
-        guard let fragmentFunction = defaultShaderLibrary.newFunctionWithName("fragmentFunction")
+        guard let fragmentFunction = shaderLibrary.newFunctionWithName("fragmentFunction")
             else {
                 fatalError("Error retrieving fragment function.")
         }
@@ -130,10 +127,10 @@ class MetalRenderer {
         pipelineDescriptor.vertexFunction = vertexFunction
         pipelineDescriptor.fragmentFunction = fragmentFunction
         pipelineDescriptor.vertexDescriptor = vertexDescriptor
-        pipelineDescriptor.sampleCount = mtkView.sampleCount
-        pipelineDescriptor.colorAttachments[0].pixelFormat = mtkView.colorPixelFormat
-        pipelineDescriptor.depthAttachmentPixelFormat = mtkView.depthStencilPixelFormat
-        pipelineDescriptor.stencilAttachmentPixelFormat = mtkView.depthStencilPixelFormat
+        pipelineDescriptor.sampleCount = sampleCount
+        pipelineDescriptor.colorAttachments[0].pixelFormat = colorPixelFormat
+        pipelineDescriptor.depthAttachmentPixelFormat = depthStencilPixelFormat
+        pipelineDescriptor.stencilAttachmentPixelFormat = depthStencilPixelFormat
         
         // Create our render pipeline state for reuse
         pipelineState = try! device.newRenderPipelineStateWithDescriptor(pipelineDescriptor)
@@ -148,25 +145,20 @@ class MetalRenderer {
     }
 
     //-----------------------------------------------------------------------------------
-    func reshape(size: CGSize) {
-        
-    }
-
-    //-----------------------------------------------------------------------------------
     private func encodeRenderCommandsInto (
         commandBuffer: MTLCommandBuffer,
         using renderPassDescriptor: MTLRenderPassDescriptor
     ) {
             let renderEncoder =
-            commandBuffer.renderCommandEncoderWithDescriptor(renderPassDescriptor)
+                commandBuffer.renderCommandEncoderWithDescriptor(renderPassDescriptor)
             
             renderEncoder.pushDebugGroup("Triangle")
             renderEncoder.setViewport(
                 MTLViewport(
                     originX: 0,
                     originY: 0,
-                    width: Double(mtkView.drawableSize.width),
-                    height: Double(mtkView.drawableSize.height),
+                    width: Double(framebufferWidth),
+                    height: Double(framebufferHeight),
                     znear: 0,
                     zfar: 1)
             )
@@ -187,47 +179,20 @@ class MetalRenderer {
     }
 
     //-----------------------------------------------------------------------------------
-    /// Main render method
-    func render() {
+    /// Main rendering method
+    func render(
+        commandBuffer: MTLCommandBuffer,
+        renderPassDescriptor: MTLRenderPassDescriptor
+    ) {
         
-        mtkView.autoResizeDrawable = false
-        mtkView.drawableSize = CGSize(width: 128, height: 128)
-        let caLayer = mtkView.layer
-        caLayer?.magnificationFilter = kCAFilterNearest
-        
-        // Allow the renderer to preflight frames on the CPU (using a semapore as
-        // a guard) and commit them to the GPU.  This semaphore will get signaled
-        // once the GPU completes a frame's work via addCompletedHandler callback
-        // below, signifying the CPU can go ahead and prepare another frame.
-        dispatch_semaphore_wait(inflightSemaphore, DISPATCH_TIME_FOREVER);
-        
-        //--> Update any constant buffers here.
-        
-        let commandBuffer = commandQueue.commandBuffer()
-        
-        let renderPassDescriptor = mtkView.currentRenderPassDescriptor!
         renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColor(
-                red:   1.0,
-                green: 1.0,
-                blue:  1.0,
-                alpha: 1.0
+            red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0
         )
         renderPassDescriptor.depthAttachment.clearDepth = 1.0
         
         
         encodeRenderCommandsInto(commandBuffer, using: renderPassDescriptor)
         
-        commandBuffer.presentDrawable(mtkView.currentDrawable!)
-        
-        
-        // Once GPU has completed executing the commands wihin this buffer, signal
-        // the semaphore and allow the CPU to proceed in constructing the next frame.
-        commandBuffer.addCompletedHandler() { buffer in
-            dispatch_semaphore_signal(self.inflightSemaphore)
-        }
-        
-        // Push command buffer to GPU for execution.
-        commandBuffer.commit()
     }
 
 } // end class MetalRenderer
