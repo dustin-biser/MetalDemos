@@ -8,6 +8,13 @@
 import AppKit
 import MetalKit
 
+/// Mode to use for multi-buffered rendering.
+enum MultiBufferMode : Int {
+    case SingleBuffer = 1
+    case DoubleBuffer
+    case TripleBuffer
+}
+
 /**
     A ViewController base class for creating Metal graphics demos for OSX.
  
@@ -22,11 +29,16 @@ class DemoBaseOSX : NSViewController {
     var commandQueue : MTLCommandQueue! = nil
     var defaultShaderLibrary : MTLLibrary! = nil
     
-    //-- For Tripple Buffering rendered frames
-    let numPreflightFrames = 3
-    var inflightSemaphore : dispatch_semaphore_t! = nil
+    //-- For Multi-Buffering rendered frames
+    private var multiBufferMode = MultiBufferMode.SingleBuffer
+    var numBufferedFrames : Int {
+        get {
+            return multiBufferMode.rawValue
+        }
+    }
+    private var inflightSemaphore : dispatch_semaphore_t! = nil
     
-
+    
     //-----------------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +49,7 @@ class DemoBaseOSX : NSViewController {
         mtkView.device = device
         mtkView.preferredFramesPerSecond = 60
         
-        inflightSemaphore = dispatch_semaphore_create(numPreflightFrames)
+        inflightSemaphore = dispatch_semaphore_create(numBufferedFrames)
     }
     
     //-----------------------------------------------------------------------------------
@@ -78,6 +90,13 @@ class DemoBaseOSX : NSViewController {
             owner: self,
             userInfo: nil))
         
+    }
+    
+    //-----------------------------------------------------------------------------------
+    func setMultiBufferMode(mode : MultiBufferMode) {
+        if mode != self.multiBufferMode {
+            inflightSemaphore = dispatch_semaphore_create(numBufferedFrames)
+        }
     }
     
     //-----------------------------------------------------------------------------------
@@ -155,7 +174,7 @@ extension DemoBaseOSX : MTKViewDelegate {
     // Called on the delegate when it is asked to render into the view
     func drawInMTKView(view: MTKView) {
         autoreleasepool {
-            // Preflight frames on the CPU (using a semapore as a guard) and commit them
+            // Preflight frames on the CPU (using a semaphore as a guard) and commit them
             // to the GPU.  This semaphore will get signaled once the GPU completes a
             // frame's work via addCompletedHandler callback below, signifying the CPU
             // can go ahead and prepare another frame.
@@ -168,7 +187,7 @@ extension DemoBaseOSX : MTKViewDelegate {
             
             commandBuffer.presentDrawable(mtkView.currentDrawable!)
             
-            // Once GPU has completed executing the commands wihin this buffer, signal
+            // Once GPU has completed executing the commands within this buffer, signal
             // the semaphore and allow the CPU to proceed in constructing the next frame.
             commandBuffer.addCompletedHandler() { buffer in
                 dispatch_semaphore_signal(self.inflightSemaphore)

@@ -20,6 +20,8 @@ class MultiSampleDemo : DemoBaseOSX {
         
         self.setupMTKView()
         
+        self.setMultiBufferMode(.SingleBuffer)
+        
         let metalRenderDescriptor = MetalRenderDescriptor(
             device: device,
             shaderLibrary: defaultShaderLibrary,
@@ -28,15 +30,15 @@ class MultiSampleDemo : DemoBaseOSX {
             depthStencilPixelFormat: mtkView.depthStencilPixelFormat,
             stencilAttachmentPixelFormat: mtkView.depthStencilPixelFormat,
             framebufferWidth: Int(mtkView.drawableSize.width),
-            framebufferHeight : Int(mtkView.drawableSize.height)
+            framebufferHeight: Int(mtkView.drawableSize.height),
+            numBufferedFrames: self.numBufferedFrames
         )
         metalRenderer = MetalRenderer(descriptor: metalRenderDescriptor)
-        
     }
     
     //-----------------------------------------------------------------------------------
     private func setupMTKView() {
-        mtkView.sampleCount = 1
+        mtkView.sampleCount = 4
         mtkView.colorPixelFormat = MTLPixelFormat.BGRA8Unorm
         mtkView.depthStencilPixelFormat = MTLPixelFormat.Depth32Float_Stencil8
         mtkView.framebufferOnly = false

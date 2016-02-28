@@ -9,6 +9,7 @@
 import Metal
 import MetalKit
 
+
 struct MetalRenderDescriptor {
     var device : MTLDevice
     var shaderLibrary: MTLLibrary
@@ -18,7 +19,9 @@ struct MetalRenderDescriptor {
     var stencilAttachmentPixelFormat : MTLPixelFormat
     var framebufferWidth : Int
     var framebufferHeight : Int
+    var numBufferedFrames : Int
 }
+
 
 class MetalRenderer {
 
@@ -30,6 +33,7 @@ class MetalRenderer {
     var stencilAttachmentPixelFormat : MTLPixelFormat
     var framebufferWidth : Int
     var framebufferHeight : Int
+    var numBufferedFrames : Int
     
     var pipelineState : MTLRenderPipelineState!   = nil
     var depthStencilState : MTLDepthStencilState! = nil
@@ -49,6 +53,7 @@ class MetalRenderer {
         self.stencilAttachmentPixelFormat = descriptor.stencilAttachmentPixelFormat
         self.framebufferWidth = descriptor.framebufferWidth
         self.framebufferHeight = descriptor.framebufferHeight
+        self.numBufferedFrames = descriptor.numBufferedFrames
         
         self.uploadVertexData()
         
