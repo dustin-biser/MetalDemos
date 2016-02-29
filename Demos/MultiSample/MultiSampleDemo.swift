@@ -34,11 +34,13 @@ class MultiSampleDemo : DemoBaseOSX {
             numBufferedFrames: self.numBufferedFrames
         )
         metalRenderer = MetalRenderer(descriptor: metalRenderDescriptor)
+        
+        print("Press keys 1, 2, 4, or 8 for number of MSAA samples")
     }
     
     //-----------------------------------------------------------------------------------
     private func setupMTKView() {
-        mtkView.sampleCount = 4
+        mtkView.sampleCount = 1
         mtkView.colorPixelFormat = MTLPixelFormat.BGRA8Unorm
         mtkView.depthStencilPixelFormat = MTLPixelFormat.Depth32Float_Stencil8
         mtkView.framebufferOnly = false
@@ -66,6 +68,31 @@ class MultiSampleDemo : DemoBaseOSX {
             commandBuffer,
             renderPassDescriptor: mtkView.currentRenderPassDescriptor!
         )
+    }
+    
+    //-----------------------------------------------------------------------------------
+    override func keyDown(theEvent: NSEvent) {
+        switch theEvent.characters! {
+        case "1":
+            mtkView.sampleCount = 1
+            break
+        case "2":
+            mtkView.sampleCount = 2
+            break
+        case "4":
+            mtkView.sampleCount = 4
+            break
+        case "8":
+            mtkView.sampleCount = 8
+            break
+        default:
+            break
+            
+        }
+        
+        mtkView.window?.title = "MultiSample Demo (\(mtkView.sampleCount) MSAA samples)"
+        
+        metalRenderer.setSampleCount(mtkView.sampleCount)
     }
     
 }

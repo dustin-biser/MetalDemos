@@ -25,22 +25,22 @@ struct MetalRenderDescriptor {
 
 class MetalRenderer {
 
-    var device : MTLDevice
-    var shaderLibrary: MTLLibrary
-    var sampleCount : Int
-    var colorPixelFormat : MTLPixelFormat
-    var depthStencilPixelFormat : MTLPixelFormat
-    var stencilAttachmentPixelFormat : MTLPixelFormat
-    var framebufferWidth : Int
-    var framebufferHeight : Int
-    var numBufferedFrames : Int
+    private var device : MTLDevice
+    private var shaderLibrary: MTLLibrary
+    private var sampleCount : Int
+    private var colorPixelFormat : MTLPixelFormat
+    private var depthStencilPixelFormat : MTLPixelFormat
+    private var stencilAttachmentPixelFormat : MTLPixelFormat
+    private var framebufferWidth : Int
+    private var framebufferHeight : Int
+    private var numBufferedFrames : Int
     
-    var pipelineState : MTLRenderPipelineState!   = nil
-    var depthStencilState : MTLDepthStencilState! = nil
+    private var pipelineState : MTLRenderPipelineState!   = nil
+    private var depthStencilState : MTLDepthStencilState! = nil
    
-    var vertexBuffer : MTLBuffer!                 = nil
-    var indexBuffer : MTLBuffer!                  = nil
-    var numIndices : Int = 0
+    private var vertexBuffer : MTLBuffer!                 = nil
+    private var indexBuffer : MTLBuffer!                  = nil
+    private var numIndices : Int = 0
     
     
     //-----------------------------------------------------------------------------------
@@ -60,6 +60,16 @@ class MetalRenderer {
         self.prepareDepthStencilState()
         
         self.preparePipelineState()
+    }
+    
+    //-----------------------------------------------------------------------------------
+    func setSampleCount(sampleCount: Int) {
+        if self.sampleCount != sampleCount {
+            self.sampleCount = sampleCount
+            
+            // Recompute pipelineState using new MSAA sample count
+            self.preparePipelineState()
+        }
     }
 
     
