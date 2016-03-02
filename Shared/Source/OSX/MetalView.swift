@@ -10,6 +10,8 @@ import MetalKit
 
 class MetalView : MTKView {
     
+#if os(OSX)
     override var acceptsFirstResponder : Bool { return true }
+#endif
     
 }

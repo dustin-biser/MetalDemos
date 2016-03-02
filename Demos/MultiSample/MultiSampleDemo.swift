@@ -47,11 +47,15 @@ class MultiSampleDemo : DemoBaseOSX {
         
         // Manually set the view's color buffer size.
         mtkView.autoResizeDrawable = false
-        mtkView.drawableSize = CGSize(width: 128, height: 128)
+        
+        let aspect = mtkView.drawableSize.width / mtkView.drawableSize.height
+        let viewHeight : CGFloat = 64.0
+        let viewWidth = viewHeight * aspect
+        mtkView.drawableSize = CGSize(width: viewWidth, height: viewHeight)
         
         // Turn off linear filtering of the view's Metal Layer during magnification.
-        let caLayer = mtkView.layer
-        caLayer?.magnificationFilter = kCAFilterNearest
+        let caLayer = mtkView.layer!
+        caLayer.magnificationFilter = kCAFilterNearest
     }
     
     //-----------------------------------------------------------------------------------
@@ -59,7 +63,7 @@ class MultiSampleDemo : DemoBaseOSX {
             view: MTKView,
             newSize: CGSize
     ) {
-    
+        
     }
     
     //-----------------------------------------------------------------------------------

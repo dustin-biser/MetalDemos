@@ -77,9 +77,9 @@ class MetalRenderer {
     private func uploadVertexData() {
         
         let triangleVertices : [Float32] = [
-            -0.5, -0.32,  0.0,
-             0.5, -0.3,  0.0,
-             0.4,  0.4,  0.0
+            -0.8, -0.49,  0.0,
+             0.8, -0.42,  0.0,
+             0.62,  0.65,  0.0
         ]
         
         //-- Upload vertex positions to vertexBuffer:
