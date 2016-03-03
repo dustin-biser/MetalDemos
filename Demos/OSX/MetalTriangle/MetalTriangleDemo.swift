@@ -11,7 +11,7 @@ import MetalKit
 
 
 
-class MetalTriangle : DemoBase {
+class MetalTriangleDemo : DemoBase {
     
     var metalRenderer : MetalRenderer! = nil
         
