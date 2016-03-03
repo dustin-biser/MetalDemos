@@ -6,11 +6,17 @@
 //  Copyright © 2016 none. All rights reserved.
 //
 
-import AppKit
+#if os(OSX)
+    import AppKit
+#elseif os(iOS)
+    import UIKit
+#endif
+
 import MetalKit
 
 
-class MultiSampleDemo : DemoBaseOSX {
+
+class MultiSampleDemo : DemoBase {
     
     var metalRenderer : MetalRenderer! = nil
         
@@ -53,8 +59,12 @@ class MultiSampleDemo : DemoBaseOSX {
         let viewWidth = viewHeight * aspect
         mtkView.drawableSize = CGSize(width: viewWidth, height: viewHeight)
         
+        #if os(OSX)
+            let caLayer = mtkView.layer!
+        #elseif os(iOS)
+            let caLayer = mtkView.layer
+        #endif
         // Turn off linear filtering of the view's Metal Layer during magnification.
-        let caLayer = mtkView.layer!
         caLayer.magnificationFilter = kCAFilterNearest
     }
     
@@ -75,6 +85,7 @@ class MultiSampleDemo : DemoBaseOSX {
     }
     
     //-----------------------------------------------------------------------------------
+#if os(OSX)
     override func keyDown(theEvent: NSEvent) {
         switch theEvent.characters! {
         case "1":
@@ -98,5 +109,6 @@ class MultiSampleDemo : DemoBaseOSX {
         
         metalRenderer.setSampleCount(mtkView.sampleCount)
     }
+#endif
     
 }

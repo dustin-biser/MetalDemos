@@ -10,7 +10,15 @@ import UIKit
 import MetalKit
 
 
-class DemoBaseiOS : UIViewController {
+/// Mode to use for multi-buffered rendering.
+enum MultiBufferMode : Int {
+    case SingleBuffer = 1
+    case DoubleBuffer
+    case TripleBuffer
+}
+
+
+class DemoBase : UIViewController {
     
     @IBOutlet var mtkView: MetalView!
     
@@ -33,7 +41,9 @@ class DemoBaseiOS : UIViewController {
         super.viewDidLoad()
         
         self.setupMetal()
-        self.setupView()
+        
+        // This class will handle drawing to the MTKView
+        mtkView.delegate = self
         
         mtkView.device = device
         mtkView.preferredFramesPerSecond = 60
@@ -58,34 +68,25 @@ class DemoBaseiOS : UIViewController {
     }
     
     //-----------------------------------------------------------------------------------
-    private func setupView() {
-        // This class will handle drawing to the MTKView
-        mtkView.delegate = self
-        
-        //-- Add self to Responder Chain so it can handle key and mouse input events.
-        // Responder Chain order:
-        // MetalView -> ViewController -> Window -> WindowController
-        mtkView.window?.initialFirstResponder = mtkView
-        mtkView.nextResponder = self
-        self.nextResponder = mtkView.window
-        
-        //-- Add mouse tracking to the MetalView:
-        let trackingOptions : NSTrackingAreaOptions = [
-            .InVisibleRect, .MouseMoved, .MouseEnteredAndExited, .ActiveInActiveApp
-        ]
-        mtkView.addTrackingArea(NSTrackingArea(
-            rect: mtkView.visibleRect,
-            options: trackingOptions,
-            owner: self,
-            userInfo: nil))
-        
-    }
-    
-    //-----------------------------------------------------------------------------------
     func setMultiBufferMode(mode : MultiBufferMode) {
         if mode != self.multiBufferMode {
             inflightSemaphore = dispatch_semaphore_create(numBufferedFrames)
         }
+    }
+    
+    //-----------------------------------------------------------------------------------
+    /**
+     Called once per frame to perform rendering to this class's MTKView.
+     - parameter commandBuffer: Used to encode render commands into.
+    */
+    func draw(commandBuffer : MTLCommandBuffer) {
+        
+    }
+    
+    //-----------------------------------------------------------------------------------
+    /// Called once the size of the MTKView changes.
+    func viewSizeChanged(view: MTKView, newSize: CGSize) {
+    
     }
 
     //-----------------------------------------------------------------------------------
@@ -98,7 +99,7 @@ class DemoBaseiOS : UIViewController {
 
 
 
-extension DemoBaseiOS : MTKViewDelegate {
+extension DemoBase : MTKViewDelegate {
 
     //-----------------------------------------------------------------------------------
     // Called whenever the drawableSize of the view will change

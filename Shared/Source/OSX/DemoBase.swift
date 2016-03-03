@@ -16,12 +16,12 @@ enum MultiBufferMode : Int {
 }
 
 /**
-    A ViewController base class for creating Metal graphics demos for OSX.
+    A ViewController base class for creating Metal graphics demos.
  
     Derived classes should be added to the application's Main.storyboard as a
     ViewController with an associated MTKView.
 */
-class DemoBaseOSX : NSViewController {
+class DemoBase : NSViewController {
     
     @IBOutlet var mtkView: MetalView!
     
@@ -162,7 +162,7 @@ class DemoBaseOSX : NSViewController {
 }
 
 
-extension DemoBaseOSX : MTKViewDelegate {
+extension DemoBase : MTKViewDelegate {
 
     //-----------------------------------------------------------------------------------
     // Called whenever the drawableSize of the view will change
