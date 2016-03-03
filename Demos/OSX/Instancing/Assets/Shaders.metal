@@ -14,8 +14,8 @@
 using namespace metal;
 
 // Variables in constant address space:
-constant float3 light_position = float3(0.0, 0.0, -1.0);
-constant half3 diffuse = half3(0.4, 0.4, 0.7);
+constant float3 light_position = float3(-1.0, 2.0, -1.0);
+constant half3 diffuse = half3(0.08, 0.08, 0.3);
 
 
 // Input to the vertex shader.
@@ -63,7 +63,7 @@ fragment half4 fragmentFunction (
     float n_dot_l = dot(f_in.eye_normal.rgb, l);
     n_dot_l = fmax(0.0, n_dot_l);
     
-    float r = clamp(distance(light_position, f_in.eye_position), 0.4, 1.2);
+    float r = clamp(distance(light_position, f_in.eye_position), 0.2, 1.5);
     float fallOff = 1.0/r;
     
     return half4(diffuse * n_dot_l, 1.0) * fallOff;

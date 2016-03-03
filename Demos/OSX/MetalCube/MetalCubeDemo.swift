@@ -1,22 +1,17 @@
 //
-//  InstancingDemo.swift
+//  MetalCubeDemo.swift
 //  MetalSwift
 //
 //  Created by Dustin on 2/22/16.
 //  Copyright © 2016 none. All rights reserved.
 //
 
-#if os(OSX)
-    import AppKit
-#elseif os(iOS)
-    import UIKit
-#endif
-
+import AppKit
 import MetalKit
 
 
 
-class InstancingDemo : DemoBase {
+class MetalCubeDemo : DemoBase {
     
     var metalRenderer : MetalRenderer! = nil
         
