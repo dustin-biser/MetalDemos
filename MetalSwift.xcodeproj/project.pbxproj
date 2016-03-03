@@ -31,6 +31,13 @@
 		0C8E93D71C88AD980002A0DA /* MetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93BA1C88A8D10002A0DA /* MetalView.swift */; };
 		0C8E93D81C88AD980002A0DA /* MatrixTransforms.c in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93BC1C88A8D10002A0DA /* MatrixTransforms.c */; };
 		0C8E93D91C88AFD30002A0DA /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93701C88A70C0002A0DA /* Shaders.metal */; };
+		0C8E93DC1C88C4B50002A0DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C8E93DB1C88C4AE0002A0DA /* Main.storyboard */; };
+		0C8E93DD1C88C4C20002A0DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93B81C88A8D10002A0DA /* AppDelegate.swift */; };
+		0C8E93DE1C88C4C20002A0DA /* DemoBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93B91C88A8D10002A0DA /* DemoBase.swift */; };
+		0C8E93DF1C88C4C20002A0DA /* MetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93BA1C88A8D10002A0DA /* MetalView.swift */; };
+		0C8E93E01C88C4C20002A0DA /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E937D1C88A70C0002A0DA /* Shaders.metal */; };
+		0C8E93E11C88C4C20002A0DA /* MetalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93881C88A70C0002A0DA /* MetalRenderer.swift */; };
+		0C8E93E31C88C4CD0002A0DA /* MetalTriangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93E21C88C4CD0002A0DA /* MetalTriangle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,13 +48,6 @@
 		0C8E93701C88A70C0002A0DA /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		0C8E937A1C88A70C0002A0DA /* MetalRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalRenderer.swift; sourceTree = "<group>"; };
 		0C8E937D1C88A70C0002A0DA /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
-		0C8E93801C88A70C0002A0DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		0C8E93811C88A70C0002A0DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0C8E93821C88A70C0002A0DA /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		0C8E93831C88A70C0002A0DA /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		0C8E93851C88A70C0002A0DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		0C8E93861C88A70C0002A0DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0C8E93871C88A70C0002A0DA /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0C8E93881C88A70C0002A0DA /* MetalRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalRenderer.swift; sourceTree = "<group>"; };
 		0C8E938B1C88A70C0002A0DA /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		0C8E93941C88A70C0002A0DA /* MetalRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalRenderer.swift; sourceTree = "<group>"; };
@@ -69,6 +69,9 @@
 		0C8E93CF1C88ACCF0002A0DA /* MetalCubeDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalCubeDemo.swift; sourceTree = "<group>"; };
 		0C8E93D11C88AD800002A0DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C8E93D21C88AD800002A0DA /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		0C8E93DA1C88C4AE0002A0DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0C8E93DB1C88C4AE0002A0DA /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		0C8E93E21C88C4CD0002A0DA /* MetalTriangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalTriangle.swift; sourceTree = "<group>"; };
 		0C9474D51C339EB1005933AC /* MetalTriangle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalTriangle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CB58F521C5470FD00D5CAD8 /* Instancing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instancing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CDDA0771C7A9CED00135C7C /* MultiSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultiSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,6 +190,7 @@
 			children = (
 				0C8E937C1C88A70C0002A0DA /* Assets */,
 				0C8E937E1C88A70C0002A0DA /* Data */,
+				0C8E93E21C88C4CD0002A0DA /* MetalTriangle.swift */,
 				0C8E93881C88A70C0002A0DA /* MetalRenderer.swift */,
 			);
 			path = MetalTriangle;
@@ -203,31 +207,10 @@
 		0C8E937E1C88A70C0002A0DA /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				0C8E937F1C88A70C0002A0DA /* iOS */,
-				0C8E93841C88A70C0002A0DA /* OSX */,
+				0C8E93DA1C88C4AE0002A0DA /* Info.plist */,
+				0C8E93DB1C88C4AE0002A0DA /* Main.storyboard */,
 			);
 			path = Data;
-			sourceTree = "<group>";
-		};
-		0C8E937F1C88A70C0002A0DA /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				0C8E93801C88A70C0002A0DA /* Assets.xcassets */,
-				0C8E93811C88A70C0002A0DA /* Info.plist */,
-				0C8E93821C88A70C0002A0DA /* LaunchScreen.storyboard */,
-				0C8E93831C88A70C0002A0DA /* Main.storyboard */,
-			);
-			path = iOS;
-			sourceTree = "<group>";
-		};
-		0C8E93841C88A70C0002A0DA /* OSX */ = {
-			isa = PBXGroup;
-			children = (
-				0C8E93851C88A70C0002A0DA /* Assets.xcassets */,
-				0C8E93861C88A70C0002A0DA /* Info.plist */,
-				0C8E93871C88A70C0002A0DA /* Main.storyboard */,
-			);
-			path = OSX;
 			sourceTree = "<group>";
 		};
 		0C8E93891C88A70C0002A0DA /* MultiSample */ = {
@@ -445,6 +428,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C8E93DC1C88C4B50002A0DA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,6 +469,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C8E93DD1C88C4C20002A0DA /* AppDelegate.swift in Sources */,
+				0C8E93DE1C88C4C20002A0DA /* DemoBase.swift in Sources */,
+				0C8E93DF1C88C4C20002A0DA /* MetalView.swift in Sources */,
+				0C8E93E01C88C4C20002A0DA /* Shaders.metal in Sources */,
+				0C8E93E11C88C4C20002A0DA /* MetalRenderer.swift in Sources */,
+				0C8E93E31C88C4CD0002A0DA /* MetalTriangle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,11 +640,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Demos/MetalTriangle/Data/OSX/Info.plist;
+				INFOPLIST_FILE = Demos/OSX/MetalTriangle/Data/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = none.MetalSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = Shared/Source/BridgingHeader.h;
+				SWIFT_OBJC_BRIDGING_HEADER = Demos/Shared/BridgingHeader.h;
 			};
 			name = Debug;
 		};
@@ -663,11 +653,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = Demos/MetalTriangle/Data/OSX/Info.plist;
+				INFOPLIST_FILE = Demos/OSX/MetalTriangle/Data/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = none.MetalSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = Shared/Source/BridgingHeader.h;
+				SWIFT_OBJC_BRIDGING_HEADER = Demos/Shared/BridgingHeader.h;
 			};
 			name = Release;
 		};
