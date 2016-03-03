@@ -45,7 +45,7 @@ class MultiSampleDemo : DemoBase {
         mtkView.sampleCount = 1
         mtkView.colorPixelFormat = MTLPixelFormat.BGRA8Unorm
         mtkView.depthStencilPixelFormat = MTLPixelFormat.Depth32Float_Stencil8
-        mtkView.framebufferOnly = false
+        mtkView.framebufferOnly = true
         
         // Manually set the view's color buffer size.
         mtkView.autoResizeDrawable = false
