@@ -75,6 +75,14 @@
 		0C9474D51C339EB1005933AC /* MetalTriangle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalTriangle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CB58F521C5470FD00D5CAD8 /* Instancing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instancing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CDDA0771C7A9CED00135C7C /* MultiSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultiSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CEE0B6E1C8CC8CB002482FA /* textured_plane.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = textured_plane.obj; sourceTree = "<group>"; };
+		0CEE0B7E1C8CCA1E002482FA /* lodepng.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lodepng.cpp; sourceTree = "<group>"; };
+		0CEE0B7F1C8CCA1E002482FA /* lodepng.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lodepng.h; sourceTree = "<group>"; };
+		0CEE0B801C8CCA1E002482FA /* lodepng_util.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lodepng_util.cpp; sourceTree = "<group>"; };
+		0CEE0B811C8CCA1E002482FA /* lodepng_util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lodepng_util.h; sourceTree = "<group>"; };
+		0CEE0B881C8CCA1E002482FA /* tiny_obj_loader.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tiny_obj_loader.cc; sourceTree = "<group>"; };
+		0CEE0B891C8CCA1E002482FA /* tiny_obj_loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tiny_obj_loader.h; sourceTree = "<group>"; };
+		0CEE0B8D1C8CCE75002482FA /* textured_plane.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = textured_plane.mtl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,6 +252,7 @@
 		0C8E93961C88A7480002A0DA /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				0C8E93971C88A7480002A0DA /* Assets */,
 				0C8E93B41C88A8D10002A0DA /* iOS */,
 				0C8E93B71C88A8D10002A0DA /* OSX */,
 				0C8E93BB1C88A8D10002A0DA /* BridgingHeader.h */,
@@ -259,9 +268,10 @@
 		0C8E93971C88A7480002A0DA /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				0CEE0B8D1C8CCE75002482FA /* textured_plane.mtl */,
+				0CEE0B6E1C8CC8CB002482FA /* textured_plane.obj */,
 			);
-			name = Assets;
-			path = Demos/Shared/Assets;
+			path = Assets;
 			sourceTree = "<group>";
 		};
 		0C8E93B41C88A8D10002A0DA /* iOS */ = {
@@ -286,7 +296,7 @@
 		0C9474CC1C339EB1005933AC = {
 			isa = PBXGroup;
 			children = (
-				0C8E93971C88A7480002A0DA /* Assets */,
+				0CEE0B7C1C8CCA1D002482FA /* External */,
 				0C8E93961C88A7480002A0DA /* Shared */,
 				0C8E93621C88A70C0002A0DA /* iOS */,
 				0C8E93631C88A70C0002A0DA /* OSX */,
@@ -303,6 +313,35 @@
 				0CDDA0771C7A9CED00135C7C /* MultiSample.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		0CEE0B7C1C8CCA1D002482FA /* External */ = {
+			isa = PBXGroup;
+			children = (
+				0CEE0B7D1C8CCA1D002482FA /* lodepng */,
+				0CEE0B831C8CCA1E002482FA /* tinyobjloader */,
+			);
+			path = External;
+			sourceTree = "<group>";
+		};
+		0CEE0B7D1C8CCA1D002482FA /* lodepng */ = {
+			isa = PBXGroup;
+			children = (
+				0CEE0B7E1C8CCA1E002482FA /* lodepng.cpp */,
+				0CEE0B7F1C8CCA1E002482FA /* lodepng.h */,
+				0CEE0B801C8CCA1E002482FA /* lodepng_util.cpp */,
+				0CEE0B811C8CCA1E002482FA /* lodepng_util.h */,
+			);
+			path = lodepng;
+			sourceTree = "<group>";
+		};
+		0CEE0B831C8CCA1E002482FA /* tinyobjloader */ = {
+			isa = PBXGroup;
+			children = (
+				0CEE0B881C8CCA1E002482FA /* tiny_obj_loader.cc */,
+				0CEE0B891C8CCA1E002482FA /* tiny_obj_loader.h */,
+			);
+			path = tinyobjloader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B74AF90E1674AC167C5D375C865F1C365B3074B4",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "A61130D82196AE1688FC576E0BAAF7512994DBF8" : 0,
+    "B74AF90E1674AC167C5D375C865F1C365B3074B4" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6B6ECE4A-948C-4C04-A2BA-F67FA21738EA",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "A61130D82196AE1688FC576E0BAAF7512994DBF8" : "MetalSwift\/External\/tinyobjloader\/",
+    "B74AF90E1674AC167C5D375C865F1C365B3074B4" : "MetalSwift\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "MetalSwift",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "MetalSwift.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:syoyo\/tinyobjloader.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A61130D82196AE1688FC576E0BAAF7512994DBF8"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:dustin-biser\/MetalSwift.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B74AF90E1674AC167C5D375C865F1C365B3074B4"
+    }
+  ]
+}
