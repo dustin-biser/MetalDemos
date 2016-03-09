@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:MetalSwift.xcodeproj">
+      location = "self:/Users/dustinbiser/Projects/OSX/Metal/MetalSwift/MetalDemos.xcodeproj">
    </FileRef>
 </Workspace>
