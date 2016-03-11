@@ -11,19 +11,20 @@
 #import "MetalRenderer.h"
 
 
-// Private members
-@interface TriangleDemo () {
-@private
-    MetalRenderer * metalRenderer;
+// Private methods
+@interface TriangleDemo ()
     
-}
     - (void) setupMetalView;
 
 @end
 
 
 
-@implementation TriangleDemo
+@implementation TriangleDemo {
+@private
+    MetalRenderer * _metalRenderer;
+    
+}
 
     //-----------------------------------------------------------------------------------
     - (void)viewWillAppear {
@@ -33,18 +34,18 @@
         // TripleBuffer rendering of frames.
         _numBufferedFrames = 3;
         
-//        let metalRenderDescriptor = MetalRenderDescriptor(
-//            device: device,
-//            shaderLibrary: defaultShaderLibrary,
-//            sampleCount: mtkView.sampleCount,
-//            colorPixelFormat: mtkView.colorPixelFormat,
-//            depthStencilPixelFormat: mtkView.depthStencilPixelFormat,
-//            stencilAttachmentPixelFormat: mtkView.depthStencilPixelFormat,
-//            framebufferWidth: Int(mtkView.drawableSize.width),
-//            framebufferHeight: Int(mtkView.drawableSize.height),
-//            numBufferedFrames: self.numBufferedFrames
-//        )
-//        metalRenderer = MetalRenderer(descriptor: metalRenderDescriptor)
+        MetalRenderDescriptor * metalRenderDescriptor = [[MetalRenderDescriptor alloc] init];
+        metalRenderDescriptor.device = _device;
+        metalRenderDescriptor.shaderLibrary = _defaultShaderLibrary;
+        metalRenderDescriptor.sampleCount = (int)_metalView.sampleCount;
+        metalRenderDescriptor.colorPixelFormat = _metalView.colorPixelFormat;
+        metalRenderDescriptor.depthStencilPixelFormat= _metalView.depthStencilPixelFormat;
+        metalRenderDescriptor.stencilAttachmentPixelFormat = _metalView.depthStencilPixelFormat;
+        metalRenderDescriptor.framebufferWidth = _metalView.drawableSize.width;
+        metalRenderDescriptor.framebufferHeight = _metalView.drawableSize.height;
+        metalRenderDescriptor.numBufferedFrames = _numBufferedFrames;
+        
+        _metalRenderer = [[MetalRenderer alloc] initWithDescriptor: metalRenderDescriptor];
         
     }
 
@@ -55,6 +56,19 @@
         _metalView.colorPixelFormat = MTLPixelFormatBGRA8Unorm_sRGB;
         _metalView.depthStencilPixelFormat = MTLPixelFormatDepth32Float_Stencil8;
         _metalView.framebufferOnly = true;
+    }
+
+    //-----------------------------------------------------------------------------------
+    - (void) viewSizeChanged:(MTKView *)view
+                    newSize:(CGSize)size {
+    
+        [_metalRenderer reshape: size];
+    }
+
+    //-----------------------------------------------------------------------------------
+    - (void) draw:(id<MTLCommandBuffer>)commandBuffer {
+//        [_metalRenderer  render:commandBuffer
+//          renderPassDescriptor: _metalView.currentRenderPassDescriptor];
     }
 
 @end // TriangleDemo

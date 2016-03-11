@@ -651,13 +651,13 @@
         <scene sceneID="R2V-B0-nI4">
             <objects>
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
-                    <window key="window" title="Deferred Rendering Demo" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
+                    <window key="window" title="Metal Triangle" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="196" y="240" width="800" height="600"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
                     </window>
                     <connections>
-                        <segue destination="X2f-dU-21r" kind="relationship" relationship="window.shadowedContentViewController" id="FBh-XF-wiW"/>
+                        <segue destination="Uln-K9-5ej" kind="relationship" relationship="window.shadowedContentViewController" id="UHh-fY-4Yr"/>
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -665,20 +665,17 @@
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
         <!--Triangle Demo-->
-        <scene sceneID="g53-74-Xqm">
+        <scene sceneID="RFU-Cs-0ut">
             <objects>
-                <viewController id="X2f-dU-21r" customClass="TriangleDemo" sceneMemberID="viewController">
-                    <view key="view" id="8wQ-Zd-Sxy" customClass="MetalView">
+                <viewController id="Uln-K9-5ej" customClass="TriangleDemo" sceneMemberID="viewController">
+                    <view key="view" id="cIK-tU-zPu" customClass="MetalView">
                         <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </view>
-                    <connections>
-                        <outlet property="metalView" destination="8wQ-Zd-Sxy" id="0rN-Rq-7eT"/>
-                    </connections>
                 </viewController>
-                <customObject id="CwE-04-w2a" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <customObject id="7ZH-Bt-c8L" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="1004"/>
+            <point key="canvasLocation" x="75" y="1014"/>
         </scene>
     </scenes>
 </document>

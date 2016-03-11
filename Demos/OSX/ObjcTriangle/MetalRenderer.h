@@ -6,11 +6,10 @@
 //  Copyright © 2016 none. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <Metal/Metal.h>
 
 
-@interface MetalRenderDescriptor
+@interface MetalRenderDescriptor : NSObject
     @property (nonatomic) id<MTLDevice> device;
     @property (nonatomic) id<MTLLibrary> shaderLibrary;
     @property (nonatomic) int sampleCount;
@@ -25,5 +24,9 @@
 
 
 @interface MetalRenderer : NSObject
+
+    - (instancetype)initWithDescriptor:(MetalRenderDescriptor *)metalRenderDescriptor;
+
+    - (void) reshape:(CGSize)size;
 
 @end
