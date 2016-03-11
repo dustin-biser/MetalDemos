@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  main.m
 //  Mipmap
 //
 //  Created by Dustin on 3/7/16.
@@ -8,8 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface ViewController : NSViewController
 
-
-@end
-
+int main(int argc, const char * argv[]) {
+    return NSApplicationMain(argc, argv);
+}
