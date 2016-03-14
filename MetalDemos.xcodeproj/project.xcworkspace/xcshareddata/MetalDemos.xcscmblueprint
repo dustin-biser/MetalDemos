@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B74AF90E1674AC167C5D375C865F1C365B3074B4",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "A61130D82196AE1688FC576E0BAAF7512994DBF8" : 0,
+    "B74AF90E1674AC167C5D375C865F1C365B3074B4" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E2A3EC94-82F2-49AA-BF84-DB7DD353D359",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "A61130D82196AE1688FC576E0BAAF7512994DBF8" : "MetalDemos\/External\/tinyobjloader\/",
+    "B74AF90E1674AC167C5D375C865F1C365B3074B4" : "MetalDemos\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "MetalDemos",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "MetalDemos.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:syoyo\/tinyobjloader.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A61130D82196AE1688FC576E0BAAF7512994DBF8"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:dustin-biser\/MetalDemos.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B74AF90E1674AC167C5D375C865F1C365B3074B4"
+    }
+  ]
+}

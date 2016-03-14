@@ -23,8 +23,7 @@ enum MultiBufferMode : Int {
 */
 class DemoBase : NSViewController {
     
-    @IBOutlet var mtkView: MetalView!
-    
+    var mtkView: MetalView! = nil
     var device : MTLDevice! = nil
     var commandQueue : MTLCommandQueue! = nil
     var defaultShaderLibrary : MTLLibrary! = nil
@@ -70,6 +69,8 @@ class DemoBase : NSViewController {
     
     //-----------------------------------------------------------------------------------
     private func setupView() {
+        mtkView = self.view as! MetalView
+        
         // This class will handle drawing to the MTKView
         mtkView.delegate = self
         

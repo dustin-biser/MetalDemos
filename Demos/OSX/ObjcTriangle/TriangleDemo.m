@@ -6,8 +6,8 @@
 //  Copyright © 2016 none. All rights reserved.
 //
 
+#import "MetalDemoCommon.h"
 #import "TriangleDemo.h"
-#import "DemoBase+protected.h"
 #import "MetalRenderer.h"
 
 
@@ -19,7 +19,6 @@
 @end
 
 
-
 @implementation TriangleDemo {
 @private
     MetalRenderer * _metalRenderer;
@@ -27,7 +26,7 @@
 }
 
     //-----------------------------------------------------------------------------------
-    - (void)viewWillAppear {
+    - override (void)viewWillAppear {
         [super viewWillAppear];
         [self setupMetalView];
         
@@ -37,7 +36,7 @@
         MetalRenderDescriptor * metalRenderDescriptor = [[MetalRenderDescriptor alloc] init];
         metalRenderDescriptor.device = _device;
         metalRenderDescriptor.shaderLibrary = _defaultShaderLibrary;
-        metalRenderDescriptor.sampleCount = (int)_metalView.sampleCount;
+        metalRenderDescriptor.msaaSampleCount = (int)_metalView.sampleCount;
         metalRenderDescriptor.colorPixelFormat = _metalView.colorPixelFormat;
         metalRenderDescriptor.depthStencilPixelFormat= _metalView.depthStencilPixelFormat;
         metalRenderDescriptor.stencilAttachmentPixelFormat = _metalView.depthStencilPixelFormat;
@@ -53,13 +52,13 @@
     //-----------------------------------------------------------------------------------
     - (void) setupMetalView {
         _metalView.sampleCount = 8;
-        _metalView.colorPixelFormat = MTLPixelFormatBGRA8Unorm_sRGB;
+        _metalView.colorPixelFormat = MTLPixelFormatBGRA8Unorm;
         _metalView.depthStencilPixelFormat = MTLPixelFormatDepth32Float_Stencil8;
         _metalView.framebufferOnly = true;
     }
 
     //-----------------------------------------------------------------------------------
-    - (void) viewSizeChanged:(MTKView *)view
+    - override (void) viewSizeChanged:(MTKView *)view
                     newSize:(CGSize)size {
     
         [_metalRenderer reshape: size];
@@ -67,8 +66,8 @@
 
     //-----------------------------------------------------------------------------------
     - (void) draw:(id<MTLCommandBuffer>)commandBuffer {
-//        [_metalRenderer  render:commandBuffer
-//          renderPassDescriptor: _metalView.currentRenderPassDescriptor];
+        [_metalRenderer render: commandBuffer
+           withRenderPassDescriptor: _metalView.currentRenderPassDescriptor];
     }
 
 @end // TriangleDemo

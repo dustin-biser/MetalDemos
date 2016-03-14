@@ -5,20 +5,17 @@
 //  Copyright © 2016 none. All rights reserved.
 //
 
+#import "MetalDemoCommon.h"
 #import "DemoBase.h"
-#import "DemoBase+protected.h"
 
 #import <MetalKit/MetalKit.h>
 
 
 // Private members
-@interface DemoBase () {
-
-@private
-    dispatch_semaphore_t _inflightSemaphore;
-}
+@interface DemoBase ()
 
     - (void) setupMetal;
+
     - (void) setupView;
 
 @end
@@ -28,7 +25,7 @@
 @implementation DemoBase
 
     //-----------------------------------------------------------------------------------
-    - (void)viewWillAppear {
+    - override (void)viewWillAppear {
         [super viewWillAppear];
         
         [self setupMetal];
@@ -38,17 +35,11 @@
         _metalView.device = _device;
         _metalView.preferredFramesPerSecond = 60;
         
-        _inflightSemaphore = dispatch_semaphore_create(_numBufferedFrames);
         _numBufferedFrames = 1;
+        _inflightSemaphore = dispatch_semaphore_create(_numBufferedFrames);
         
     }
 
-    //-----------------------------------------------------------------------------------
-    - (void)setRepresentedObject:(id)representedObject {
-        [super setRepresentedObject:representedObject];
-
-        // Update the view, if already loaded.
-    }
 
     //-----------------------------------------------------------------------------------
     - (void) setupMetal {
@@ -170,35 +161,35 @@
 
     //-----------------------------------------------------------------------------------
     // Called whenever the drawableSize of the view will change
-    - (void) mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size {
+    - override (void) mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size {
         
     }
 
     //-----------------------------------------------------------------------------------
-    - (void) drawInMTKView:(MTKView *)view {
+    - override (void) drawInMTKView:(MTKView *)view {
         @autoreleasepool {
-//            // Preflight frames on the CPU (using a semaphore as a guard) and commit them
-//            // to the GPU.  This semaphore will get signaled once the GPU completes a
-//            // frame's work via addCompletedHandler callback below, signifying the CPU
-//            // can go ahead and prepare another frame.
-//            dispatch_semaphore_wait(_inflightSemaphore, DISPATCH_TIME_FOREVER);
-//            
-//            id <MTLCommandBuffer> commandBuffer = [_commandQueue commandBuffer];
-//            
-//            // Tell the derived class to encode commands into the commandBuffer.
-//            [self draw:commandBuffer];
-//            
-//            [commandBuffer presentDrawable:_metalView.currentDrawable];
-//            
-//            // Once GPU has completed executing the commands within this buffer, signal
-//            // the semaphore and allow the CPU to proceed in constructing the next frame.
-//            __block dispatch_semaphore_t block_semaphore = _inflightSemaphore;
-//            [commandBuffer addCompletedHandler: ^(id<MTLCommandBuffer> buffer) {
-//                dispatch_semaphore_signal(block_semaphore);
-//            }];
-//            
-//            // Push command buffer to GPU for execution.
-//            [commandBuffer commit];
+            // Preflight frames on the CPU (using a semaphore as a guard) and commit them
+            // to the GPU.  This semaphore will get signaled once the GPU completes a
+            // frame's work via addCompletedHandler callback below, signifying the CPU
+            // can go ahead and prepare another frame.
+            dispatch_semaphore_wait(_inflightSemaphore, DISPATCH_TIME_FOREVER);
+            
+            id <MTLCommandBuffer> commandBuffer = [_commandQueue commandBuffer];
+            
+            // Tell the derived class to encode commands into the commandBuffer.
+            [self draw: commandBuffer];
+            
+            [commandBuffer presentDrawable:_metalView.currentDrawable];
+            
+            // Once GPU has completed executing the commands within this buffer, signal
+            // the semaphore and allow the CPU to proceed in constructing the next frame.
+            __block dispatch_semaphore_t block_semaphore = _inflightSemaphore;
+            [commandBuffer addCompletedHandler: ^(id<MTLCommandBuffer> buffer) {
+                dispatch_semaphore_signal(block_semaphore);
+            }];
+            
+            // Push command buffer to GPU for execution.
+            [commandBuffer commit];
         }
     }
 

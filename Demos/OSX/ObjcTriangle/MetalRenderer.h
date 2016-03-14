@@ -12,7 +12,7 @@
 @interface MetalRenderDescriptor : NSObject
     @property (nonatomic) id<MTLDevice> device;
     @property (nonatomic) id<MTLLibrary> shaderLibrary;
-    @property (nonatomic) int sampleCount;
+    @property (nonatomic) int msaaSampleCount;
     @property (nonatomic) MTLPixelFormat colorPixelFormat;
     @property (nonatomic) MTLPixelFormat depthStencilPixelFormat;
     @property (nonatomic) MTLPixelFormat stencilAttachmentPixelFormat;
@@ -28,5 +28,8 @@
     - (instancetype)initWithDescriptor:(MetalRenderDescriptor *)metalRenderDescriptor;
 
     - (void) reshape:(CGSize)size;
+
+    - (void) render: (id<MTLCommandBuffer>)commandBuffer
+        withRenderPassDescriptor: (MTLRenderPassDescriptor *)renderPassDescriptor;
 
 @end

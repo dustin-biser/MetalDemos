@@ -12,7 +12,20 @@
 #import "MetalView.h"
 
 
-@interface DemoBase : NSViewController <MTKViewDelegate>
+@interface DemoBase : NSViewController <MTKViewDelegate> {
+@protected
+    MetalView * _metalView;
+    
+    id<MTLDevice> _device;
+    id<MTLCommandQueue> _commandQueue;
+    id<MTLLibrary> _defaultShaderLibrary;
+    
+    int _numBufferedFrames;
+    
+
+@private
+    dispatch_semaphore_t _inflightSemaphore;
+}
 
     /*!
       @abstract Called once per frame to perform rendering to this class's MTKView.
