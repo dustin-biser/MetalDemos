@@ -7,25 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C4270D01C932FA900F5B519 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C4270C21C932FA900F5B519 /* Info.plist */; };
-		0C4270EF1C932FF000F5B519 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4270BE1C932FA900F5B519 /* AppDelegate.m */; };
-		0C4270F01C932FF000F5B519 /* DemoBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C4270C61C932FA900F5B519 /* DemoBase.mm */; };
-		0C4270F11C932FF000F5B519 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4270C71C932FA900F5B519 /* main.m */; };
 		0C4270F21C932FF000F5B519 /* MetalRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C4270C91C932FA900F5B519 /* MetalRenderer.mm */; };
-		0C4270F31C932FF000F5B519 /* MetalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4270CB1C932FA900F5B519 /* MetalView.m */; };
 		0C4270F41C932FF000F5B519 /* TriangleDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4270CD1C932FA900F5B519 /* TriangleDemo.m */; };
 		0C4270F51C932FF900F5B519 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0C4270C01C932FA900F5B519 /* Shaders.metal */; };
 		0C4270F61C93300100F5B519 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C4270C31C932FA900F5B519 /* Main.storyboard */; };
 		0C4271121C93598700F5B519 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C42710E1C93598600F5B519 /* Main.storyboard */; };
-		0C4271131C93598700F5B519 /* MetalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C42710F1C93598600F5B519 /* MetalRenderer.swift */; };
-		0C4271141C93598700F5B519 /* MipmapDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4271101C93598600F5B519 /* MipmapDemo.swift */; };
-		0C4271151C935A1000F5B519 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93B81C88A8D10002A0DA /* AppDelegate.swift */; };
-		0C4271161C935A1000F5B519 /* DemoBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93B91C88A8D10002A0DA /* DemoBase.swift */; };
-		0C4271171C935A1000F5B519 /* MetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93BA1C88A8D10002A0DA /* MetalView.swift */; };
 		0C4271181C935A1000F5B519 /* MatrixTransforms.c in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93BC1C88A8D10002A0DA /* MatrixTransforms.c */; };
 		0C42711A1C935A2E00F5B519 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0C4271191C935A2E00F5B519 /* Shaders.metal */; };
-		0C42711D1C93691400F5B519 /* ObjLoader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C42711C1C93691400F5B519 /* ObjLoader.mm */; };
-		0C4271291C93699F00F5B519 /* tiny_obj_loader.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0C4271231C93699F00F5B519 /* tiny_obj_loader.cc */; };
 		0C42712A1C9375C600F5B519 /* textured_plane.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0CEE0B6E1C8CC8CB002482FA /* textured_plane.obj */; };
 		0C8E93AE1C88A7AB0002A0DA /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93661C88A70C0002A0DA /* Shaders.metal */; };
 		0C8E93AF1C88A7AB0002A0DA /* InstancingDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E936C1C88A70C0002A0DA /* InstancingDemo.swift */; };
@@ -58,32 +46,33 @@
 		0C8E93E01C88C4C20002A0DA /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E937D1C88A70C0002A0DA /* Shaders.metal */; };
 		0C8E93E11C88C4C20002A0DA /* MetalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93881C88A70C0002A0DA /* MetalRenderer.swift */; };
 		0C8E93E31C88C4CD0002A0DA /* MetalTriangleDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93E21C88C4CD0002A0DA /* MetalTriangleDemo.swift */; };
+		0CE2646B1C975871006D6B8F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264611C97586D006D6B8F /* AppDelegate.m */; };
+		0CE2646C1C975882006D6B8F /* DemoBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264631C97586D006D6B8F /* DemoBase.mm */; };
+		0CE2646D1C975882006D6B8F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264641C97586D006D6B8F /* main.m */; };
+		0CE2646E1C975882006D6B8F /* MetalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264661C97586D006D6B8F /* MetalView.m */; };
+		0CE264781C975A8C006D6B8F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264611C97586D006D6B8F /* AppDelegate.m */; };
+		0CE264791C975A8C006D6B8F /* DemoBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264631C97586D006D6B8F /* DemoBase.mm */; };
+		0CE2647A1C975A8C006D6B8F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264641C97586D006D6B8F /* main.m */; };
+		0CE2647B1C975A8C006D6B8F /* MetalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264661C97586D006D6B8F /* MetalView.m */; };
+		0CE2647C1C975A8C006D6B8F /* MetalRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264711C975904006D6B8F /* MetalRenderer.mm */; };
+		0CE2647D1C975A8C006D6B8F /* MipmapDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264731C975904006D6B8F /* MipmapDemo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0C014EFD1C94C5C4004E4E69 /* MetalDemoCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetalDemoCommon.h; sourceTree = "<group>"; };
 		0C3FED191C3B7D1E002E69FE /* MetalCube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalCube.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0C4270BD1C932FA900F5B519 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		0C4270BE1C932FA900F5B519 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0C4270C01C932FA900F5B519 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		0C4270C21C932FA900F5B519 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C4270C31C932FA900F5B519 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		0C4270C51C932FA900F5B519 /* DemoBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoBase.h; sourceTree = "<group>"; };
-		0C4270C61C932FA900F5B519 /* DemoBase.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DemoBase.mm; sourceTree = "<group>"; };
-		0C4270C71C932FA900F5B519 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0C4270C81C932FA900F5B519 /* MetalRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetalRenderer.h; sourceTree = "<group>"; };
 		0C4270C91C932FA900F5B519 /* MetalRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalRenderer.mm; sourceTree = "<group>"; };
-		0C4270CA1C932FA900F5B519 /* MetalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetalView.h; sourceTree = "<group>"; };
-		0C4270CB1C932FA900F5B519 /* MetalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MetalView.m; sourceTree = "<group>"; };
 		0C4270CC1C932FA900F5B519 /* TriangleDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TriangleDemo.h; sourceTree = "<group>"; };
 		0C4270CD1C932FA900F5B519 /* TriangleDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TriangleDemo.m; sourceTree = "<group>"; };
 		0C4270DB1C932FC500F5B519 /* ObjcTriangle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ObjcTriangle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C4270FB1C9358E000F5B519 /* Mipmap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mipmap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C42710D1C93598600F5B519 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C42710E1C93598600F5B519 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		0C42710F1C93598600F5B519 /* MetalRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalRenderer.swift; sourceTree = "<group>"; };
-		0C4271101C93598600F5B519 /* MipmapDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MipmapDemo.swift; sourceTree = "<group>"; };
-		0C4271191C935A2E00F5B519 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		0C4271191C935A2E00F5B519 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = Shaders.metal; path = Assets/Shaders.metal; sourceTree = "<group>"; };
 		0C42711B1C93691400F5B519 /* ObjLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjLoader.h; sourceTree = "<group>"; };
 		0C42711C1C93691400F5B519 /* ObjLoader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ObjLoader.mm; sourceTree = "<group>"; };
 		0C4271231C93699F00F5B519 /* tiny_obj_loader.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tiny_obj_loader.cc; sourceTree = "<group>"; };
@@ -121,6 +110,18 @@
 		0C9474D51C339EB1005933AC /* MetalTriangle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalTriangle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CB58F521C5470FD00D5CAD8 /* Instancing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instancing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CDDA0771C7A9CED00135C7C /* MultiSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultiSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CE264601C97586D006D6B8F /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		0CE264611C97586D006D6B8F /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		0CE264621C97586D006D6B8F /* DemoBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoBase.h; sourceTree = "<group>"; };
+		0CE264631C97586D006D6B8F /* DemoBase.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DemoBase.mm; sourceTree = "<group>"; };
+		0CE264641C97586D006D6B8F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0CE264651C97586D006D6B8F /* MetalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetalView.h; sourceTree = "<group>"; };
+		0CE264661C97586D006D6B8F /* MetalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MetalView.m; sourceTree = "<group>"; };
+		0CE264701C975904006D6B8F /* MetalRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetalRenderer.h; sourceTree = "<group>"; };
+		0CE264711C975904006D6B8F /* MetalRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalRenderer.mm; sourceTree = "<group>"; };
+		0CE264721C975904006D6B8F /* MipmapDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MipmapDemo.h; sourceTree = "<group>"; };
+		0CE264731C975904006D6B8F /* MipmapDemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MipmapDemo.m; sourceTree = "<group>"; };
+		0CE264771C975978006D6B8F /* MetalDemoCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetalDemoCommon.h; sourceTree = "<group>"; };
 		0CEE0B6E1C8CC8CB002482FA /* textured_plane.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = textured_plane.obj; sourceTree = "<group>"; };
 		0CEE0B7E1C8CCA1E002482FA /* lodepng.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lodepng.cpp; sourceTree = "<group>"; };
 		0CEE0B7F1C8CCA1E002482FA /* lodepng.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lodepng.h; sourceTree = "<group>"; };
@@ -180,15 +181,8 @@
 			children = (
 				0C4270BF1C932FA900F5B519 /* Assets */,
 				0C4270C11C932FA900F5B519 /* Data */,
-				0C4270BD1C932FA900F5B519 /* AppDelegate.h */,
-				0C4270BE1C932FA900F5B519 /* AppDelegate.m */,
-				0C4270C51C932FA900F5B519 /* DemoBase.h */,
-				0C4270C61C932FA900F5B519 /* DemoBase.mm */,
-				0C4270C71C932FA900F5B519 /* main.m */,
 				0C4270C81C932FA900F5B519 /* MetalRenderer.h */,
 				0C4270C91C932FA900F5B519 /* MetalRenderer.mm */,
-				0C4270CA1C932FA900F5B519 /* MetalView.h */,
-				0C4270CB1C932FA900F5B519 /* MetalView.m */,
 				0C4270CC1C932FA900F5B519 /* TriangleDemo.h */,
 				0C4270CD1C932FA900F5B519 /* TriangleDemo.m */,
 				0C014EFD1C94C5C4004E4E69 /* MetalDemoCommon.h */,
@@ -217,9 +211,12 @@
 			isa = PBXGroup;
 			children = (
 				0C42710B1C93598600F5B519 /* Assets */,
+				0C4271191C935A2E00F5B519 /* Shaders.metal */,
 				0C42710C1C93598600F5B519 /* Data */,
-				0C42710F1C93598600F5B519 /* MetalRenderer.swift */,
-				0C4271101C93598600F5B519 /* MipmapDemo.swift */,
+				0CE264701C975904006D6B8F /* MetalRenderer.h */,
+				0CE264711C975904006D6B8F /* MetalRenderer.mm */,
+				0CE264721C975904006D6B8F /* MipmapDemo.h */,
+				0CE264731C975904006D6B8F /* MipmapDemo.m */,
 			);
 			path = Mipmap;
 			sourceTree = "<group>";
@@ -227,7 +224,6 @@
 		0C42710B1C93598600F5B519 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				0C4271191C935A2E00F5B519 /* Shaders.metal */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -393,6 +389,7 @@
 				0C8E93BB1C88A8D10002A0DA /* BridgingHeader.h */,
 				0C8E93BC1C88A8D10002A0DA /* MatrixTransforms.c */,
 				0C8E93BD1C88A8D10002A0DA /* MatrixTransforms.h */,
+				0CE264771C975978006D6B8F /* MetalDemoCommon.h */,
 				0C8E93BE1C88A8D10002A0DA /* ShaderResourceIndices.h */,
 				0C8E93BF1C88A8D10002A0DA /* ShaderUniforms.h */,
 				0C42711B1C93691400F5B519 /* ObjLoader.h */,
@@ -423,6 +420,13 @@
 		0C8E93B71C88A8D10002A0DA /* OSX */ = {
 			isa = PBXGroup;
 			children = (
+				0CE264601C97586D006D6B8F /* AppDelegate.h */,
+				0CE264611C97586D006D6B8F /* AppDelegate.m */,
+				0CE264621C97586D006D6B8F /* DemoBase.h */,
+				0CE264631C97586D006D6B8F /* DemoBase.mm */,
+				0CE264641C97586D006D6B8F /* main.m */,
+				0CE264651C97586D006D6B8F /* MetalView.h */,
+				0CE264661C97586D006D6B8F /* MetalView.m */,
 				0C8E93B81C88A8D10002A0DA /* AppDelegate.swift */,
 				0C8E93B91C88A8D10002A0DA /* DemoBase.swift */,
 				0C8E93BA1C88A8D10002A0DA /* MetalView.swift */,
@@ -656,7 +660,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C4270D01C932FA900F5B519 /* Info.plist in Resources */,
 				0C8E93DC1C88C4B50002A0DA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -698,12 +701,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CE2646C1C975882006D6B8F /* DemoBase.mm in Sources */,
+				0CE2646D1C975882006D6B8F /* main.m in Sources */,
+				0CE2646E1C975882006D6B8F /* MetalView.m in Sources */,
+				0CE2646B1C975871006D6B8F /* AppDelegate.m in Sources */,
 				0C4270F51C932FF900F5B519 /* Shaders.metal in Sources */,
-				0C4270EF1C932FF000F5B519 /* AppDelegate.m in Sources */,
-				0C4270F01C932FF000F5B519 /* DemoBase.mm in Sources */,
-				0C4270F11C932FF000F5B519 /* main.m in Sources */,
 				0C4270F21C932FF000F5B519 /* MetalRenderer.mm in Sources */,
-				0C4270F31C932FF000F5B519 /* MetalView.m in Sources */,
 				0C4270F41C932FF000F5B519 /* TriangleDemo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -712,15 +715,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C42711D1C93691400F5B519 /* ObjLoader.mm in Sources */,
-				0C4271151C935A1000F5B519 /* AppDelegate.swift in Sources */,
+				0CE264781C975A8C006D6B8F /* AppDelegate.m in Sources */,
+				0CE264791C975A8C006D6B8F /* DemoBase.mm in Sources */,
+				0CE2647A1C975A8C006D6B8F /* main.m in Sources */,
+				0CE2647B1C975A8C006D6B8F /* MetalView.m in Sources */,
+				0CE2647C1C975A8C006D6B8F /* MetalRenderer.mm in Sources */,
+				0CE2647D1C975A8C006D6B8F /* MipmapDemo.m in Sources */,
 				0C42711A1C935A2E00F5B519 /* Shaders.metal in Sources */,
-				0C4271161C935A1000F5B519 /* DemoBase.swift in Sources */,
-				0C4271171C935A1000F5B519 /* MetalView.swift in Sources */,
-				0C4271291C93699F00F5B519 /* tiny_obj_loader.cc in Sources */,
 				0C4271181C935A1000F5B519 /* MatrixTransforms.c in Sources */,
-				0C4271131C93598700F5B519 /* MetalRenderer.swift in Sources */,
-				0C4271141C93598700F5B519 /* MipmapDemo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
