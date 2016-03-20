@@ -22,4 +22,3 @@
 #import "MatrixTransforms.h"
 #import "ShaderResourceIndices.h"
 #import "ShaderUniforms.h"
-#import "ObjLoader.h"

@@ -7,6 +7,10 @@
 //
 
 #import <Metal/Metal.h>
+#import <ModelIO/ModelIO.h>
+
+// Forward declaration
+class Camera;
 
 
 @interface MetalRenderDescriptor : NSObject
@@ -30,6 +34,8 @@
     - (void) reshape:(CGSize)size;
 
     - (void) render: (id<MTLCommandBuffer>)commandBuffer
-        withRenderPassDescriptor: (MTLRenderPassDescriptor *)renderPassDescriptor;
+                renderPassDescriptor: (MTLRenderPassDescriptor *)renderPassDescriptor
+                camera: (const Camera &)camera;
+        
 
 @end

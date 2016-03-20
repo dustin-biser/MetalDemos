@@ -31,9 +31,9 @@
 
 //---------------------------------------------------------------------------------------
 /// Vertex Attribute Indices:
-int_type PositionAttribute     = 0;
-int_type NormalAttribute       = 1;
-int_type TextureCoordAttribute = 2;
+int_type PositionAttribute          = 0;
+int_type NormalAttribute            = 1;
+int_type TextureCoordinateAttribute = 2;
 
 
 //---------------------------------------------------------------------------------------

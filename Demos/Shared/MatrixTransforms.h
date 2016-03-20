@@ -10,6 +10,10 @@
 
 #include <simd/matrix_types.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+    
 matrix_float4x4 matrix_from_perspective_fov_aspectLH (
         const float fovY,
         const float aspect,
@@ -33,3 +37,7 @@ matrix_float4x4 matrix_from_rotation (
 matrix_float3x3 sub_matrix_float3x3 (
         const matrix_float4x4 * m
 );
+
+#ifdef __cplusplus
+}
+#endif

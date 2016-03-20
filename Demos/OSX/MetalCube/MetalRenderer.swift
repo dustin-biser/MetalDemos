@@ -111,7 +111,6 @@ class MetalRenderer {
         self.preparePipelineState()
         
         self.allocateUniformBuffers()
-        self.setFrameUniforms()
         
         self.allocateVertexBufferData()
     }
@@ -153,7 +152,6 @@ class MetalRenderer {
         memcpy(frameUniformBuffers[currentFrame].contents(), &frameUniforms,
             strideof(FrameUniforms))
         
-        currentFrame = (currentFrame + 1) % frameUniformBuffers.count
     }
     
     //-----------------------------------------------------------------------------------
