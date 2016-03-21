@@ -8,20 +8,12 @@
 
 #import "MetalDemoCommon.h"
 #import "MipmapDemo.h"
-#import "MetalRenderer.h"
+#import "MipmapRenderer.h"
 #import "Camera.hpp"
 
 #import <simd/vector_types.h>
 #import <memory>
 using namespace std;
-
-
-////////////////////////////////////////
-// TODO: Remove this after testing
-#include <iostream>
-#include <glm/gtx/io.hpp>
-
-////////////////////////////////////////
 
 
 // Private methods
@@ -36,7 +28,7 @@ using namespace std;
 
 @implementation MipmapDemo {
 @private
-    MetalRenderer * _metalRenderer;
+    MipmapRenderer * _renderer;
     
     shared_ptr<Camera> _camera;
 }
@@ -50,7 +42,7 @@ using namespace std;
         // TripleBuffer rendering of frames.
         _numBufferedFrames = 3;
         
-        MetalRenderDescriptor * metalRenderDescriptor = [[MetalRenderDescriptor alloc] init];
+        MipmapRenderDescriptor * metalRenderDescriptor = [[MipmapRenderDescriptor alloc] init];
         metalRenderDescriptor.device = _device;
         metalRenderDescriptor.shaderLibrary = _defaultShaderLibrary;
         metalRenderDescriptor.msaaSampleCount = (int)_metalView.sampleCount;
@@ -61,7 +53,7 @@ using namespace std;
         metalRenderDescriptor.framebufferHeight = _metalView.drawableSize.height;
         metalRenderDescriptor.numBufferedFrames = _numBufferedFrames;
         
-        _metalRenderer = [[MetalRenderer alloc] initWithDescriptor: metalRenderDescriptor];
+        _renderer = [[MipmapRenderer alloc] initWithDescriptor: metalRenderDescriptor];
         
     }
 
@@ -89,12 +81,12 @@ using namespace std;
     - override (void) viewSizeChanged:(MTKView *)view
                     newSize:(CGSize)size {
     
-        [_metalRenderer reshape: size];
+        [_renderer reshape: size];
     }
 
     //-----------------------------------------------------------------------------------
     - override (void) draw:(id<MTLCommandBuffer>)commandBuffer {
-        [_metalRenderer render: commandBuffer
+        [_renderer render: commandBuffer
           renderPassDescriptor: _metalView.currentRenderPassDescriptor
                         camera: (*_camera)];
     }

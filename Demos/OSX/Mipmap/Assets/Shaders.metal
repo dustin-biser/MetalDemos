@@ -8,20 +8,21 @@
 
 #include <metal_stdlib>
 #include <simd/simd.h>
-#include "ShaderUniforms.hpp"
+#include "ShaderUniforms.h"
 #include "ShaderResourceIndices.h"
 
 using namespace metal;
 
 // Variables in constant address space:
 constant float3 light_position = float3(-1.0, 2.0, -1.0);
-constant half3 diffuse = half3(0.08, 0.08, 0.3);
+//constant half3 diffuse = half3(0.08, 0.08, 0.3);
 
 
 // Input to the vertex shader.
 struct VertexInput {
-    float3 position [[attribute(PositionAttribute)]];
-    float3 normal   [[attribute(NormalAttribute)]];
+    float3 position [[ attribute(PositionAttribute) ]];
+    float3 normal   [[ attribute(NormalAttribute) ]];
+    float2 textureCoord [[ attribute(TextureCoordinateAttribute) ]];
 };
 
 
@@ -30,6 +31,7 @@ struct VertexOutput {
     float4 position_CS [[position]];  // Clip-space position.
     float3 position_VS; // Vertex position in view-space.
     float3 normal_VS;   // Vertex normal in view-space.
+    float2 textureCoord; // (u,v) texture coordinates.
 };
 
 
@@ -50,6 +52,7 @@ vertex VertexOutput vertexFunction (
     vOut.position_CS = frameUniforms.projectionMatrix * vertexPosition_VS;
     vOut.position_VS = vertexPosition_VS.xyz;
     vOut.normal_VS = normalize(frameUniforms.normalMatrix * v_in.normal);
+    vOut.textureCoord = v_in.textureCoord;
     
     return vOut;
 }
@@ -58,7 +61,9 @@ vertex VertexOutput vertexFunction (
 //---------------------------------------------------------------------------------------
 // Fragment Function
 fragment half4 fragmentFunction (
-        VertexOutput f_in [[stage_in]]
+        VertexOutput f_in [[stage_in]],
+        texture2d<float, access::sample> diffuseTexture [[ texture(0) ]],
+        sampler samplerDiffuse [[ sampler(0) ]]
 ) {
     float3 l = normalize(light_position - f_in.position_VS);
     float n_dot_l = dot(f_in.normal_VS.rgb, l);
@@ -67,5 +72,7 @@ fragment half4 fragmentFunction (
     float r = clamp(distance(light_position, f_in.position_VS), 0.2, 1.5);
     float fallOff = 1.0/r;
     
-    return half4(diffuse * n_dot_l, 1.0) * fallOff;
+    float4 diffuseColor = diffuseTexture.sample(samplerDiffuse, f_in.textureCoord);
+    
+    return half4(diffuseColor * n_dot_l * fallOff);
 }

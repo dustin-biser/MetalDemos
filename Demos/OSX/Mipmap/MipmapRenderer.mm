@@ -1,12 +1,12 @@
 //
-//  MetalRenderer.mm
+//  MipmapRenderer.mm
 //  MetalDemos
 //
 //  Created by Dustin on 3/10/16.
 //  Copyright © 2016 none. All rights reserved.
 //
 
-#import "MetalRenderer.h"
+#import "MipmapRenderer.h"
 #import "ShaderResourceIndices.h"
 #import "ShaderUniforms.h"
 #import "MatrixTransforms.h"
@@ -55,7 +55,7 @@ static matrix_float3x3 glm_mat3_to_matrix_float3x3(const glm::mat3 & mat) {
 
 
 //---------------------------------------------------------------------------------------
-@implementation MetalRenderDescriptor : NSObject
+@implementation MipmapRenderDescriptor : NSObject
 
 
 @end
@@ -65,14 +65,16 @@ static matrix_float3x3 glm_mat3_to_matrix_float3x3(const glm::mat3 & mat) {
 
 //---------------------------------------------------------------------------------------
 // Private methods
-@interface MetalRenderer ()
+@interface MipmapRenderer ()
     - (void) prepareDepthStencilState;
 
     - (void) preparePipelineState;
 
-    - (id<MTLFunction>) newFunctionWithName:(NSString *)functionName;
+    - (id<MTLFunction>) newShaderFunctionWithName:(NSString *)functionName;
 
-    - (void) uploadDataToVertexBuffer;
+    - (void) loadMeshAssets;
+
+    - (void) loadTextureAssets;
 
     - (void) setFrameUniforms: (const Camera &)camera;
 
@@ -80,13 +82,14 @@ static matrix_float3x3 glm_mat3_to_matrix_float3x3(const glm::mat3 & mat) {
 
     - (void) encodeRenderCommandInto:(id<MTLCommandBuffer>)commandBuffer
             withRenderPassDescriptor:(MTLRenderPassDescriptor *)renderPassDescriptor;
+
 @end
 
 
 
 
 //---------------------------------------------------------------------------------------
-@implementation MetalRenderer {
+@implementation MipmapRenderer {
     id<MTLDevice> _device;
     
     id<MTLLibrary> _shaderLibrary;
@@ -108,13 +111,14 @@ static matrix_float3x3 glm_mat3_to_matrix_float3x3(const glm::mat3 & mat) {
     id<MTLBuffer> _vertexBuffer;
     MTLVertexDescriptor * _vertexDescriptor;
     MTKMesh * _planeMesh;
+    id<MTLTexture> _planeTexture;
     
     NSMutableArray<id<MTLBuffer>> * _frameUniformBuffers;
     int _currentFrame;
 }
 
     //-----------------------------------------------------------------------------------
-    - (instancetype)initWithDescriptor:(MetalRenderDescriptor *)metalRenderDescriptor {
+    - (instancetype)initWithDescriptor:(MipmapRenderDescriptor *)metalRenderDescriptor {
         if(self = [super init]) {
             _device = metalRenderDescriptor.device;
             _shaderLibrary = metalRenderDescriptor.shaderLibrary;
@@ -132,16 +136,18 @@ static matrix_float3x3 glm_mat3_to_matrix_float3x3(const glm::mat3 & mat) {
             
             [self preparePipelineState];
             
-            [self uploadDataToVertexBuffer];
+            [self loadMeshAssets];
             
             [self allocateFrameUniformBuffers];
+            
+            [self loadTextureAssets];
         }
         return self;
     }
 
 
     //-----------------------------------------------------------------------------------
-    - (id<MTLFunction>) newFunctionWithName:(NSString *)functionName {
+    - (id<MTLFunction>) newShaderFunctionWithName:(NSString *)functionName {
         id<MTLFunction> function = [_shaderLibrary newFunctionWithName:functionName];
         if(function == nil) {
             NSLog(@"Error retrieving shader function: %@", functionName);
@@ -153,8 +159,8 @@ static matrix_float3x3 glm_mat3_to_matrix_float3x3(const glm::mat3 & mat) {
 
     //-----------------------------------------------------------------------------------
     - (void) preparePipelineState {
-        id<MTLFunction> vertexFunction = [self newFunctionWithName:@"vertexFunction"];
-        id<MTLFunction> fragmentFunction = [self newFunctionWithName:@"fragmentFunction"];
+        id<MTLFunction> vertexFunction = [self newShaderFunctionWithName:@"vertexFunction"];
+        id<MTLFunction> fragmentFunction = [self newShaderFunctionWithName:@"fragmentFunction"];
         
         MTLVertexDescriptor * vertexDescriptor = [[MTLVertexDescriptor alloc] init];
         
@@ -217,7 +223,7 @@ static matrix_float3x3 glm_mat3_to_matrix_float3x3(const glm::mat3 & mat) {
     }
 
     //-----------------------------------------------------------------------------------
-    - (void) uploadDataToVertexBuffer {
+    - (void) loadMeshAssets {
         // Create a MDLVertexDescriptor from an existing MTLVertexDescriptor
         MDLVertexDescriptor * mdlVertexDescriptor =
                 MTKModelIOVertexDescriptorFromMetal(_vertexDescriptor);
@@ -232,20 +238,20 @@ static matrix_float3x3 glm_mat3_to_matrix_float3x3(const glm::mat3 & mat) {
         MTKMeshBufferAllocator * bufferAllocator =
                 [[MTKMeshBufferAllocator alloc] initWithDevice:_device];
         
-        NSURL * assetURL = [[NSBundle mainBundle]
+        NSURL * meshAssetURL = [[NSBundle mainBundle]
             URLForResource: @"Assets/Meshes/textured_plane.obj"
              withExtension: nil
         ];
         
         NSError * errors = nil;
         MDLAsset * asset =
-            [[MDLAsset alloc] initWithURL: assetURL
+            [[MDLAsset alloc] initWithURL: meshAssetURL
                          vertexDescriptor: mdlVertexDescriptor
                           bufferAllocator: bufferAllocator
                          preserveTopology: NO
                                     error: &errors];
         if(errors) {
-            NSLog(@"Error loading assset: %@.\n With Error: %@", assetURL, errors);
+            NSLog(@"Error loading assset: %@.\n With Error: %@", meshAssetURL, errors);
         }
         
         
@@ -255,12 +261,35 @@ static matrix_float3x3 glm_mat3_to_matrix_float3x3(const glm::mat3 & mat) {
                                sourceMeshes: nil
                                       error: &errors];
         if(errors) {
-            NSLog(@"Error loading assset: %@.\n With Error: %@", assetURL, errors);
+            NSLog(@"Error loading assset: %@.\n With Error: %@", meshAssetURL, errors);
         }
         
         
         _planeMesh = mtkMeshArray[0];
         
+    }
+
+    //-----------------------------------------------------------------------------------
+    - (void) loadTextureAssets {
+        NSURL * textureAssetURL = [[NSBundle mainBundle]
+            URLForResource: @"Assets/Textures/lightTiles.png"
+             withExtension: nil ];
+        
+        MTKTextureLoader * mtlTextureLoader =
+                [[MTKTextureLoader alloc] initWithDevice:_device];
+        
+        NSDictionary<NSString *, NSNumber *> * textureLoadingOptions =
+        @{
+            MTKTextureLoaderOptionAllocateMipmaps : @YES,
+            MTKTextureLoaderOptionSRGB : @YES
+        };
+        
+        NSError * error;
+        
+        _planeTexture =
+            [mtlTextureLoader newTextureWithContentsOfURL:textureAssetURL
+                                                  options:textureLoadingOptions
+                                                    error:&error];
     }
 
     //-----------------------------------------------------------------------------------
@@ -352,6 +381,21 @@ static matrix_float3x3 glm_mat3_to_matrix_float3x3(const glm::mat3 & mat) {
                                atIndex: FrameUniformBufferIndex];
     
         
+        //-- Set Diffuse Texture and Sampler:
+        {
+            [renderEncoder setFragmentTexture: _planeTexture atIndex:0];
+            
+            auto samplerDescriptor = [[MTLSamplerDescriptor alloc] init];
+            samplerDescriptor.minFilter = MTLSamplerMinMagFilterLinear;
+            samplerDescriptor.magFilter = MTLSamplerMinMagFilterLinear;
+            samplerDescriptor.sAddressMode = MTLSamplerAddressModeRepeat;
+            samplerDescriptor.tAddressMode = MTLSamplerAddressModeRepeat;
+            
+            auto sampler = [_device newSamplerStateWithDescriptor:samplerDescriptor];
+            
+            [renderEncoder setFragmentSamplerState:sampler atIndex:0];
+        }
+        
         
         for(MTKSubmesh * subMesh in _planeMesh.submeshes) {
             [renderEncoder drawIndexedPrimitives: MTLPrimitiveTypeTriangle
@@ -380,4 +424,4 @@ static matrix_float3x3 glm_mat3_to_matrix_float3x3(const glm::mat3 & mat) {
         _currentFrame = (_currentFrame + 1) % _numBufferedFrames;
     }
 
-@end // MetalRenderer
+@end // MipmapRenderer

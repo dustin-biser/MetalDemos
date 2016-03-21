@@ -1,5 +1,5 @@
 //
-//  MetalRenderer.h
+//  MipmapRenderer.h
 //  MetalDemos
 //
 //  Created by Dustin on 3/10/16.
@@ -13,7 +13,7 @@
 class Camera;
 
 
-@interface MetalRenderDescriptor : NSObject
+@interface MipmapRenderDescriptor : NSObject
     @property (nonatomic) id<MTLDevice> device;
     @property (nonatomic) id<MTLLibrary> shaderLibrary;
     @property (nonatomic) int msaaSampleCount;
@@ -27,9 +27,9 @@ class Camera;
 @end
 
 
-@interface MetalRenderer : NSObject
+@interface MipmapRenderer : NSObject
 
-    - (instancetype)initWithDescriptor:(MetalRenderDescriptor *)metalRenderDescriptor;
+    - (instancetype)initWithDescriptor:(MipmapRenderDescriptor *)metalRenderDescriptor;
 
     - (void) reshape:(CGSize)size;
 

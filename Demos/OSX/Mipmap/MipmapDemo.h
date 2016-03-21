@@ -6,7 +6,6 @@
 //  Copyright © 2016 none. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "DemoBase.h"
 
 @interface MipmapDemo : DemoBase

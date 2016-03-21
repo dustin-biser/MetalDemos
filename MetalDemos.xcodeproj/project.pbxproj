@@ -43,7 +43,7 @@
 		0CE264791C975A8C006D6B8F /* DemoBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264631C97586D006D6B8F /* DemoBase.mm */; };
 		0CE2647A1C975A8C006D6B8F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264641C97586D006D6B8F /* main.m */; };
 		0CE2647B1C975A8C006D6B8F /* MetalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264661C97586D006D6B8F /* MetalView.m */; };
-		0CE2647C1C975A8C006D6B8F /* MetalRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264711C975904006D6B8F /* MetalRenderer.mm */; };
+		0CE2647C1C975A8C006D6B8F /* MipmapRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264711C975904006D6B8F /* MipmapRenderer.mm */; };
 		0CE2647D1C975A8C006D6B8F /* MipmapDemo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264731C975904006D6B8F /* MipmapDemo.mm */; };
 		0CE264891C9869BB006D6B8F /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264801C9869BB006D6B8F /* Shaders.metal */; };
 		0CE2648B1C9869BB006D6B8F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CE264831C9869BB006D6B8F /* Main.storyboard */; };
@@ -351,8 +351,8 @@
 		0CE264641C97586D006D6B8F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0CE264651C97586D006D6B8F /* MetalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetalView.h; sourceTree = "<group>"; };
 		0CE264661C97586D006D6B8F /* MetalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MetalView.m; sourceTree = "<group>"; };
-		0CE264701C975904006D6B8F /* MetalRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetalRenderer.h; sourceTree = "<group>"; };
-		0CE264711C975904006D6B8F /* MetalRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetalRenderer.mm; sourceTree = "<group>"; };
+		0CE264701C975904006D6B8F /* MipmapRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MipmapRenderer.h; sourceTree = "<group>"; };
+		0CE264711C975904006D6B8F /* MipmapRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MipmapRenderer.mm; sourceTree = "<group>"; };
 		0CE264721C975904006D6B8F /* MipmapDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MipmapDemo.h; sourceTree = "<group>"; };
 		0CE264731C975904006D6B8F /* MipmapDemo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MipmapDemo.mm; sourceTree = "<group>"; };
 		0CE264771C975978006D6B8F /* MetalDemoCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetalDemoCommon.h; sourceTree = "<group>"; };
@@ -416,8 +416,8 @@
 				0C42710B1C93598600F5B519 /* Assets */,
 				0C4271191C935A2E00F5B519 /* Shaders.metal */,
 				0C42710C1C93598600F5B519 /* Data */,
-				0CE264701C975904006D6B8F /* MetalRenderer.h */,
-				0CE264711C975904006D6B8F /* MetalRenderer.mm */,
+				0CE264701C975904006D6B8F /* MipmapRenderer.h */,
+				0CE264711C975904006D6B8F /* MipmapRenderer.mm */,
 				0CE264721C975904006D6B8F /* MipmapDemo.h */,
 				0CE264731C975904006D6B8F /* MipmapDemo.mm */,
 			);
@@ -1164,7 +1164,7 @@
 				0CE2647A1C975A8C006D6B8F /* main.m in Sources */,
 				0CE2647B1C975A8C006D6B8F /* MetalView.m in Sources */,
 				0C02568D1C9A3B58003D61EF /* Camera.cpp in Sources */,
-				0CE2647C1C975A8C006D6B8F /* MetalRenderer.mm in Sources */,
+				0CE2647C1C975A8C006D6B8F /* MipmapRenderer.mm in Sources */,
 				0CE2647D1C975A8C006D6B8F /* MipmapDemo.mm in Sources */,
 				0C42711A1C935A2E00F5B519 /* Shaders.metal in Sources */,
 				0C4271181C935A1000F5B519 /* MatrixTransforms.c in Sources */,

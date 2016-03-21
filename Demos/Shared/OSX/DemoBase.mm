@@ -162,7 +162,7 @@
     //-----------------------------------------------------------------------------------
     // Called whenever the drawableSize of the view will change
     - override (void) mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size {
-        
+        [self viewSizeChanged:view newSize: size];
     }
 
     //-----------------------------------------------------------------------------------
