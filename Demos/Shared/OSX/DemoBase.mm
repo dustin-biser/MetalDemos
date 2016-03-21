@@ -22,7 +22,11 @@
 
 
 
-@implementation DemoBase
+@implementation DemoBase {
+@private
+    dispatch_semaphore_t _inflightSemaphore;
+    
+}
 
     //-----------------------------------------------------------------------------------
     - override (void)viewWillAppear {
@@ -105,58 +109,58 @@
      - parameter commandBuffer: Used to encode render commands into.
     */
     - (void) draw:(id<MTLCommandBuffer>)commandBuffer {
-        
+        // Override this method.
     }
     
     //-----------------------------------------------------------------------------------
     /// Called once the size of the MTKView changes.
     - (void) viewSizeChanged:(MTKView *)view newSize:(struct CGSize)size {
-    
+        // Override this method.
     }
     
     //-----------------------------------------------------------------------------------
     - (void) keyUp:(NSEvent *)theEvent {
-        
+        // Override this method.
     }
     
     //-----------------------------------------------------------------------------------
     - (void) keyDown:(NSEvent *)theEvent {
-        
+        // Override this method.
     }
     
     //-----------------------------------------------------------------------------------
     - (void) mouseEntered:(NSEvent *)theEvent {
-        
+        // Override this method.
     }
     
     //-----------------------------------------------------------------------------------
     - (void) mouseExited:(NSEvent *)theEvent {
-        
+        // Override this method.
     }
     
     //-----------------------------------------------------------------------------------
     - (void) mouseMoved:(NSEvent *)theEvent {
-        
+        // Override this method.
     }
     
     //-----------------------------------------------------------------------------------
     - (void) mouseDragged:(NSEvent *)theEvent {
-        
+        // Override this method.
     }
     
     //-----------------------------------------------------------------------------------
     - (void) mouseDown:(NSEvent *)theEvent {
-        
+        // Override this method.
     }
     
     //-----------------------------------------------------------------------------------
     - (void) mouseUp:(NSEvent *)theEvent {
-        
+        // Override this method.
     }
     
     //-----------------------------------------------------------------------------------
     - (void) scrollWheel:(NSEvent *)theEvent {
-        
+        // Override this method.
     }
 
     //-----------------------------------------------------------------------------------

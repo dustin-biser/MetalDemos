@@ -119,29 +119,33 @@ static matrix_float3x3 glm_mat3_to_matrix_float3x3(const glm::mat3 & mat) {
 
     //-----------------------------------------------------------------------------------
     - (instancetype)initWithDescriptor:(MipmapRenderDescriptor *)metalRenderDescriptor {
-        if(self = [super init]) {
-            _device = metalRenderDescriptor.device;
-            _shaderLibrary = metalRenderDescriptor.shaderLibrary;
-            _msaaSampleCount = metalRenderDescriptor.msaaSampleCount;
-            _colorPixelFormat = metalRenderDescriptor.colorPixelFormat;
-            _depthStencilPixelFormat = metalRenderDescriptor.depthStencilPixelFormat;
-            _stencilAttachmentPixelFormat = metalRenderDescriptor.stencilAttachmentPixelFormat;
-            _framebufferWidth = metalRenderDescriptor.framebufferWidth;
-            _framebufferHeight = metalRenderDescriptor.framebufferHeight;
-            _numBufferedFrames = metalRenderDescriptor.numBufferedFrames;
-            
-            _currentFrame = 0;
-            
-            [self prepareDepthStencilState];
-            
-            [self preparePipelineState];
-            
-            [self loadMeshAssets];
-            
-            [self allocateFrameUniformBuffers];
-            
-            [self loadTextureAssets];
+        self = [super init];
+        if(!self) {
+            return nil;
         }
+        _device = metalRenderDescriptor.device;
+        _shaderLibrary = metalRenderDescriptor.shaderLibrary;
+        _msaaSampleCount = metalRenderDescriptor.msaaSampleCount;
+        _colorPixelFormat = metalRenderDescriptor.colorPixelFormat;
+        _depthStencilPixelFormat = metalRenderDescriptor.depthStencilPixelFormat;
+        _stencilAttachmentPixelFormat = metalRenderDescriptor.stencilAttachmentPixelFormat;
+        _framebufferWidth = metalRenderDescriptor.framebufferWidth;
+        _framebufferHeight = metalRenderDescriptor.framebufferHeight;
+        _numBufferedFrames = metalRenderDescriptor.numBufferedFrames;
+        
+        _currentFrame = 0;
+        
+        [self prepareDepthStencilState];
+        
+        [self preparePipelineState];
+        
+        [self loadMeshAssets];
+        
+        [self allocateFrameUniformBuffers];
+        
+        [self loadTextureAssets];
+        
+        
         return self;
     }
 
@@ -338,6 +342,16 @@ static matrix_float3x3 glm_mat3_to_matrix_float3x3(const glm::mat3 & mat) {
         _framebufferHeight = (int)size.height;
     }
 
+
+    //-----------------------------------------------------------------------------------
+    - (void) generateMipmapLevels: (id<MTLCommandBuffer>)commandBuffer {
+        id<MTLBlitCommandEncoder> commandEncoder = [commandBuffer blitCommandEncoder];
+        
+        [commandEncoder generateMipmapsForTexture: _planeTexture];
+        [commandEncoder endEncoding];
+        [commandBuffer commit];
+    }
+
     //-----------------------------------------------------------------------------------
     - (void) encodeRenderCommandInto:(id<MTLCommandBuffer>)commandBuffer
             withRenderPassDescriptor:(MTLRenderPassDescriptor *)renderPassDescriptor {
@@ -390,6 +404,8 @@ static matrix_float3x3 glm_mat3_to_matrix_float3x3(const glm::mat3 & mat) {
             samplerDescriptor.magFilter = MTLSamplerMinMagFilterLinear;
             samplerDescriptor.sAddressMode = MTLSamplerAddressModeRepeat;
             samplerDescriptor.tAddressMode = MTLSamplerAddressModeRepeat;
+            samplerDescriptor.maxAnisotropy = 16;
+            samplerDescriptor.mipFilter = MTLSamplerMipFilterLinear;
             
             auto sampler = [_device newSamplerStateWithDescriptor:samplerDescriptor];
             

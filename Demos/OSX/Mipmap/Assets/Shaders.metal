@@ -69,10 +69,7 @@ fragment half4 fragmentFunction (
     float n_dot_l = dot(f_in.normal_VS.rgb, l);
     n_dot_l = fmax(0.0, n_dot_l);
     
-    float r = clamp(distance(light_position, f_in.position_VS), 0.2, 1.5);
-    float fallOff = 1.0/r;
-    
     float4 diffuseColor = diffuseTexture.sample(samplerDiffuse, f_in.textureCoord);
     
-    return half4(diffuseColor * n_dot_l * fallOff);
+    return half4(diffuseColor * n_dot_l);
 }

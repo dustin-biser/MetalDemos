@@ -21,10 +21,6 @@
     id<MTLLibrary> _defaultShaderLibrary;
     
     int _numBufferedFrames;
-    
-
-@private
-    dispatch_semaphore_t _inflightSemaphore;
 }
 
     /*!
