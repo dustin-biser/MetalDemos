@@ -73,8 +73,8 @@ using namespace std;
         _camera = std::make_shared<Camera>();
         
         _camera->lookAt(
-                glm::vec3(0.0f, 10.2f, 55.4f),
-                glm::vec3(0.0f, 0.0f, 0.0f),
+                glm::vec3(0.0f, 112.2f, 1140.5f),
+                glm::vec3(0.0f, 0.0f, 100.0f),
                 glm::vec3(0.0f, 1.0f, 0.0f)
        );
     }
@@ -103,7 +103,7 @@ using namespace std;
 
     //-----------------------------------------------------------------------------------
     - (void) keyDown:(NSEvent *)theEvent {
-        const float deltaTranslation(0.2f);
+        const float deltaTranslation(1.5f);
         const float deltaRotation(0.05f);
         
         char unicodeChar = [theEvent.charactersIgnoringModifiers characterAtIndex:0];
@@ -142,6 +142,7 @@ using namespace std;
             default:
                 break;
         }
+        
     }
 
 @end // MipmapDemo

@@ -60,7 +60,7 @@ vertex VertexOutput vertexFunction (
 
 //---------------------------------------------------------------------------------------
 // Fragment Function
-fragment half4 fragmentFunction (
+fragment float4 fragmentFunction (
         VertexOutput f_in [[stage_in]],
         texture2d<float, access::sample> diffuseTexture [[ texture(0) ]],
         sampler samplerDiffuse [[ sampler(0) ]]
@@ -71,5 +71,6 @@ fragment half4 fragmentFunction (
     
     float4 diffuseColor = diffuseTexture.sample(samplerDiffuse, f_in.textureCoord);
     
-    return half4(diffuseColor * n_dot_l);
+//    return half4(diffuseColor * n_dot_l);
+    return diffuseColor;
 }

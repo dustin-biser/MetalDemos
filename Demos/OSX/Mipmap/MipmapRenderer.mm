@@ -317,9 +317,6 @@ static matrix_float3x3 glm_mat3_to_matrix_float3x3(const glm::mat3 & mat) {
         float fovy = 65.0f * (M_PI / 180.0f);
         glm::mat4 projectionMatrix = glm::perspective(fovy, aspect, 0.1f, 100.0f);
         
-        
-        
-        
         glm::mat4 modelMatrix = glm::mat4();
         glm::mat4 viewMatrix = camera.viewMatrix();
         glm::mat4 modelView = viewMatrix * modelMatrix;
@@ -357,7 +354,7 @@ static matrix_float3x3 glm_mat3_to_matrix_float3x3(const glm::mat3 & mat) {
             withRenderPassDescriptor:(MTLRenderPassDescriptor *)renderPassDescriptor {
         
         renderPassDescriptor.colorAttachments[0].clearColor =
-            MTLClearColorMake(0.2, 0.2, 0.2, 1.0);
+            MTLClearColorMake(0.1, 0.1, 0.1, 1.0);
         
         renderPassDescriptor.depthAttachment.clearDepth = 1.0;
         

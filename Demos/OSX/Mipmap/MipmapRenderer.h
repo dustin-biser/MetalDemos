@@ -37,6 +37,6 @@ class Camera;
                 renderPassDescriptor: (MTLRenderPassDescriptor *)renderPassDescriptor
                 camera: (const Camera &)camera;
 
-    - (void) generateMipmapLevels: (id<MTLCommandBuffer>)commandBuffer;
+   - (void) generateMipmapLevels: (id<MTLCommandBuffer>)commandBuffer;
 
 @end
