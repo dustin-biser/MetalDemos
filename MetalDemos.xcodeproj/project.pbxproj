@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0C02568D1C9A3B58003D61EF /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C02568B1C9A3B58003D61EF /* Camera.cpp */; };
+		0C032FC81CA4513C00100276 /* InputHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C032FC61CA4513C00100276 /* InputHandler.cpp */; };
 		0C4271121C93598700F5B519 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C42710E1C93598600F5B519 /* Main.storyboard */; };
 		0C4271181C935A1000F5B519 /* MatrixTransforms.c in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93BC1C88A8D10002A0DA /* MatrixTransforms.c */; };
 		0C42711A1C935A2E00F5B519 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0C4271191C935A2E00F5B519 /* Shaders.metal */; };
@@ -55,6 +56,8 @@
 /* Begin PBXFileReference section */
 		0C02568B1C9A3B58003D61EF /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		0C02568C1C9A3B58003D61EF /* Camera.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Camera.hpp; sourceTree = "<group>"; };
+		0C032FC61CA4513C00100276 /* InputHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = InputHandler.cpp; sourceTree = "<group>"; };
+		0C032FC71CA4513C00100276 /* InputHandler.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = InputHandler.hpp; sourceTree = "<group>"; };
 		0C3FED191C3B7D1E002E69FE /* MetalCube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalCube.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C4270DB1C932FC500F5B519 /* MetalTriangle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalTriangle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C4270FB1C9358E000F5B519 /* Mipmap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mipmap.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -558,6 +561,8 @@
 				0C8E93BF1C88A8D10002A0DA /* ShaderUniforms.h */,
 				0C02568B1C9A3B58003D61EF /* Camera.cpp */,
 				0C02568C1C9A3B58003D61EF /* Camera.hpp */,
+				0C032FC61CA4513C00100276 /* InputHandler.cpp */,
+				0C032FC71CA4513C00100276 /* InputHandler.hpp */,
 			);
 			name = Shared;
 			path = Demos/Shared;
@@ -1161,6 +1166,7 @@
 			files = (
 				0CE264781C975A8C006D6B8F /* AppDelegate.m in Sources */,
 				0CE264791C975A8C006D6B8F /* DemoBase.mm in Sources */,
+				0C032FC81CA4513C00100276 /* InputHandler.cpp in Sources */,
 				0CE2647A1C975A8C006D6B8F /* main.m in Sources */,
 				0CE2647B1C975A8C006D6B8F /* MetalView.m in Sources */,
 				0C02568D1C9A3B58003D61EF /* Camera.cpp in Sources */,

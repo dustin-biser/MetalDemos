@@ -32,6 +32,8 @@ using namespace std;
     MipmapRenderer * _renderer;
     
     shared_ptr<Camera> _camera;
+    
+    bool _KEY_W_DOWN;
 }
 
     //-----------------------------------------------------------------------------------
@@ -57,6 +59,8 @@ using namespace std;
         _renderer = [[MipmapRenderer alloc] initWithDescriptor: metalRenderDescriptor];
         
         [self generateMipmapLevels];
+        
+        _KEY_W_DOWN = false;
     }
 
 
@@ -70,7 +74,15 @@ using namespace std;
 
     //-----------------------------------------------------------------------------------
     - (void) setupCamera {
-        _camera = std::make_shared<Camera>();
+        float width = float(_metalView.drawableSize.width);
+        float height = float(_metalView.drawableSize.height);
+        float aspect = width / height;
+        float fovy = 65.0f * (M_PI / 180.0f);
+        float nearPlaneDistance = 0.1f;
+        float farPlaneDistance = 100.0f;
+        _camera = std::make_shared<Camera> (
+            fovy, aspect, nearPlaneDistance, farPlaneDistance
+        );
         
         _camera->lookAt(
                 glm::vec3(0.0f, 112.2f, 1140.5f),
@@ -98,19 +110,41 @@ using namespace std;
         [_renderer render: commandBuffer
           renderPassDescriptor: _metalView.currentRenderPassDescriptor
                         camera: (*_camera)];
+        
+        const float deltaTranslation(1.5f);
+        if(_KEY_W_DOWN) {
+            _camera->translateLocal(glm::vec3(0.0f, 0.0f, -deltaTranslation));
+        }
+    }
+
+    //-----------------------------------------------------------------------------------
+    - override (void) keyUp:(NSEvent *)theEvent {
+        char unicodeChar = [theEvent.charactersIgnoringModifiers characterAtIndex:0];
+        
+        switch (unicodeChar) {
+            case 'w': {
+                _KEY_W_DOWN = false;
+                break;
+            }
+                
+            default: {
+                break;
+            }
+        }
+        
     }
 
 
     //-----------------------------------------------------------------------------------
-    - (void) keyDown:(NSEvent *)theEvent {
+    - override (void) keyDown:(NSEvent *)theEvent {
         const float deltaTranslation(1.5f);
-        const float deltaRotation(0.05f);
+        const float deltaRotation = 0.05f;
         
         char unicodeChar = [theEvent.charactersIgnoringModifiers characterAtIndex:0];
         
         switch (unicodeChar) {
             case 'w': {
-                _camera->translate(glm::vec3(0.0f, 0.0f, -deltaTranslation));
+                _KEY_W_DOWN = true;
                 break;
             }
                 
@@ -130,12 +164,12 @@ using namespace std;
             }
                 
             case 'q': {
-                _camera->rotate(deltaRotation, glm::vec3(0.0f, 1.0f, 0.0f));
+                _camera->yaw(deltaRotation);
                 break;
             }
                 
             case 'e': {
-                _camera->rotate(-deltaRotation, glm::vec3(0.0f, 1.0f, 0.0f));
+                _camera->yaw(-deltaRotation);
                 break;
             }
                 

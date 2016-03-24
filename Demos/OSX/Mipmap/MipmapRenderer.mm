@@ -309,14 +309,6 @@ static matrix_float3x3 glm_mat3_to_matrix_float3x3(const glm::mat3 & mat) {
 
     //-----------------------------------------------------------------------------------
     - (void) setFrameUniforms: (const Camera &)camera {
-    
-        // Projection Matrix:
-        float width = float(_framebufferWidth);
-        float height = float(_framebufferHeight);
-        float aspect = width / height;
-        float fovy = 65.0f * (M_PI / 180.0f);
-        glm::mat4 projectionMatrix = glm::perspective(fovy, aspect, 0.1f, 100.0f);
-        
         glm::mat4 modelMatrix = glm::mat4();
         glm::mat4 viewMatrix = camera.viewMatrix();
         glm::mat4 modelView = viewMatrix * modelMatrix;
@@ -325,7 +317,7 @@ static matrix_float3x3 glm_mat3_to_matrix_float3x3(const glm::mat3 & mat) {
         FrameUniforms frameUniforms = FrameUniforms();
         frameUniforms.modelMatrix = glm_mat4_to_matrix_float4x4(modelMatrix);
         frameUniforms.viewMatrix = glm_mat4_to_matrix_float4x4(viewMatrix);
-        frameUniforms.projectionMatrix = glm_mat4_to_matrix_float4x4(projectionMatrix);
+        frameUniforms.projectionMatrix = glm_mat4_to_matrix_float4x4(camera.projectionMatrix());
         frameUniforms.normalMatrix = glm_mat3_to_matrix_float3x3(normalMatrix);
         
         memcpy([_frameUniformBuffers[_currentFrame] contents],
