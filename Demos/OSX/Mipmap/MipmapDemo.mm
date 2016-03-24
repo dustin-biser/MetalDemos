@@ -10,6 +10,7 @@
 #import "MipmapDemo.h"
 #import "MipmapRenderer.h"
 #import "Camera.hpp"
+#import "InputHandler.hpp"
 
 #import <simd/vector_types.h>
 #import <memory>
@@ -23,7 +24,10 @@ using namespace std;
 
     - (void) setupCamera;
 
+    - (void) setupInputHandler;
+
     - (void) generateMipmapLevels;
+
 @end
 
 
@@ -33,6 +37,8 @@ using namespace std;
     
     shared_ptr<Camera> _camera;
     
+    shared_ptr<InputHandler> _inputHandler;
+    
     bool _KEY_W_DOWN;
 }
 
@@ -41,6 +47,7 @@ using namespace std;
         [super viewWillAppear];
         [self setupMetalView];
         [self setupCamera];
+        [self setupInputHandler];
         
         // TripleBuffer rendering of frames.
         _numBufferedFrames = 3;
@@ -91,6 +98,51 @@ using namespace std;
        );
     }
 
+
+    //-----------------------------------------------------------------------------------
+    - (void) setupInputHandler {
+        _inputHandler = std::make_shared<InputHandler>();
+        
+        const float deltaPosition(1.8f);
+        
+        _inputHandler->registerKeyCommand('w', [=] {
+            _camera->translateLocal(glm::vec3(0.0f, 0.0f, -deltaPosition));
+        });
+        
+        _inputHandler->registerKeyCommand('s', [=] {
+            _camera->translateLocal(glm::vec3(0.0f, 0.0f, deltaPosition));
+        });
+        
+        _inputHandler->registerKeyCommand('a', [=] {
+            _camera->translateLocal(glm::vec3(-deltaPosition, 0.0f, 0.0f));
+        });
+        
+        _inputHandler->registerKeyCommand('d', [=] {
+            _camera->translateLocal(glm::vec3(deltaPosition, 0.0f, 0.0f));
+        });
+        
+        _inputHandler->registerKeyCommand('r', [=] {
+            _camera->translateLocal(glm::vec3(0.0f, deltaPosition, 0.0f));
+        });
+        
+        _inputHandler->registerKeyCommand('f', [=] {
+            _camera->translateLocal(glm::vec3(0.0f, -deltaPosition, 0.0f));
+        });
+        
+        
+        
+        const float deltaRotation(0.02f);
+        
+        _inputHandler->registerKeyCommand('q', [=] {
+            _camera->yaw(deltaRotation);
+        });
+        
+        _inputHandler->registerKeyCommand('e', [=] {
+            _camera->yaw(-deltaRotation);
+        });
+    }
+
+
     //-----------------------------------------------------------------------------------
     - (void) generateMipmapLevels {
         id <MTLCommandBuffer> commandBuffer = [_commandQueue commandBuffer];
@@ -107,76 +159,26 @@ using namespace std;
 
     //-----------------------------------------------------------------------------------
     - override (void) draw:(id<MTLCommandBuffer>)commandBuffer {
+        
+        _inputHandler->handleInput();
+        
         [_renderer render: commandBuffer
           renderPassDescriptor: _metalView.currentRenderPassDescriptor
                         camera: (*_camera)];
         
-        const float deltaTranslation(1.5f);
-        if(_KEY_W_DOWN) {
-            _camera->translateLocal(glm::vec3(0.0f, 0.0f, -deltaTranslation));
-        }
     }
 
     //-----------------------------------------------------------------------------------
     - override (void) keyUp:(NSEvent *)theEvent {
-        char unicodeChar = [theEvent.charactersIgnoringModifiers characterAtIndex:0];
-        
-        switch (unicodeChar) {
-            case 'w': {
-                _KEY_W_DOWN = false;
-                break;
-            }
-                
-            default: {
-                break;
-            }
-        }
-        
+        char character = [theEvent.charactersIgnoringModifiers characterAtIndex:0];
+        _inputHandler->keyUp(character);
     }
 
 
     //-----------------------------------------------------------------------------------
     - override (void) keyDown:(NSEvent *)theEvent {
-        const float deltaTranslation(1.5f);
-        const float deltaRotation = 0.05f;
-        
-        char unicodeChar = [theEvent.charactersIgnoringModifiers characterAtIndex:0];
-        
-        switch (unicodeChar) {
-            case 'w': {
-                _KEY_W_DOWN = true;
-                break;
-            }
-                
-            case 's': {
-                _camera->translate(glm::vec3(0.0f, 0.0f, deltaTranslation));
-                break;
-            }
-                
-            case 'r': {
-                _camera->translate(glm::vec3(0.0f, deltaTranslation, 0.0f));
-                break;
-            }
-                
-            case 'f': {
-                _camera->translate(glm::vec3(0.0f, -deltaTranslation, 0.0f));
-                break;
-            }
-                
-            case 'q': {
-                _camera->yaw(deltaRotation);
-                break;
-            }
-                
-            case 'e': {
-                _camera->yaw(-deltaRotation);
-                break;
-            }
-                
-            default:
-                break;
-        }
-        
+        char character = [theEvent.charactersIgnoringModifiers characterAtIndex:0];
+        _inputHandler->keyDown(character);
     }
 
 @end // MipmapDemo

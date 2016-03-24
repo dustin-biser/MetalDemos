@@ -8,10 +8,14 @@
 
 #pragma once
 
+#include <functional>
+
 
 // Forward Declaration
 class InputHandlerImpl;
 
+
+typedef std::function<void(void)> KeyCommand;
 
 class InputHandler {
 public:
@@ -21,8 +25,14 @@ public:
     /// Destructor
     ~InputHandler();
     
+    void handleInput() const;
     
-//    registerKeyCommand(InputKey key, InputKeyCommand command);
+    void registerKeyCommand(char key, KeyCommand keyCommand);
+    
+    void keyDown(char key);
+    
+    void keyUp(char key);
+    
     
 private:
     InputHandlerImpl * _impl;
