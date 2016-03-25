@@ -100,6 +100,14 @@ using namespace std;
     - (void) setupInputHandler {
         _inputHandler = std::make_shared<InputHandler>();
         
+        _inputHandler->registerKeyCommand('c', [=] {
+            [self disableCursor];
+        });
+        
+        _inputHandler->registerKeyCommand('v', [=] {
+            [self enableCursor];
+        });
+        
         // Camera Translations:
         {
             const float deltaPosition(1.8f);
@@ -121,11 +129,11 @@ using namespace std;
             });
             
             _inputHandler->registerKeyCommand('r', [=] {
-                _camera->moveUp(deltaPosition);
+                _camera->translate(glm::vec3(0.0f, deltaPosition, 0.0f));
             });
             
             _inputHandler->registerKeyCommand('f', [=] {
-                _camera->moveUp(-deltaPosition);
+                _camera->translate(glm::vec3(0.0f, -deltaPosition, 0.0f));
             });
         }
         
@@ -150,7 +158,7 @@ using namespace std;
                     _camera->rotate(-cursorDeltaX * scale, glm::vec3(0.0f, 1.0f, 0.0f));
                     
                     // Local rotation
-                    _camera->pitch(cursorDeltaY * scale);
+                    _camera->pitch(-cursorDeltaY * scale);
             });
         }
     }
@@ -174,13 +182,16 @@ using namespace std;
 
     //-----------------------------------------------------------------------------------
     - override (void) draw:(id<MTLCommandBuffer>)commandBuffer {
-        
-        
         _inputHandler->handleInput();
         
         [_renderer render: commandBuffer
           renderPassDescriptor: _metalView.currentRenderPassDescriptor
                         camera: (*_camera)];
+        
+        
+        int deltaX, deltaY;
+        CGGetLastMouseDelta(&deltaX, &deltaY);
+        _inputHandler->mouseMoved(deltaX, deltaY);
     }
 
 
@@ -200,16 +211,12 @@ using namespace std;
 
     //-----------------------------------------------------------------------------------
     - override (void) mouseMoved:(NSEvent *)theEvent {
-        NSPoint event_location = theEvent.locationInWindow;
-        NSPoint cursorLocation = [_metalView convertPoint:event_location fromView:nil];
-        _inputHandler->mouseMoved(cursorLocation.x, cursorLocation.y);
+        
     }
 
     //-----------------------------------------------------------------------------------
     - override (void) mouseEntered:(NSEvent *)theEvent {
-        NSPoint event_location = theEvent.locationInWindow;
-        NSPoint cursorLocation = [_metalView convertPoint:event_location fromView:nil];
-        _inputHandler->mouseEntered(cursorLocation.x, cursorLocation.y);
+        
     }
 
 @end // MipmapDemo

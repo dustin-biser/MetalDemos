@@ -49,15 +49,9 @@ public:
     );
     
     void mouseMoved (
-        float cursorPositionX,
-        float cursorPositionY
+        int deltaX,
+        int deltaY
     );
-    
-    void mouseEntered (
-        float cursorPositionX,
-        float cursorPositionY
-    );
-    
     
 private:
     InputHandlerImpl * _impl;

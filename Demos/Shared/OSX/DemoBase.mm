@@ -115,10 +115,13 @@
     //-----------------------------------------------------------------------------------
     - (void) disableCursor {
         [NSCursor hide];
+        CGAssociateMouseAndMouseCursorPosition(false);
+ 
     }
 
     //-----------------------------------------------------------------------------------
     - (void) enableCursor {
+        CGAssociateMouseAndMouseCursorPosition(true);
         [NSCursor unhide];
     }
 
