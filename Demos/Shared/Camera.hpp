@@ -79,6 +79,39 @@ public:
     
     
     /*!
+     * @brief Translates Camera forward by the amount 'distance'.
+     * @discussion This applies a translation with respsect to the Camera's local
+     * coordiante system.
+     * If 'distance' is negative, the Camera is translated backward.
+     */
+    void moveForward (
+        float distance
+    );
+    
+    
+    /*!
+     * @brief Translates Camera to the right by the amount 'distance'.
+     * @discussion This applies a translation with respsect to the Camera's local
+     * coordiante system.
+     * If 'distance' is negative, the Camera is translated to the left.
+     */
+    void moveRight (
+        float distance
+    );
+    
+    
+    /*!
+     * @brief Translates Camera upward by the amount 'distance'.
+     * @discussion This applies a translation with respsect to the Camera's local
+     * coordiante system.
+     * If 'distance' is negative, the Camera is translated downward.
+     */
+    void moveUp (
+        float distance
+    );
+    
+    
+    /*!
      * @brief Rotates Camera 'angle' randians about 'axis' defined in world space
      * coordinates.
      *

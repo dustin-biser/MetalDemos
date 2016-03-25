@@ -42,10 +42,12 @@ Camera::Camera (
         glm::perspective(fovy, aspect, nearPlaneDistance, farPlaneDistance);
 }
 
+
 //---------------------------------------------------------------------------------------
 Camera::~Camera () {
     delete _impl;
 }
+
 
 //---------------------------------------------------------------------------------------
 void Camera::lookAt (
@@ -83,10 +85,12 @@ glm::mat4 Camera::viewMatrix () const {
     return viewMatrix;
 }
 
+
 //---------------------------------------------------------------------------------------
 glm::vec3 Camera::position() const {
     return _impl->position;
 }
+
 
 //---------------------------------------------------------------------------------------
 void Camera::translate (
@@ -94,6 +98,7 @@ void Camera::translate (
 ) {
     _impl->position += vec;
 }
+
 
 //---------------------------------------------------------------------------------------
 void Camera::translateLocal (
@@ -104,6 +109,31 @@ void Camera::translateLocal (
                        (_impl->back * vec.z);
 }
 
+
+//---------------------------------------------------------------------------------------
+void Camera::moveForward (
+    float distance
+) {
+    this->translateLocal(glm::vec3(0.0f, 0.0f, -distance));
+}
+
+
+//---------------------------------------------------------------------------------------
+void Camera::moveRight (
+    float distance
+) {
+    this->translateLocal(glm::vec3(distance, 0.0f, 0.0f));
+}
+                         
+                         
+//---------------------------------------------------------------------------------------
+void Camera::moveUp (
+    float distance
+) {
+    this->translateLocal(glm::vec3(0.0f, distance, 0.0f));
+}
+
+                         
 //---------------------------------------------------------------------------------------
 void Camera::rotate (
     float angle,
@@ -116,6 +146,7 @@ void Camera::rotate (
     _impl->back = glm::rotate(q, _impl->back);
 }
 
+                         
 //---------------------------------------------------------------------------------------
 void Camera::rotateLocal (
     float angle,
@@ -129,6 +160,7 @@ void Camera::rotateLocal (
     this->rotate(angle, axisWorldSpace);
 }
 
+                         
 //---------------------------------------------------------------------------------------
 void Camera::roll (
     float angle
@@ -139,6 +171,7 @@ void Camera::roll (
     this->rotateLocal(angle, localZ);
 }
 
+                         
 //---------------------------------------------------------------------------------------
 void Camera::pitch (
     float angle
@@ -149,6 +182,7 @@ void Camera::pitch (
     this->rotateLocal(angle, localX);
 }
 
+                         
 //---------------------------------------------------------------------------------------
 void Camera::yaw (
     float angle
