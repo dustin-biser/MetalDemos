@@ -103,7 +103,7 @@ using namespace std;
         
         // Camera Translations:
         {
-            const float deltaPosition(1.8f);
+            const float deltaPosition(2.2f);
             
             _inputHandler->registerKeyCommand('w', [=] {
                 _camera->moveForward(deltaPosition);
@@ -114,22 +114,21 @@ using namespace std;
             });
             
             _inputHandler->registerKeyCommand('a', [=] {
-                _camera->moveRight(-deltaPosition);
+                _camera->strafe(-deltaPosition);
             });
             
             _inputHandler->registerKeyCommand('d', [=] {
-                _camera->moveRight(deltaPosition);
+                _camera->strafe(deltaPosition);
             });
             
             _inputHandler->registerKeyCommand('r', [=] {
-                _camera->translate(glm::vec3(0.0f, deltaPosition, 0.0f));
+                _camera->elevate(deltaPosition);
             });
             
             _inputHandler->registerKeyCommand('f', [=] {
-                _camera->translate(glm::vec3(0.0f, -deltaPosition, 0.0f));
+                _camera->elevate(-deltaPosition);
             });
         }
-        
         
         
         // Camera Rotations:

@@ -114,12 +114,16 @@ void Camera::translateLocal (
 void Camera::moveForward (
     float distance
 ) {
-    this->translateLocal(glm::vec3(0.0f, 0.0f, -distance));
+    glm::vec3 upWorld = glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::vec3 a = glm::dot(_impl->back, upWorld) * upWorld;
+    glm::vec3 forward = -1.0f * glm::normalize(_impl->back - a);
+    
+    this->translate(forward * distance);
 }
 
 
 //---------------------------------------------------------------------------------------
-void Camera::moveRight (
+void Camera::strafe (
     float distance
 ) {
     this->translateLocal(glm::vec3(distance, 0.0f, 0.0f));
@@ -127,7 +131,7 @@ void Camera::moveRight (
                          
                          
 //---------------------------------------------------------------------------------------
-void Camera::moveUp (
+void Camera::elevate (
     float distance
 ) {
     this->translateLocal(glm::vec3(0.0f, distance, 0.0f));
