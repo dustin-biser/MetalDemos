@@ -7,6 +7,7 @@
 
 #import "MetalDemoCommon.h"
 #import "DemoBase.h"
+#import "InputHandler.hpp"
 
 #import <MetalKit/MetalKit.h>
 
@@ -18,6 +19,8 @@
 
     - (void) setupView;
 
+    - (void) handleInput;
+
 @end
 
 
@@ -26,6 +29,7 @@
 @private
     dispatch_semaphore_t _inflightSemaphore;
     
+    bool _cursorIsEnabled;
 }
 
     //-----------------------------------------------------------------------------------
@@ -39,9 +43,14 @@
         _metalView.device = _device;
         _metalView.preferredFramesPerSecond = 60;
         
+        // Setup semaphore and number of buffered frames:
         _numBufferedFrames = 1;
         _inflightSemaphore = dispatch_semaphore_create(_numBufferedFrames);
         
+        // Create InputHandler
+        _inputHandler = std::make_shared<InputHandler>();
+        
+        _cursorIsEnabled = true;
     }
 
 
@@ -104,25 +113,27 @@
 
 
     //-----------------------------------------------------------------------------------
-    /**
-     Called once per frame to perform rendering to this class's MTKView.
-     - parameter commandBuffer: Used to encode render commands into.
-    */
     - (void) draw:(id<MTLCommandBuffer>)commandBuffer {
         // Override this method.
     }
 
     //-----------------------------------------------------------------------------------
     - (void) disableCursor {
-        [NSCursor hide];
-        CGAssociateMouseAndMouseCursorPosition(false);
+        if (_cursorIsEnabled) {
+            [NSCursor hide];
+            CGAssociateMouseAndMouseCursorPosition(false);
+            _cursorIsEnabled = false;
+        }
  
     }
 
     //-----------------------------------------------------------------------------------
     - (void) enableCursor {
-        CGAssociateMouseAndMouseCursorPosition(true);
-        [NSCursor unhide];
+        if (!_cursorIsEnabled) {
+            CGAssociateMouseAndMouseCursorPosition(true);
+            [NSCursor unhide];
+            _cursorIsEnabled = true;
+        }
     }
 
     //-----------------------------------------------------------------------------------
@@ -145,12 +156,14 @@
     
     //-----------------------------------------------------------------------------------
     - (void) keyUp:(NSEvent *)theEvent {
-        // Override this method.
+        char character = [theEvent.charactersIgnoringModifiers characterAtIndex:0];
+        _inputHandler->keyUp(character);
     }
     
     //-----------------------------------------------------------------------------------
     - (void) keyDown:(NSEvent *)theEvent {
-        // Override this method.
+        char character = [theEvent.charactersIgnoringModifiers characterAtIndex:0];
+        _inputHandler->keyDown(character);
     }
     
     //-----------------------------------------------------------------------------------
@@ -189,6 +202,17 @@
     }
 
     //-----------------------------------------------------------------------------------
+    - (void) handleInput {
+        int deltaX, deltaY;
+        CGGetLastMouseDelta(&deltaX, &deltaY);
+        _inputHandler->mouseMoved(deltaX, deltaY);
+        
+        // Call functions registered to key input and mouse events.
+        _inputHandler->handleInput();
+    }
+
+
+    //-----------------------------------------------------------------------------------
     // Called whenever the drawableSize of the view will change
     - override (void) mtkView:(nonnull MTKView *)view drawableSizeWillChange:(CGSize)size {
         [self viewSizeChanged:view newSize: size];
@@ -202,6 +226,8 @@
             // frame's work via addCompletedHandler callback below, signifying the CPU
             // can go ahead and prepare another frame.
             dispatch_semaphore_wait(_inflightSemaphore, DISPATCH_TIME_FOREVER);
+            
+            [self handleInput];
             
             id <MTLCommandBuffer> commandBuffer = [_commandQueue commandBuffer];
             

@@ -10,6 +10,9 @@
 #import <Metal/Metal.h>
 
 #import "MetalView.h"
+#import "InputHandler.hpp"
+
+#import <memory>
 
 
 @interface DemoBase : NSViewController <MTKViewDelegate> {
@@ -21,6 +24,9 @@
     id<MTLLibrary> _defaultShaderLibrary;
     
     int _numBufferedFrames;
+    
+    
+    std::shared_ptr<InputHandler> _inputHandler;
 }
 
     /*!

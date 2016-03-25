@@ -33,7 +33,7 @@ private:
 
 
 //---------------------------------------------------------------------------------------
-// InputHandlerImpl class methods
+// InputHandlerImpl methods
 //---------------------------------------------------------------------------------------
 InputHandlerImpl::InputHandlerImpl()
     : mouseDeltaX(0.0f),
@@ -54,9 +54,8 @@ bool InputHandlerImpl::mouseCursorHasMoved() {
 
 
 
-
 //---------------------------------------------------------------------------------------
-// InputHandler class methods
+// InputHandler methods
 //---------------------------------------------------------------------------------------
 InputHandler::InputHandler () {
     _impl = new InputHandlerImpl();

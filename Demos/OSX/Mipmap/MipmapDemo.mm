@@ -10,7 +10,6 @@
 #import "MipmapDemo.h"
 #import "MipmapRenderer.h"
 #import "Camera.hpp"
-#import "InputHandler.hpp"
 
 #import <simd/vector_types.h>
 #import <memory>
@@ -35,8 +34,6 @@ using namespace std;
     MipmapRenderer * _renderer;
     
     shared_ptr<Camera> _camera;
-    
-    shared_ptr<InputHandler> _inputHandler;
 }
 
     //-----------------------------------------------------------------------------------
@@ -64,8 +61,6 @@ using namespace std;
         
         [self generateMipmapLevels];
     }
-
-    //-----------------------------------------------------------------------------------
 
 
     //-----------------------------------------------------------------------------------
@@ -98,8 +93,6 @@ using namespace std;
 
     //-----------------------------------------------------------------------------------
     - (void) setupInputHandler {
-        _inputHandler = std::make_shared<InputHandler>();
-        
         _inputHandler->registerKeyCommand('c', [=] {
             [self disableCursor];
         });
@@ -182,41 +175,9 @@ using namespace std;
 
     //-----------------------------------------------------------------------------------
     - override (void) draw:(id<MTLCommandBuffer>)commandBuffer {
-        _inputHandler->handleInput();
-        
         [_renderer render: commandBuffer
           renderPassDescriptor: _metalView.currentRenderPassDescriptor
                         camera: (*_camera)];
-        
-        
-        int deltaX, deltaY;
-        CGGetLastMouseDelta(&deltaX, &deltaY);
-        _inputHandler->mouseMoved(deltaX, deltaY);
-    }
-
-
-    //-----------------------------------------------------------------------------------
-    - override (void) keyUp:(NSEvent *)theEvent {
-        char character = [theEvent.charactersIgnoringModifiers characterAtIndex:0];
-        _inputHandler->keyUp(character);
-    }
-
-
-    //-----------------------------------------------------------------------------------
-    - override (void) keyDown:(NSEvent *)theEvent {
-        char character = [theEvent.charactersIgnoringModifiers characterAtIndex:0];
-        _inputHandler->keyDown(character);
-    }
-
-
-    //-----------------------------------------------------------------------------------
-    - override (void) mouseMoved:(NSEvent *)theEvent {
-        
-    }
-
-    //-----------------------------------------------------------------------------------
-    - override (void) mouseEntered:(NSEvent *)theEvent {
-        
     }
 
 @end // MipmapDemo
