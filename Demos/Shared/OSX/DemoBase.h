@@ -47,8 +47,5 @@
     - (void) enableCursor;
 
 
-    - (void) warpCursorToCenterOfView;
-
-
 @end // DemoBase
 

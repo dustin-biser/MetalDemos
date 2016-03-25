@@ -137,18 +137,6 @@
     }
 
     //-----------------------------------------------------------------------------------
-    - (void) warpCursorToCenterOfView {
-        NSWindow * window = _metalView.window;
-        NSRect frame = [window contentRectForFrameRect:[window frame]];
-        
-        CGRect mainScreenRect = CGDisplayBounds(CGMainDisplayID());
-        
-        frame.origin.y = -(frame.origin.y + frame.size.height - mainScreenRect.size.height);
-        
-        CGWarpMouseCursorPosition(CGPointMake((NSMaxX(frame) + NSMinX(frame)) / 2.0f, (NSMaxY(frame) + NSMinY(frame)) / 2.0f));
-    }
-    
-    //-----------------------------------------------------------------------------------
     /// Called once the size of the MTKView changes.
     - (void) viewSizeChanged:(MTKView *)view newSize:(struct CGSize)size {
         // Override this method.
@@ -203,9 +191,19 @@
 
     //-----------------------------------------------------------------------------------
     - (void) handleInput {
-        int deltaX, deltaY;
-        CGGetLastMouseDelta(&deltaX, &deltaY);
-        _inputHandler->mouseMoved(deltaX, deltaY);
+        
+        //-- Register mouse cursor movement deltas:
+        {
+            int deltaX, deltaY;
+            CGGetLastMouseDelta(&deltaX, &deltaY);
+            
+            // If cursor is enabled, prevent mouseMoved function calls
+            if (_cursorIsEnabled) {
+                deltaX = deltaY = 0;
+            }
+            _inputHandler->mouseMoved(deltaX, deltaY);
+        }
+        
         
         // Call functions registered to key input and mouse events.
         _inputHandler->handleInput();
