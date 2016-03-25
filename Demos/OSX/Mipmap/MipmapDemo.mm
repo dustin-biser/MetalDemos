@@ -27,7 +27,6 @@ using namespace std;
     - (void) setupInputHandler;
 
     - (void) generateMipmapLevels;
-
 @end
 
 
@@ -38,8 +37,6 @@ using namespace std;
     shared_ptr<Camera> _camera;
     
     shared_ptr<InputHandler> _inputHandler;
-    
-    bool _KEY_W_DOWN;
 }
 
     //-----------------------------------------------------------------------------------
@@ -66,9 +63,9 @@ using namespace std;
         _renderer = [[MipmapRenderer alloc] initWithDescriptor: metalRenderDescriptor];
         
         [self generateMipmapLevels];
-        
-        _KEY_W_DOWN = false;
     }
+
+    //-----------------------------------------------------------------------------------
 
 
     //-----------------------------------------------------------------------------------
@@ -108,27 +105,27 @@ using namespace std;
             const float deltaPosition(1.8f);
             
             _inputHandler->registerKeyCommand('w', [=] {
-                _camera->translateLocal(glm::vec3(0.0f, 0.0f, -deltaPosition));
+                _camera->moveForward(deltaPosition);
             });
             
             _inputHandler->registerKeyCommand('s', [=] {
-                _camera->translateLocal(glm::vec3(0.0f, 0.0f, deltaPosition));
+                _camera->moveForward(-deltaPosition);
             });
             
             _inputHandler->registerKeyCommand('a', [=] {
-                _camera->translateLocal(glm::vec3(-deltaPosition, 0.0f, 0.0f));
+                _camera->moveRight(-deltaPosition);
             });
             
             _inputHandler->registerKeyCommand('d', [=] {
-                _camera->translateLocal(glm::vec3(deltaPosition, 0.0f, 0.0f));
+                _camera->moveRight(deltaPosition);
             });
             
             _inputHandler->registerKeyCommand('r', [=] {
-                _camera->translateLocal(glm::vec3(0.0f, deltaPosition, 0.0f));
+                _camera->moveUp(deltaPosition);
             });
             
             _inputHandler->registerKeyCommand('f', [=] {
-                _camera->translateLocal(glm::vec3(0.0f, -deltaPosition, 0.0f));
+                _camera->moveUp(-deltaPosition);
             });
         }
         
@@ -178,12 +175,12 @@ using namespace std;
     //-----------------------------------------------------------------------------------
     - override (void) draw:(id<MTLCommandBuffer>)commandBuffer {
         
+        
         _inputHandler->handleInput();
         
         [_renderer render: commandBuffer
           renderPassDescriptor: _metalView.currentRenderPassDescriptor
                         camera: (*_camera)];
-        
     }
 
 

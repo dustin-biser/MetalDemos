@@ -35,5 +35,14 @@
     - (void) viewSizeChanged:(nonnull MTKView *)view newSize:(struct CGSize)size;
 
 
+    - (void) disableCursor;
+
+
+    - (void) enableCursor;
+
+
+    - (void) warpCursorToCenterOfView;
+
+
 @end // DemoBase
 

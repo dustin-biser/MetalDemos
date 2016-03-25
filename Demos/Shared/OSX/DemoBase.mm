@@ -111,6 +111,28 @@
     - (void) draw:(id<MTLCommandBuffer>)commandBuffer {
         // Override this method.
     }
+
+    //-----------------------------------------------------------------------------------
+    - (void) disableCursor {
+        [NSCursor hide];
+    }
+
+    //-----------------------------------------------------------------------------------
+    - (void) enableCursor {
+        [NSCursor unhide];
+    }
+
+    //-----------------------------------------------------------------------------------
+    - (void) warpCursorToCenterOfView {
+        NSWindow * window = _metalView.window;
+        NSRect frame = [window contentRectForFrameRect:[window frame]];
+        
+        CGRect mainScreenRect = CGDisplayBounds(CGMainDisplayID());
+        
+        frame.origin.y = -(frame.origin.y + frame.size.height - mainScreenRect.size.height);
+        
+        CGWarpMouseCursorPosition(CGPointMake((NSMaxX(frame) + NSMinX(frame)) / 2.0f, (NSMaxY(frame) + NSMinY(frame)) / 2.0f));
+    }
     
     //-----------------------------------------------------------------------------------
     /// Called once the size of the MTKView changes.
