@@ -103,43 +103,59 @@ using namespace std;
     - (void) setupInputHandler {
         _inputHandler = std::make_shared<InputHandler>();
         
-        const float deltaPosition(1.8f);
+        // Camera Translations:
+        {
+            const float deltaPosition(1.8f);
+            
+            _inputHandler->registerKeyCommand('w', [=] {
+                _camera->translateLocal(glm::vec3(0.0f, 0.0f, -deltaPosition));
+            });
+            
+            _inputHandler->registerKeyCommand('s', [=] {
+                _camera->translateLocal(glm::vec3(0.0f, 0.0f, deltaPosition));
+            });
+            
+            _inputHandler->registerKeyCommand('a', [=] {
+                _camera->translateLocal(glm::vec3(-deltaPosition, 0.0f, 0.0f));
+            });
+            
+            _inputHandler->registerKeyCommand('d', [=] {
+                _camera->translateLocal(glm::vec3(deltaPosition, 0.0f, 0.0f));
+            });
+            
+            _inputHandler->registerKeyCommand('r', [=] {
+                _camera->translateLocal(glm::vec3(0.0f, deltaPosition, 0.0f));
+            });
+            
+            _inputHandler->registerKeyCommand('f', [=] {
+                _camera->translateLocal(glm::vec3(0.0f, -deltaPosition, 0.0f));
+            });
+        }
         
-        _inputHandler->registerKeyCommand('w', [=] {
-            _camera->translateLocal(glm::vec3(0.0f, 0.0f, -deltaPosition));
-        });
-        
-        _inputHandler->registerKeyCommand('s', [=] {
-            _camera->translateLocal(glm::vec3(0.0f, 0.0f, deltaPosition));
-        });
-        
-        _inputHandler->registerKeyCommand('a', [=] {
-            _camera->translateLocal(glm::vec3(-deltaPosition, 0.0f, 0.0f));
-        });
-        
-        _inputHandler->registerKeyCommand('d', [=] {
-            _camera->translateLocal(glm::vec3(deltaPosition, 0.0f, 0.0f));
-        });
-        
-        _inputHandler->registerKeyCommand('r', [=] {
-            _camera->translateLocal(glm::vec3(0.0f, deltaPosition, 0.0f));
-        });
-        
-        _inputHandler->registerKeyCommand('f', [=] {
-            _camera->translateLocal(glm::vec3(0.0f, -deltaPosition, 0.0f));
-        });
         
         
-        
-        const float deltaRotation(0.02f);
-        
-        _inputHandler->registerKeyCommand('q', [=] {
-            _camera->yaw(deltaRotation);
-        });
-        
-        _inputHandler->registerKeyCommand('e', [=] {
-            _camera->yaw(-deltaRotation);
-        });
+        // Camera Rotations:
+        {
+            const float deltaRotation(0.02f);
+            
+            _inputHandler->registerKeyCommand('q', [=] {
+                _camera->roll(deltaRotation);
+            });
+            
+            _inputHandler->registerKeyCommand('e', [=] {
+                _camera->roll(-deltaRotation);
+            });
+            
+            _inputHandler->registerMouseMoveCommand(
+                [=] (float cursorDeltaX, float cursorDeltaY) {
+                    const float scale(0.002);
+                    // World space rotation
+                    _camera->rotate(-cursorDeltaX * scale, glm::vec3(0.0f, 1.0f, 0.0f));
+                    
+                    // Local rotation
+                    _camera->pitch(cursorDeltaY * scale);
+            });
+        }
     }
 
 
@@ -150,12 +166,14 @@ using namespace std;
         [_renderer generateMipmapLevels: commandBuffer];
     }
 
+
     //-----------------------------------------------------------------------------------
     - override (void) viewSizeChanged:(MTKView *)view
                     newSize:(CGSize)size {
     
         [_renderer reshape: size];
     }
+
 
     //-----------------------------------------------------------------------------------
     - override (void) draw:(id<MTLCommandBuffer>)commandBuffer {
@@ -168,6 +186,7 @@ using namespace std;
         
     }
 
+
     //-----------------------------------------------------------------------------------
     - override (void) keyUp:(NSEvent *)theEvent {
         char character = [theEvent.charactersIgnoringModifiers characterAtIndex:0];
@@ -179,6 +198,21 @@ using namespace std;
     - override (void) keyDown:(NSEvent *)theEvent {
         char character = [theEvent.charactersIgnoringModifiers characterAtIndex:0];
         _inputHandler->keyDown(character);
+    }
+
+
+    //-----------------------------------------------------------------------------------
+    - override (void) mouseMoved:(NSEvent *)theEvent {
+        NSPoint event_location = theEvent.locationInWindow;
+        NSPoint cursorLocation = [_metalView convertPoint:event_location fromView:nil];
+        _inputHandler->mouseMoved(cursorLocation.x, cursorLocation.y);
+    }
+
+    //-----------------------------------------------------------------------------------
+    - override (void) mouseEntered:(NSEvent *)theEvent {
+        NSPoint event_location = theEvent.locationInWindow;
+        NSPoint cursorLocation = [_metalView convertPoint:event_location fromView:nil];
+        _inputHandler->mouseEntered(cursorLocation.x, cursorLocation.y);
     }
 
 @end // MipmapDemo

@@ -15,7 +15,11 @@
 class InputHandlerImpl;
 
 
+
 typedef std::function<void(void)> KeyCommand;
+
+typedef std::function<void(float cursorDeltaX, float cursorDeltaY)> MouseMoveCommand;
+
 
 class InputHandler {
 public:
@@ -27,11 +31,32 @@ public:
     
     void handleInput() const;
     
-    void registerKeyCommand(char key, KeyCommand keyCommand);
+    void registerKeyCommand (
+        char key,
+        KeyCommand keyCommand
+    );
     
-    void keyDown(char key);
+    void registerMouseMoveCommand (
+        MouseMoveCommand mouseMoveCommand
+    );
     
-    void keyUp(char key);
+    void keyDown(
+        char key
+    );
+    
+    void keyUp (
+        char key
+    );
+    
+    void mouseMoved (
+        float cursorPositionX,
+        float cursorPositionY
+    );
+    
+    void mouseEntered (
+        float cursorPositionX,
+        float cursorPositionY
+    );
     
     
 private:
