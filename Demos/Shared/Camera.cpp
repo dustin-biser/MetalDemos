@@ -114,11 +114,7 @@ void Camera::translateLocal (
 void Camera::moveForward (
     float distance
 ) {
-    glm::vec3 upWorld = glm::vec3(0.0f, 1.0f, 0.0f);
-    glm::vec3 a = glm::dot(_impl->back, upWorld) * upWorld;
-    glm::vec3 forward = -1.0f * glm::normalize(_impl->back - a);
-    
-    this->translate(forward * distance);
+    this->translate(this->forwardDirection() * distance);
 }
 
 
@@ -195,4 +191,37 @@ void Camera::yaw (
     glm::vec3 localY(0.0f, 1.0f, 0.0f);
     
     this->rotateLocal(angle, localY);
+}
+
+//---------------------------------------------------------------------------------------
+static glm::vec3 projectOntoWorldXZPlane (
+    const glm::vec3 & v
+) {
+    glm::vec3 upWorld = glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::vec3 vDotUp = glm::dot(v, upWorld) * upWorld;
+    
+    return glm::normalize(v - vDotUp);
+}
+
+//---------------------------------------------------------------------------------------
+glm::vec3 Camera::forwardDirection () const {
+    // World space forward direction
+    return -1.0f * projectOntoWorldXZPlane(_impl->back);
+}
+
+
+//---------------------------------------------------------------------------------------
+glm::vec3 Camera::backDirection () const {
+    return -1.0f * this->forwardDirection();
+}
+
+
+//---------------------------------------------------------------------------------------
+glm::vec3 Camera::strafeRightDirection() const {
+    return projectOntoWorldXZPlane(_impl->right);
+}
+
+//---------------------------------------------------------------------------------------
+glm::vec3 Camera::strafeLeftDirection() const {
+    return -1.0f * this->strafeRightDirection();
 }

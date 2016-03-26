@@ -111,6 +111,10 @@
         
     }
 
+    //-----------------------------------------------------------------------------------
+    - (void) appLogic {
+        // Override this method.
+    }
 
     //-----------------------------------------------------------------------------------
     - (void) draw:(id<MTLCommandBuffer>)commandBuffer {
@@ -217,6 +221,7 @@
     }
 
     //-----------------------------------------------------------------------------------
+    // Called once per frame to update view.
     - override (void) drawInMTKView:(MTKView *)view {
         @autoreleasepool {
             // Preflight frames on the CPU (using a semaphore as a guard) and commit them
@@ -224,6 +229,8 @@
             // frame's work via addCompletedHandler callback below, signifying the CPU
             // can go ahead and prepare another frame.
             dispatch_semaphore_wait(_inflightSemaphore, DISPATCH_TIME_FOREVER);
+            
+            [self appLogic];
             
             [self handleInput];
             

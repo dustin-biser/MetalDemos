@@ -111,7 +111,7 @@ public:
     
     
     /*!
-     * @brief Rotates Camera 'angle' randians about 'axis' defined in world space
+     * @brief Rotates Camera 'angle' radians about 'axis' defined in world space
      * coordinates.
      *
      * @param angle Given in radians.
@@ -124,7 +124,7 @@ public:
     
     
     /*!
-     * @brief Rotates Camera locally 'angle' randians about 'axis' defined in
+     * @brief Rotates Camera locally 'angle' radians about 'axis' defined in
      * eye space coordinates.
      *
      * @param angle Given in radians.
@@ -162,6 +162,39 @@ public:
         float angle
     );
     
+    
+    /*!
+     * @brief Returns the world space forward direction of Camera.
+     * @discussion This is different than the Camera's lookAt direction.  Moving the
+     * Camera along it's forward direction will keep the Camera at a constant elevation
+     * in world space regardless of where the Camera is currently looking.
+     */
+    glm::vec3 forwardDirection () const;
+    
+    
+    /*!
+     * @brief Convenience method for returning the negation of the forwardDirection.
+     * @see Camera::forwardDirection()
+     */
+    glm::vec3 backDirection () const;
+    
+    
+    /*!
+     * @brief Returns the world space right-side direction of Camera.
+     * @discussion Translating the Camera along its strafeRight direction will keep the
+     * Camera at the same height elevation in world space regardless of the Camera's
+     * orientation.
+     */
+    glm::vec3 strafeRightDirection() const;
+    
+    
+    /*!
+     * @brief Returns the world space left-side direction of Camera.
+     * @discussion Translating the Camera along its strafeLeft direction will keep the
+     * Camera at the same height elevation in world space regardless of the Camera's
+     * orientation.
+     */
+    glm::vec3 strafeLeftDirection() const;
     
 private:
     CameraImpl * _impl;

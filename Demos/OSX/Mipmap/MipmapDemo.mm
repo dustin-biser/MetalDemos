@@ -34,6 +34,10 @@ using namespace std;
     MipmapRenderer * _renderer;
     
     shared_ptr<Camera> _camera;
+    
+    glm::vec3 _cameraMoveDirection;
+    
+    float _cameraMoveSpeed;
 }
 
     //-----------------------------------------------------------------------------------
@@ -88,6 +92,9 @@ using namespace std;
                 glm::vec3(0.0f, 0.0f, 100.0f),
                 glm::vec3(0.0f, 1.0f, 0.0f)
        );
+        
+        _cameraMoveDirection = glm::vec3(0.0f);
+        _cameraMoveSpeed = 2.0f;
     }
 
 
@@ -103,30 +110,30 @@ using namespace std;
         
         // Camera Translations:
         {
-            const float deltaPosition(2.2f);
-            
             _inputHandler->registerKeyCommand('w', [=] {
-                _camera->moveForward(deltaPosition);
+                _cameraMoveDirection += _camera->forwardDirection();
             });
             
             _inputHandler->registerKeyCommand('s', [=] {
-                _camera->moveForward(-deltaPosition);
+                _cameraMoveDirection += _camera->backDirection();
             });
             
             _inputHandler->registerKeyCommand('a', [=] {
-                _camera->strafe(-deltaPosition);
+                _cameraMoveDirection += _camera->strafeLeftDirection();
             });
             
             _inputHandler->registerKeyCommand('d', [=] {
-                _camera->strafe(deltaPosition);
+                _cameraMoveDirection += _camera->strafeRightDirection();
             });
             
             _inputHandler->registerKeyCommand('r', [=] {
-                _camera->elevate(deltaPosition);
+                // Elevate camera with respect to world space.
+                _cameraMoveDirection += glm::vec3(0.0f, 1.0f, 0.0f);
             });
             
             _inputHandler->registerKeyCommand('f', [=] {
-                _camera->elevate(-deltaPosition);
+                // Lower camera with respect to world space.
+                _cameraMoveDirection += glm::vec3(0.0f, -1.0f, 0.0f);
             });
         }
         
@@ -173,10 +180,26 @@ using namespace std;
 
 
     //-----------------------------------------------------------------------------------
+    - (void) appLogic {
+        if ( glm::dot(_cameraMoveDirection, _cameraMoveDirection) > FLT_EPSILON ) {
+            // Make sure movement direction is of unit length
+            _cameraMoveDirection = glm::normalize(_cameraMoveDirection);
+            
+            // Now translate camera using specific speed
+            _camera->translate(_cameraMoveDirection *_cameraMoveSpeed);
+            
+            // Reset Camera move direction
+            _cameraMoveDirection = glm::vec3(0.0f);
+        }
+        
+    }
+
+    //-----------------------------------------------------------------------------------
     - override (void) draw:(id<MTLCommandBuffer>)commandBuffer {
         [_renderer render: commandBuffer
           renderPassDescriptor: _metalView.currentRenderPassDescriptor
                         camera: (*_camera)];
     }
+
 
 @end // MipmapDemo

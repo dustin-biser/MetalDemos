@@ -358,7 +358,7 @@
 		0CE264711C975904006D6B8F /* MipmapRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MipmapRenderer.mm; sourceTree = "<group>"; };
 		0CE264721C975904006D6B8F /* MipmapDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MipmapDemo.h; sourceTree = "<group>"; };
 		0CE264731C975904006D6B8F /* MipmapDemo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MipmapDemo.mm; sourceTree = "<group>"; };
-		0CE264771C975978006D6B8F /* MetalDemoCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetalDemoCommon.h; sourceTree = "<group>"; };
+		0CE264771C975978006D6B8F /* DemoCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoCommon.h; sourceTree = "<group>"; };
 		0CE264801C9869BB006D6B8F /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		0CE264821C9869BB006D6B8F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0CE264831C9869BB006D6B8F /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -556,7 +556,7 @@
 				0C8E93BB1C88A8D10002A0DA /* BridgingHeader.h */,
 				0C8E93BC1C88A8D10002A0DA /* MatrixTransforms.c */,
 				0C8E93BD1C88A8D10002A0DA /* MatrixTransforms.h */,
-				0CE264771C975978006D6B8F /* MetalDemoCommon.h */,
+				0CE264771C975978006D6B8F /* DemoCommon.h */,
 				0C8E93BE1C88A8D10002A0DA /* ShaderResourceIndices.h */,
 				0C8E93BF1C88A8D10002A0DA /* ShaderUniforms.h */,
 				0C02568B1C9A3B58003D61EF /* Camera.cpp */,

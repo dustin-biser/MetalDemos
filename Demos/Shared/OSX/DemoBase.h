@@ -30,6 +30,13 @@
 }
 
     /*!
+     * @brief Called once per frame before the DemoBase::draw method
+     * @discussion Derived classes should override this method and do any non-rendering
+     * tasks related to application logic, such as user input.
+     */
+    - (void) appLogic;
+
+    /*!
       @abstract Called once per frame to perform rendering to this class's MTKView.
       @param commandBuffer Used to encode render commands into.
     */
