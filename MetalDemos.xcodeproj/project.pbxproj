@@ -51,6 +51,7 @@
 		0CE2648C1C9869BB006D6B8F /* MetalRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264861C9869BB006D6B8F /* MetalRenderer.mm */; };
 		0CE2648D1C9869BB006D6B8F /* TriangleDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264881C9869BB006D6B8F /* TriangleDemo.m */; };
 		0CE264961C988077006D6B8F /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = 0CE264951C98806F006D6B8F /* Assets */; };
+		0CED11051CA729B60022B960 /* InputHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C032FC61CA4513C00100276 /* InputHandler.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -1157,6 +1158,7 @@
 				0CE2646E1C975882006D6B8F /* MetalView.m in Sources */,
 				0CE2646B1C975871006D6B8F /* AppDelegate.m in Sources */,
 				0CE264891C9869BB006D6B8F /* Shaders.metal in Sources */,
+				0CED11051CA729B60022B960 /* InputHandler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

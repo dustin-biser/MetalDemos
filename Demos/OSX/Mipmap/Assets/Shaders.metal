@@ -13,10 +13,6 @@
 
 using namespace metal;
 
-// Variables in constant address space:
-constant float3 light_position = float3(-1.0, 2.0, -1.0);
-//constant half3 diffuse = half3(0.08, 0.08, 0.3);
-
 
 // Input to the vertex shader.
 struct VertexInput {
@@ -65,12 +61,23 @@ fragment float4 fragmentFunction (
         texture2d<float, access::sample> diffuseTexture [[ texture(0) ]],
         sampler samplerDiffuse [[ sampler(0) ]]
 ) {
-    float3 l = normalize(light_position - f_in.position_VS);
-    float n_dot_l = dot(f_in.normal_VS.rgb, l);
-    n_dot_l = fmax(0.0, n_dot_l);
+    const float2 textureSize = float2(2048, 2048);
+    
+    const float2 uv = f_in.textureCoord * textureSize;
+    const float dudx = dfdx(uv.x);
+    const float dvdx = dfdx(uv.y);
+    const float dudy = dfdy(uv.x);
+    const float dvdy = dfdy(uv.y);
+    
+    const float p = max(sqrt(dudx*dudx + dvdx*dvdx), sqrt(dudy*dudy + dvdy*dvdy));
+    const float lod = floor(max(0.0f, log2(p)));
+    float normLod = lod / diffuseTexture.get_num_mip_levels();
     
     float4 diffuseColor = diffuseTexture.sample(samplerDiffuse, f_in.textureCoord);
     
-//    return half4(diffuseColor * n_dot_l);
-    return diffuseColor;
+    float4 mipMapHighestLevelColor = float4(1.0, 0.0, 0.0f, 0.0f);
+    float4 mipMapLowestLevelColor = float4(1.0, 1.0, 1.0f, 0.0f);
+    float4 mipMapColor = mix(mipMapLowestLevelColor, mipMapHighestLevelColor, normLod);
+    
+    return mix(diffuseColor, mipMapColor, normLod + 0.2f);
 }
