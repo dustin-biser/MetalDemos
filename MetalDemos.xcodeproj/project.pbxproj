@@ -373,6 +373,8 @@
 		0CEE0B7F1C8CCA1E002482FA /* lodepng.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lodepng.h; sourceTree = "<group>"; };
 		0CEE0B801C8CCA1E002482FA /* lodepng_util.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = lodepng_util.cpp; sourceTree = "<group>"; };
 		0CEE0B811C8CCA1E002482FA /* lodepng_util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lodepng_util.h; sourceTree = "<group>"; };
+		0CFD20DE1CA877A70044CC94 /* GlmSimdConversion.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GlmSimdConversion.hpp; sourceTree = "<group>"; };
+		0CFD20DF1CA877C10044CC94 /* GlmSimdConversion.inl */ = {isa = PBXFileReference; lastKnownFileType = text; path = GlmSimdConversion.inl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -564,6 +566,8 @@
 				0C02568C1C9A3B58003D61EF /* Camera.hpp */,
 				0C032FC61CA4513C00100276 /* InputHandler.cpp */,
 				0C032FC71CA4513C00100276 /* InputHandler.hpp */,
+				0CFD20DE1CA877A70044CC94 /* GlmSimdConversion.hpp */,
+				0CFD20DF1CA877C10044CC94 /* GlmSimdConversion.inl */,
 			);
 			name = Shared;
 			path = Demos/Shared;
