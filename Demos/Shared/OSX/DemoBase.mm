@@ -123,6 +123,7 @@
 
     //-----------------------------------------------------------------------------------
     - (void) disableCursor {
+        // If cursor is already disabled, this method should do nothing.
         if (_cursorIsEnabled) {
             [NSCursor hide];
             CGAssociateMouseAndMouseCursorPosition(false);
@@ -133,10 +134,20 @@
 
     //-----------------------------------------------------------------------------------
     - (void) enableCursor {
+        // If cursor is already enabled, this method should do nothing.
         if (!_cursorIsEnabled) {
             CGAssociateMouseAndMouseCursorPosition(true);
             [NSCursor unhide];
             _cursorIsEnabled = true;
+        }
+    }
+
+    //-----------------------------------------------------------------------------------
+    - (void) toggleCursor {
+        if (_cursorIsEnabled) {
+            [self disableCursor];
+        } else {
+            [self enableCursor];
         }
     }
 
@@ -148,14 +159,17 @@
     
     //-----------------------------------------------------------------------------------
     - (void) keyUp:(NSEvent *)theEvent {
-        char character = [theEvent.charactersIgnoringModifiers characterAtIndex:0];
-        _inputHandler->keyUp(character);
+        _inputHandler->keyUp([theEvent keyCode]);
     }
     
     //-----------------------------------------------------------------------------------
     - (void) keyDown:(NSEvent *)theEvent {
-        char character = [theEvent.charactersIgnoringModifiers characterAtIndex:0];
-        _inputHandler->keyDown(character);
+        unsigned short keyCode = [theEvent keyCode];
+        _inputHandler->keyDown(keyCode);
+        
+        if (static_cast<InputKey>(keyCode) == InputKey::TAB) {
+            [self toggleCursor];
+        }
     }
     
     //-----------------------------------------------------------------------------------

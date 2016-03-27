@@ -100,38 +100,38 @@ using namespace std;
 
     //-----------------------------------------------------------------------------------
     - (void) setupInputHandler {
-        _inputHandler->registerKeyCommand('c', [=] {
+        _inputHandler->registerKeyCommand(InputKey::C, [=] {
             [self disableCursor];
         });
         
-        _inputHandler->registerKeyCommand('v', [=] {
+        _inputHandler->registerKeyCommand(InputKey::V, [=] {
             [self enableCursor];
         });
         
         // Camera Translations:
         {
-            _inputHandler->registerKeyCommand('w', [=] {
+            _inputHandler->registerKeyCommand(InputKey::W, [=] {
                 _cameraMoveDirection += _camera->forwardDirection();
             });
             
-            _inputHandler->registerKeyCommand('s', [=] {
+            _inputHandler->registerKeyCommand(InputKey::S, [=] {
                 _cameraMoveDirection += _camera->backDirection();
             });
             
-            _inputHandler->registerKeyCommand('a', [=] {
+            _inputHandler->registerKeyCommand(InputKey::A, [=] {
                 _cameraMoveDirection += _camera->strafeLeftDirection();
             });
             
-            _inputHandler->registerKeyCommand('d', [=] {
+            _inputHandler->registerKeyCommand(InputKey::D, [=] {
                 _cameraMoveDirection += _camera->strafeRightDirection();
             });
             
-            _inputHandler->registerKeyCommand('r', [=] {
+            _inputHandler->registerKeyCommand(InputKey::R, [=] {
                 // Elevate camera with respect to world space.
                 _cameraMoveDirection += glm::vec3(0.0f, 1.0f, 0.0f);
             });
             
-            _inputHandler->registerKeyCommand('f', [=] {
+            _inputHandler->registerKeyCommand(InputKey::F, [=] {
                 // Lower camera with respect to world space.
                 _cameraMoveDirection += glm::vec3(0.0f, -1.0f, 0.0f);
             });
@@ -142,11 +142,11 @@ using namespace std;
         {
             const float deltaRotation(0.02f);
             
-            _inputHandler->registerKeyCommand('q', [=] {
+            _inputHandler->registerKeyCommand(InputKey::Q, [=] {
                 _camera->roll(deltaRotation);
             });
             
-            _inputHandler->registerKeyCommand('e', [=] {
+            _inputHandler->registerKeyCommand(InputKey::E, [=] {
                 _camera->roll(-deltaRotation);
             });
             

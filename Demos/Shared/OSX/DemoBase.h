@@ -54,5 +54,8 @@
     - (void) enableCursor;
 
 
+    - (void) toggleCursor;
+
+
 @end // DemoBase
 
