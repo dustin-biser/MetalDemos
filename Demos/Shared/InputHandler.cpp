@@ -7,7 +7,7 @@
 //
 
 #include "InputHandler.hpp"
-#include <unordered_map>
+#include <map>
 #include <cmath>
 #include <glm/glm.hpp>
 
@@ -21,8 +21,8 @@ private:
     
     bool mouseCursorHasMoved();
     
-    std::unordered_map<char, bool> isKeyDown;
-    std::unordered_map<char, KeyCommand> keyCommands;
+    std::map<InputKey, bool> isKeyDown;
+    std::map<InputKey, KeyCommand> keyCommands;
     
     // Mouse cursor position changes between frames, given in screen coordinates.
     float mouseDeltaX;
@@ -69,7 +69,7 @@ InputHandler::~InputHandler() {
 
 //---------------------------------------------------------------------------------------
 void InputHandler::registerKeyCommand (
-    char key,
+    InputKey key,
     KeyCommand keyCommand
 ) {
     _impl->keyCommands[key] = keyCommand;
@@ -88,7 +88,7 @@ void InputHandler::handleInput() const
 {
     // Handle key down events:
     for(auto pair : _impl->keyCommands) {
-        char key = pair.first;
+        InputKey key = pair.first;
         if (_impl->isKeyDown[key]) {
             // Execute command regeistered for that key.
             _impl->keyCommands[key]();
@@ -103,14 +103,20 @@ void InputHandler::handleInput() const
 
 
 //---------------------------------------------------------------------------------------
-void InputHandler::keyDown(char key) {
-    _impl->isKeyDown[key] = true;
+void InputHandler::keyDown (
+    unsigned short keyCode
+) {
+    InputKey inputKey = static_cast<InputKey>(keyCode);
+    _impl->isKeyDown[inputKey] = true;
 }
 
 
 //---------------------------------------------------------------------------------------
-void InputHandler::keyUp(char key) {
-    _impl->isKeyDown[key] = false;
+void InputHandler::keyUp (
+    unsigned short keyCode
+) {
+    InputKey inputKey = static_cast<InputKey>(keyCode);
+    _impl->isKeyDown[inputKey] = false;
 }
 
 //---------------------------------------------------------------------------------------
