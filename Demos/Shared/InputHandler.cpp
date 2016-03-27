@@ -46,8 +46,7 @@ InputHandlerImpl::InputHandlerImpl()
 
 //---------------------------------------------------------------------------------------
 bool InputHandlerImpl::mouseCursorHasMoved() {
-    const float epsilon(1.0e-6);
-    return (std::abs(mouseDeltaX) > epsilon) || (std::abs(mouseDeltaY) > epsilon);
+    return (std::abs(mouseDeltaX) > FLT_EPSILON) || (std::abs(mouseDeltaY) > FLT_EPSILON);
 }
 
 
