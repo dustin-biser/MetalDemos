@@ -36,6 +36,18 @@
 		0C8E93D71C88AD980002A0DA /* MetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93BA1C88A8D10002A0DA /* MetalView.swift */; };
 		0C8E93D81C88AD980002A0DA /* MatrixTransforms.c in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93BC1C88A8D10002A0DA /* MatrixTransforms.c */; };
 		0C8E93D91C88AFD30002A0DA /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93701C88A70C0002A0DA /* Shaders.metal */; };
+		0CC1E3C71CA9CC110085EC76 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0CC1E3C51CA9CC110085EC76 /* Info.plist */; };
+		0CC1E3C91CA9CC1B0085EC76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CC1E3C61CA9CC110085EC76 /* Main.storyboard */; };
+		0CC1E3CA1CA9CC230085EC76 /* DemoBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264631C97586D006D6B8F /* DemoBase.mm */; };
+		0CC1E3CB1CA9CC240085EC76 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264611C97586D006D6B8F /* AppDelegate.m */; };
+		0CC1E3CC1CA9CC270085EC76 /* MetalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264661C97586D006D6B8F /* MetalView.m */; };
+		0CC1E3CE1CA9CC3B0085EC76 /* InputHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C032FC61CA4513C00100276 /* InputHandler.cpp */; };
+		0CC1E3CF1CA9CC430085EC76 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264641C97586D006D6B8F /* main.m */; };
+		0CC1E3D21CA9CD450085EC76 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0CC1E3D01CA9CD3C0085EC76 /* Shaders.metal */; };
+		0CC1E3D71CA9CD690085EC76 /* DeferredShadingDemo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CC1E3D41CA9CD690085EC76 /* DeferredShadingDemo.mm */; };
+		0CC1E3D81CA9CD690085EC76 /* DeferredShadingRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CC1E3D61CA9CD690085EC76 /* DeferredShadingRenderer.mm */; };
+		0CC1E3D91CA9CE970085EC76 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C02568B1C9A3B58003D61EF /* Camera.cpp */; };
+		0CC1E3DA1CA9CEA70085EC76 /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = 0CE264951C98806F006D6B8F /* Assets */; };
 		0CE2646B1C975871006D6B8F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264611C97586D006D6B8F /* AppDelegate.m */; };
 		0CE2646C1C975882006D6B8F /* DemoBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264631C97586D006D6B8F /* DemoBase.mm */; };
 		0CE2646D1C975882006D6B8F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264641C97586D006D6B8F /* main.m */; };
@@ -64,7 +76,7 @@
 		0C4270FB1C9358E000F5B519 /* Mipmap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mipmap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C42710D1C93598600F5B519 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C42710E1C93598600F5B519 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		0C4271191C935A2E00F5B519 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = Shaders.metal; path = Assets/Shaders.metal; sourceTree = "<group>"; };
+		0C4271191C935A2E00F5B519 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		0C8E93661C88A70C0002A0DA /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		0C8E936C1C88A70C0002A0DA /* InstancingDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancingDemo.swift; sourceTree = "<group>"; };
 		0C8E936D1C88A70C0002A0DA /* MetalRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalRenderer.swift; sourceTree = "<group>"; };
@@ -91,6 +103,14 @@
 		0C8E93D11C88AD800002A0DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C8E93D21C88AD800002A0DA /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0CB58F521C5470FD00D5CAD8 /* Instancing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instancing.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CB6FD161CA8AF1D00C4E0D0 /* DeferredShading.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeferredShading.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CC1E3C51CA9CC110085EC76 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0CC1E3C61CA9CC110085EC76 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		0CC1E3D01CA9CD3C0085EC76 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		0CC1E3D31CA9CD690085EC76 /* DeferredShadingDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeferredShadingDemo.h; path = Demos/OSX/DeferredShading/DeferredShadingDemo.h; sourceTree = SOURCE_ROOT; };
+		0CC1E3D41CA9CD690085EC76 /* DeferredShadingDemo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DeferredShadingDemo.mm; path = Demos/OSX/DeferredShading/DeferredShadingDemo.mm; sourceTree = SOURCE_ROOT; };
+		0CC1E3D51CA9CD690085EC76 /* DeferredShadingRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeferredShadingRenderer.h; path = Demos/OSX/DeferredShading/DeferredShadingRenderer.h; sourceTree = SOURCE_ROOT; };
+		0CC1E3D61CA9CD690085EC76 /* DeferredShadingRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DeferredShadingRenderer.mm; path = Demos/OSX/DeferredShading/DeferredShadingRenderer.mm; sourceTree = SOURCE_ROOT; };
 		0CDB21751C98E9B1005BDC28 /* common.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = common.hpp; sourceTree = "<group>"; };
 		0CDB21771C98E9B1005BDC28 /* _features.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = _features.hpp; sourceTree = "<group>"; };
 		0CDB21781C98E9B1005BDC28 /* _fixes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = _fixes.hpp; sourceTree = "<group>"; };
@@ -406,6 +426,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0CB6FD131CA8AF1D00C4E0D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0CDDA0701C7A9CED00135C7C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -420,7 +447,6 @@
 			isa = PBXGroup;
 			children = (
 				0C42710B1C93598600F5B519 /* Assets */,
-				0C4271191C935A2E00F5B519 /* Shaders.metal */,
 				0C42710C1C93598600F5B519 /* Data */,
 				0CE264701C975904006D6B8F /* MipmapRenderer.h */,
 				0CE264711C975904006D6B8F /* MipmapRenderer.mm */,
@@ -433,6 +459,7 @@
 		0C42710B1C93598600F5B519 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				0C4271191C935A2E00F5B519 /* Shaders.metal */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -462,6 +489,7 @@
 				0C8E936E1C88A70C0002A0DA /* MetalCube */,
 				0C8E93891C88A70C0002A0DA /* MultiSample */,
 				0C42710A1C93598600F5B519 /* Mipmap */,
+				0CB6FD2A1CA8B00600C4E0D0 /* DeferredShading */,
 			);
 			name = OSX;
 			path = Demos/OSX;
@@ -619,9 +647,43 @@
 				0CDDA0771C7A9CED00135C7C /* MultiSample.app */,
 				0C4270DB1C932FC500F5B519 /* MetalTriangle.app */,
 				0C4270FB1C9358E000F5B519 /* Mipmap.app */,
+				0CB6FD161CA8AF1D00C4E0D0 /* DeferredShading.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		0CB6FD2A1CA8B00600C4E0D0 /* DeferredShading */ = {
+			isa = PBXGroup;
+			children = (
+				0CC1E3C31CA9CC110085EC76 /* Assets */,
+				0CC1E3C41CA9CC110085EC76 /* Data */,
+				0CC1E3D31CA9CD690085EC76 /* DeferredShadingDemo.h */,
+				0CC1E3D41CA9CD690085EC76 /* DeferredShadingDemo.mm */,
+				0CC1E3D51CA9CD690085EC76 /* DeferredShadingRenderer.h */,
+				0CC1E3D61CA9CD690085EC76 /* DeferredShadingRenderer.mm */,
+			);
+			name = DeferredShading;
+			path = MultiGPU;
+			sourceTree = "<group>";
+		};
+		0CC1E3C31CA9CC110085EC76 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				0CC1E3D01CA9CD3C0085EC76 /* Shaders.metal */,
+			);
+			name = Assets;
+			path = Demos/OSX/DeferredShading/Assets;
+			sourceTree = SOURCE_ROOT;
+		};
+		0CC1E3C41CA9CC110085EC76 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				0CC1E3C51CA9CC110085EC76 /* Info.plist */,
+				0CC1E3C61CA9CC110085EC76 /* Main.storyboard */,
+			);
+			name = Data;
+			path = Demos/OSX/DeferredShading/Data;
+			sourceTree = SOURCE_ROOT;
 		};
 		0CDB21731C98E9B1005BDC28 /* glm */ = {
 			isa = PBXGroup;
@@ -1032,6 +1094,23 @@
 			productReference = 0CB58F521C5470FD00D5CAD8 /* Instancing.app */;
 			productType = "com.apple.product-type.application";
 		};
+		0CB6FD151CA8AF1D00C4E0D0 /* DeferredShading */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0CB6FD271CA8AF1D00C4E0D0 /* Build configuration list for PBXNativeTarget "DeferredShading" */;
+			buildPhases = (
+				0CB6FD121CA8AF1D00C4E0D0 /* Sources */,
+				0CB6FD131CA8AF1D00C4E0D0 /* Frameworks */,
+				0CB6FD141CA8AF1D00C4E0D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DeferredShading;
+			productName = MultiGPU;
+			productReference = 0CB6FD161CA8AF1D00C4E0D0 /* DeferredShading.app */;
+			productType = "com.apple.product-type.application";
+		};
 		0CDDA0681C7A9CED00135C7C /* MultiSample */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0CDDA0741C7A9CED00135C7C /* Build configuration list for PBXNativeTarget "MultiSample" */;
@@ -1068,6 +1147,9 @@
 					0CB58F511C5470FD00D5CAD8 = {
 						CreatedOnToolsVersion = 7.2;
 					};
+					0CB6FD151CA8AF1D00C4E0D0 = {
+						CreatedOnToolsVersion = 7.3;
+					};
 				};
 			};
 			buildConfigurationList = 0C9474D01C339EB1005933AC /* Build configuration list for PBXProject "MetalDemos" */;
@@ -1088,6 +1170,7 @@
 				0CDDA0681C7A9CED00135C7C /* MultiSample */,
 				0C4270DA1C932FC500F5B519 /* MetalTriangle */,
 				0C4270FA1C9358E000F5B519 /* Mipmap */,
+				0CB6FD151CA8AF1D00C4E0D0 /* DeferredShading */,
 			);
 		};
 /* End PBXProject section */
@@ -1097,6 +1180,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CC1E3C71CA9CC110085EC76 /* Info.plist in Resources */,
 				0C8E93D31C88AD890002A0DA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1123,6 +1207,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C8E93B31C88A8560002A0DA /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0CB6FD141CA8AF1D00C4E0D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CC1E3DA1CA9CEA70085EC76 /* Assets in Resources */,
+				0CC1E3C91CA9CC1B0085EC76 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1194,6 +1287,22 @@
 				0C8E93C21C88A9060002A0DA /* AppDelegate.swift in Sources */,
 				0C8E93B01C88A7AB0002A0DA /* MetalRenderer.swift in Sources */,
 				0C8E93C11C88A9050002A0DA /* DemoBase.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0CB6FD121CA8AF1D00C4E0D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0CC1E3D91CA9CE970085EC76 /* Camera.cpp in Sources */,
+				0CC1E3D21CA9CD450085EC76 /* Shaders.metal in Sources */,
+				0CC1E3D71CA9CD690085EC76 /* DeferredShadingDemo.mm in Sources */,
+				0CC1E3CE1CA9CC3B0085EC76 /* InputHandler.cpp in Sources */,
+				0CC1E3CA1CA9CC230085EC76 /* DemoBase.mm in Sources */,
+				0CC1E3D81CA9CD690085EC76 /* DeferredShadingRenderer.mm in Sources */,
+				0CC1E3CB1CA9CC240085EC76 /* AppDelegate.m in Sources */,
+				0CC1E3CC1CA9CC270085EC76 /* MetalView.m in Sources */,
+				0CC1E3CF1CA9CC430085EC76 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1434,6 +1543,36 @@
 			};
 			name = Release;
 		};
+		0CB6FD281CA8AF1D00C4E0D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Demos/OSX/DeferredShading/Data/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MTL_HEADER_SEARCH_PATHS = Demos/Shared;
+				PRODUCT_BUNDLE_IDENTIFIER = none.MultiGPU;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		0CB6FD291CA8AF1D00C4E0D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Demos/OSX/DeferredShading/Data/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MTL_HEADER_SEARCH_PATHS = Demos/Shared;
+				PRODUCT_BUNDLE_IDENTIFIER = none.MultiGPU;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		0CDDA0751C7A9CED00135C7C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1508,6 +1647,15 @@
 			buildConfigurations = (
 				0CB58F5F1C5470FD00D5CAD8 /* Debug */,
 				0CB58F601C5470FD00D5CAD8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0CB6FD271CA8AF1D00C4E0D0 /* Build configuration list for PBXNativeTarget "DeferredShading" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0CB6FD281CA8AF1D00C4E0D0 /* Debug */,
+				0CB6FD291CA8AF1D00C4E0D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
