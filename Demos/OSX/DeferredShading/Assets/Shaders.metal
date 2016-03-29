@@ -13,18 +13,22 @@
 
 using namespace metal;
 
+// Variables in constant address space:
+constant float3 light_position = float3(-1.0, 2.0, -1.0);
+
 
 // Input to the vertex shader.
 struct VertexInput {
-    float3 position [[ attribute(PositionAttribute) ]];
-    float3 normal   [[ attribute(NormalAttribute) ]];
-    float2 textureCoord [[ attribute(TextureCoordinateAttribute) ]];
+    float3 position [[attribute(PositionAttribute)]];
+    float3 normal   [[attribute(NormalAttribute)]];
+    float2 textureCoord   [[attribute(TextureCoordinateAttribute)]];
 };
-
 
 // Output from Vertex shader.
 struct VertexOutput {
-    float4 position_CS [[position]];  // Clip-space position.
+    float4 position [[position]];
+    float3 eye_position; // Vertex position in eye-space.
+    float3 eye_normal;   // Vertex normal in eye-space.
     float2 textureCoord; // (u,v) texture coordinates.
 };
 
@@ -37,13 +41,12 @@ vertex VertexOutput vertexFunction (
 ) {
     VertexOutput vOut;
     
-    // Vertex position in world space.
-    float4 vertexPosition_WS = frameUniforms.modelMatrix * float4(v_in.position, 1.0);
+    float4 pWorld = frameUniforms.modelMatrix * float4(v_in.position, 1.0);
+    float4 pEye = frameUniforms.viewMatrix * pWorld;
     
-    // Vertex position in view space.
-    float4 vertexPosition_VS = frameUniforms.viewMatrix * vertexPosition_WS;
-    
-    vOut.position_CS = frameUniforms.projectionMatrix * vertexPosition_VS;
+    vOut.eye_position = pEye.xyz;
+    vOut.position = frameUniforms.projectionMatrix * pEye;
+    vOut.eye_normal = normalize(frameUniforms.normalMatrix * v_in.normal);
     vOut.textureCoord = v_in.textureCoord;
     
     return vOut;
@@ -57,22 +60,14 @@ fragment float4 fragmentFunction (
         texture2d<float, access::sample> diffuseTexture [[ texture(0) ]],
         sampler samplerDiffuse [[ sampler(0) ]]
 ) {
-    const float2 textureSize = float2(diffuseTexture.get_width(),
-                                      diffuseTexture.get_height());
+    float3 l = normalize(light_position - f_in.eye_position);
+    float n_dot_l = dot(f_in.eye_normal.rgb, l);
+    n_dot_l = fmax(0.0, n_dot_l);
     
-    const float2 uv = f_in.textureCoord * textureSize;
-    const float2 ddx = dfdx(uv);
-    const float2 ddy = dfdy(uv);
-    
-    const float p = max(sqrt(dot(ddx,ddx)), sqrt(dot(ddy,ddy)));
-    const float lod = floor(max(0.0f, log2(p)));
-    const float normLod = lod / diffuseTexture.get_num_mip_levels();
+    float r = clamp(distance(light_position, f_in.eye_position), 0.2, 1.5);
+    float fallOff = 1.0/r;
     
     const float4 diffuseColor = diffuseTexture.sample(samplerDiffuse, f_in.textureCoord);
     
-    const float4 mipMapHighestLevelColor = float4(1.0, 0.0, 0.0f, 1.0f);
-    const float4 mipMapLowestLevelColor = float4(1.0, 1.0, 1.0f, 1.0f);
-    const float4 mipMapColor = mix(mipMapLowestLevelColor, mipMapHighestLevelColor, normLod);
-    
-    return mix(diffuseColor, mipMapColor, normLod + 0.2f);
+    return diffuseColor;// * n_dot_l * fallOff;
 }

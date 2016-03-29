@@ -26,6 +26,8 @@ using namespace std;
     - (void) setupInputHandler;
 
     - (void) generateMipmapLevels;
+
+    - (void) moveCamera;
 @end
 
 
@@ -88,13 +90,13 @@ using namespace std;
         );
         
         _camera->lookAt(
-                glm::vec3(0.0f, 112.2f, 1140.5f),
-                glm::vec3(0.0f, 0.0f, 100.0f),
+                glm::vec3(3.161f, 15.049f, 7.802f),
+                glm::vec3(15.0f, 0.0f, -15.0f),
                 glm::vec3(0.0f, 1.0f, 0.0f)
        );
         
         _cameraMoveDirection = glm::vec3(0.0f);
-        _cameraMoveSpeed = 2.0f;
+        _cameraMoveSpeed = 0.2f;
     }
 
 
@@ -180,7 +182,7 @@ using namespace std;
 
 
     //-----------------------------------------------------------------------------------
-    - (void) appLogic {
+    - (void) moveCamera {
         if ( glm::dot(_cameraMoveDirection, _cameraMoveDirection) > FLT_EPSILON ) {
             // Make sure movement direction is of unit length
             _cameraMoveDirection = glm::normalize(_cameraMoveDirection);
@@ -191,7 +193,12 @@ using namespace std;
             // Reset Camera move direction
             _cameraMoveDirection = glm::vec3(0.0f);
         }
-        
+    }
+
+
+    //-----------------------------------------------------------------------------------
+    - (void) appLogic {
+        [self moveCamera];
     }
 
     //-----------------------------------------------------------------------------------

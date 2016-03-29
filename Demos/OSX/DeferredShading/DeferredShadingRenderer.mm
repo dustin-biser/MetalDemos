@@ -78,8 +78,8 @@ using namespace glm;
     
     id<MTLBuffer> _vertexBuffer;
     MTLVertexDescriptor * _vertexDescriptor;
-    MTKMesh * _planeMesh;
-    id<MTLTexture> _planeTexture;
+    MTKMesh * _cityMesh;
+    id<MTLTexture> _cityTexture;
     
     NSMutableArray<id<MTLBuffer>> * _frameUniformBuffers;
     int _currentFrame;
@@ -211,7 +211,7 @@ using namespace glm;
                 [[MTKMeshBufferAllocator alloc] initWithDevice:_device];
         
         NSURL * meshAssetURL = [[NSBundle mainBundle]
-            URLForResource: @"Assets/Meshes/textured_plane.obj"
+            URLForResource: @"Assets/Meshes/city.obj"
              withExtension: nil
         ];
         
@@ -237,14 +237,14 @@ using namespace glm;
         }
         
         
-        _planeMesh = mtkMeshArray[0];
+        _cityMesh = mtkMeshArray[0];
         
     }
 
     //-----------------------------------------------------------------------------------
     - (void) loadTextureAssets {
         NSURL * textureAssetURL = [[NSBundle mainBundle]
-            URLForResource: @"Assets/Textures/lightTiles.png"
+            URLForResource: @"Assets/Textures/city.png"
              withExtension: nil ];
         
         MTKTextureLoader * mtlTextureLoader =
@@ -258,7 +258,7 @@ using namespace glm;
         
         NSError * error;
         
-        _planeTexture =
+        _cityTexture =
             [mtlTextureLoader newTextureWithContentsOfURL:textureAssetURL
                                                   options:textureLoadingOptions
                                                     error:&error];
@@ -277,7 +277,7 @@ using namespace glm;
 
     //-----------------------------------------------------------------------------------
     - (void) setFrameUniforms: (const Camera &)camera {
-        glm::mat4 modelMatrix = glm::mat4();
+        glm::mat4 modelMatrix = glm::scale(mat4(), vec3(20.0f, 20.f, 20.0f));
         glm::mat4 viewMatrix = camera.viewMatrix();
         glm::mat4 modelView = viewMatrix * modelMatrix;
         glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(modelView)));
@@ -304,7 +304,7 @@ using namespace glm;
     - (void) generateMipmapLevels: (id<MTLCommandBuffer>)commandBuffer {
         id<MTLBlitCommandEncoder> commandEncoder = [commandBuffer blitCommandEncoder];
         
-        [commandEncoder generateMipmapsForTexture: _planeTexture];
+        [commandEncoder generateMipmapsForTexture: _cityTexture];
         [commandEncoder endEncoding];
         [commandBuffer commit];
     }
@@ -340,7 +340,7 @@ using namespace glm;
         [renderEncoder setRenderPipelineState: _renderPipelineState];
         
         
-        for(MTKMeshBuffer * vertexBuffer in _planeMesh.vertexBuffers) {
+        for(MTKMeshBuffer * vertexBuffer in _cityMesh.vertexBuffers) {
             [renderEncoder setVertexBuffer: vertexBuffer.buffer
                                     offset: vertexBuffer.offset
                                    atIndex: VertexBufferIndex];
@@ -354,15 +354,15 @@ using namespace glm;
         
         //-- Set Diffuse Texture and Sampler:
         {
-            [renderEncoder setFragmentTexture: _planeTexture atIndex:0];
+            [renderEncoder setFragmentTexture: _cityTexture atIndex:0];
             
             auto samplerDescriptor = [[MTLSamplerDescriptor alloc] init];
             samplerDescriptor.minFilter = MTLSamplerMinMagFilterLinear;
             samplerDescriptor.magFilter = MTLSamplerMinMagFilterLinear;
             samplerDescriptor.sAddressMode = MTLSamplerAddressModeRepeat;
             samplerDescriptor.tAddressMode = MTLSamplerAddressModeRepeat;
-            samplerDescriptor.maxAnisotropy = 16;
-            samplerDescriptor.mipFilter = MTLSamplerMipFilterLinear;
+            samplerDescriptor.maxAnisotropy = 8;
+            samplerDescriptor.mipFilter = MTLSamplerMipFilterNotMipmapped;
             
             auto sampler = [_device newSamplerStateWithDescriptor:samplerDescriptor];
             
@@ -370,7 +370,7 @@ using namespace glm;
         }
         
         
-        for(MTKSubmesh * subMesh in _planeMesh.submeshes) {
+        for(MTKSubmesh * subMesh in _cityMesh.submeshes) {
             [renderEncoder drawIndexedPrimitives: MTLPrimitiveTypeTriangle
                                       indexCount: subMesh.indexCount
                                        indexType: subMesh.indexType
