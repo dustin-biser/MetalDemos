@@ -12,16 +12,15 @@
 #import "MatrixTransforms.h"
 #import "Camera.hpp"
 #import "GlmSimdConversion.hpp"
+#import "Mesh.h"
 
 #import <MetalKit/MetalKit.h>
+#import <ModelIO/ModelIO.h>
 
 #import <glm/glm.hpp>
 #import <glm/gtc/matrix_transform.hpp>
-#import <glm/gtx/io.hpp>
 using namespace glm;
 
-#import <iostream>
-#import <vector>
 
 
 
@@ -78,8 +77,14 @@ using namespace glm;
     
     id<MTLBuffer> _vertexBuffer;
     MTLVertexDescriptor * _vertexDescriptor;
-    MTKMesh * _cityMesh;
+    
+    // City Mesh
+    Mesh * _cityMesh;
     id<MTLTexture> _cityTexture;
+    
+    // Plane mesh
+    Mesh * _groundPlaneMesh;
+    id<MTLTexture> _groundPlaneTexture;
     
     NSMutableArray<id<MTLBuffer>> * _frameUniformBuffers;
     int _currentFrame;
@@ -134,37 +139,40 @@ using namespace glm;
         id<MTLFunction> vertexFunction = [self newShaderFunctionWithName:@"vertexFunction"];
         id<MTLFunction> fragmentFunction = [self newShaderFunctionWithName:@"fragmentFunction"];
         
-        MTLVertexDescriptor * vertexDescriptor = [[MTLVertexDescriptor alloc] init];
+        _vertexDescriptor = [[MTLVertexDescriptor alloc] init];
         
-        //-- Position vertex attribute description:
-        auto positionAttribute = vertexDescriptor.attributes[PositionAttribute];
-        positionAttribute.format = MTLVertexFormatFloat3;
-        positionAttribute.offset = 0;
-        positionAttribute.bufferIndex = VertexBufferIndex;
-        
-        //-- Normal vertex attribute description:
-        auto normalAttribute = vertexDescriptor.attributes[NormalAttribute];
-        normalAttribute.format = MTLVertexFormatFloat3;
-        normalAttribute.offset = sizeof(Float32) * 3;
-        normalAttribute.bufferIndex = VertexBufferIndex;
-        
-        //-- Texture coordinate vertex attribute description:
-        auto textureCoordAttribute = vertexDescriptor.attributes[TextureCoordinateAttribute];
-        textureCoordAttribute.format = MTLVertexFormatFloat2;
-        textureCoordAttribute.offset = sizeof(Float32) * 6;
-        textureCoordAttribute.bufferIndex = VertexBufferIndex;
-        
-        //-- Vertex buffer layout description:
-        auto vertexLayoutDescriptor = vertexDescriptor.layouts[VertexBufferIndex];
-        vertexLayoutDescriptor.stride = sizeof(Float32) * 8;
-        vertexLayoutDescriptor.stepRate = 1;
-        vertexLayoutDescriptor.stepFunction = MTLVertexStepFunctionPerVertex;
+        //-- Describe vertex data as interleaved attributes:
+        {
+            //-- Position vertex attribute description:
+            auto positionAttribute = _vertexDescriptor.attributes[Position];
+            positionAttribute.format = MTLVertexFormatFloat3;
+            positionAttribute.offset = 0;
+            positionAttribute.bufferIndex = VertexBufferIndex;
+            
+            //-- Normal vertex attribute description:
+            auto normalAttribute = _vertexDescriptor.attributes[Normal];
+            normalAttribute.format = MTLVertexFormatFloat3;
+            normalAttribute.offset = sizeof(Float32) * 3;
+            normalAttribute.bufferIndex = VertexBufferIndex;
+            
+            //-- Texture coordinate vertex attribute description:
+            auto textureCoordAttribute = _vertexDescriptor.attributes[TextureCoordinate];
+            textureCoordAttribute.format = MTLVertexFormatFloat2;
+            textureCoordAttribute.offset = sizeof(Float32) * 6;
+            textureCoordAttribute.bufferIndex = VertexBufferIndex;
+            
+            //-- Vertex buffer layout description:
+            auto vertexLayoutDescriptor = _vertexDescriptor.layouts[VertexBufferIndex];
+            vertexLayoutDescriptor.stride = sizeof(Float32) * 8;
+            vertexLayoutDescriptor.stepRate = 1;
+            vertexLayoutDescriptor.stepFunction = MTLVertexStepFunctionPerVertex;
+        }
         
         auto renderPipelineDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
         renderPipelineDescriptor.label = @"Render Pipeline";
         renderPipelineDescriptor.vertexFunction = vertexFunction;
         renderPipelineDescriptor.fragmentFunction = fragmentFunction;
-        renderPipelineDescriptor.vertexDescriptor = vertexDescriptor;
+        renderPipelineDescriptor.vertexDescriptor = _vertexDescriptor;
         renderPipelineDescriptor.sampleCount = _msaaSampleCount;
         renderPipelineDescriptor.colorAttachments[0].pixelFormat = _colorPixelFormat;
         renderPipelineDescriptor.depthAttachmentPixelFormat = _depthStencilPixelFormat;
@@ -196,72 +204,91 @@ using namespace glm;
 
     //-----------------------------------------------------------------------------------
     - (void) loadMeshAssets {
+        
+        MTKMeshBufferAllocator * bufferAllocator =
+                [[MTKMeshBufferAllocator alloc] initWithDevice:_device];
+        
         // Create a MDLVertexDescriptor from an existing MTLVertexDescriptor
         MDLVertexDescriptor * mdlVertexDescriptor =
                 MTKModelIOVertexDescriptorFromMetal(_vertexDescriptor);
         
         // Specify vertex attribute type for each attribute location slot.
         auto mdlAttributes = mdlVertexDescriptor.attributes;
-        mdlAttributes[PositionAttribute].name = MDLVertexAttributePosition;
-        mdlAttributes[NormalAttribute].name = MDLVertexAttributeNormal;
-        mdlAttributes[TextureCoordinateAttribute].name =
-                MDLVertexAttributeTextureCoordinate;
+        mdlAttributes[Position].name = MDLVertexAttributePosition;
+        mdlAttributes[Normal].name = MDLVertexAttributeNormal;
+        mdlAttributes[TextureCoordinate].name = MDLVertexAttributeTextureCoordinate;
         
-        MTKMeshBufferAllocator * bufferAllocator =
-                [[MTKMeshBufferAllocator alloc] initWithDevice:_device];
         
         NSURL * meshAssetURL = [[NSBundle mainBundle]
             URLForResource: @"Assets/Meshes/city.obj"
              withExtension: nil
         ];
         
-        NSError * errors = nil;
-        MDLAsset * asset =
-            [[MDLAsset alloc] initWithURL: meshAssetURL
-                         vertexDescriptor: mdlVertexDescriptor
-                          bufferAllocator: bufferAllocator
-                         preserveTopology: NO
-                                    error: &errors];
-        if(errors) {
-            NSLog(@"Error loading assset: %@.\n With Error: %@", meshAssetURL, errors);
-        }
+        _cityMesh = [[Mesh alloc] initWithURLForAsset: meshAssetURL
+                                      bufferAllocator: bufferAllocator
+                                     vertexDescriptor: mdlVertexDescriptor
+        ];
         
         
-        NSArray<MTKMesh * > * mtkMeshArray =
-                [MTKMesh newMeshesFromAsset: asset
-                                     device: _device
-                               sourceMeshes: nil
-                                      error: &errors];
-        if(errors) {
-            NSLog(@"Error loading assset: %@.\n With Error: %@", meshAssetURL, errors);
-        }
+        meshAssetURL = [[NSBundle mainBundle]
+            URLForResource: @"Assets/Meshes/groundplane.obj"
+             withExtension: nil
+        ];
         
-        
-        _cityMesh = mtkMeshArray[0];
+        _groundPlaneMesh = [[Mesh alloc] initWithURLForAsset: meshAssetURL
+                                      bufferAllocator: bufferAllocator
+                                     vertexDescriptor: mdlVertexDescriptor
+        ];
         
     }
 
     //-----------------------------------------------------------------------------------
     - (void) loadTextureAssets {
-        NSURL * textureAssetURL = [[NSBundle mainBundle]
-            URLForResource: @"Assets/Textures/city.png"
-             withExtension: nil ];
+        //-- Load City Texture:
+        {
+            NSURL * textureAssetURL = [[NSBundle mainBundle]
+                URLForResource: @"Assets/Textures/city.png"
+                 withExtension: nil ];
+            
+            MTKTextureLoader * mtlTextureLoader =
+                    [[MTKTextureLoader alloc] initWithDevice:_device];
+            
+            NSDictionary<NSString *, NSNumber *> * textureLoadingOptions =
+            @{
+                MTKTextureLoaderOptionAllocateMipmaps : @YES,
+                MTKTextureLoaderOptionSRGB : @YES
+            };
+            
+            NSError * error;
+            
+            _cityTexture =
+                [mtlTextureLoader newTextureWithContentsOfURL: textureAssetURL
+                                                      options: textureLoadingOptions
+                                                        error: &error];
+        }
         
-        MTKTextureLoader * mtlTextureLoader =
-                [[MTKTextureLoader alloc] initWithDevice:_device];
-        
-        NSDictionary<NSString *, NSNumber *> * textureLoadingOptions =
-        @{
-            MTKTextureLoaderOptionAllocateMipmaps : @YES,
-            MTKTextureLoaderOptionSRGB : @YES
-        };
-        
-        NSError * error;
-        
-        _cityTexture =
-            [mtlTextureLoader newTextureWithContentsOfURL:textureAssetURL
-                                                  options:textureLoadingOptions
-                                                    error:&error];
+        //-- Load Plane Texture:
+        {
+            NSURL * textureAssetURL = [[NSBundle mainBundle]
+                URLForResource: @"Assets/Textures/groundplane.png"
+                 withExtension: nil ];
+            
+            MTKTextureLoader * mtlTextureLoader =
+                    [[MTKTextureLoader alloc] initWithDevice:_device];
+            
+            NSDictionary<NSString *, NSNumber *> * textureLoadingOptions =
+            @{
+                MTKTextureLoaderOptionAllocateMipmaps : @YES,
+                MTKTextureLoaderOptionSRGB : @YES
+            };
+            
+            NSError * error;
+            
+            _groundPlaneTexture =
+                [mtlTextureLoader newTextureWithContentsOfURL: textureAssetURL
+                                                      options: textureLoadingOptions
+                                                        error: &error];
+        }
     }
 
     //-----------------------------------------------------------------------------------
@@ -305,6 +332,8 @@ using namespace glm;
         id<MTLBlitCommandEncoder> commandEncoder = [commandBuffer blitCommandEncoder];
         
         [commandEncoder generateMipmapsForTexture: _cityTexture];
+        [commandEncoder generateMipmapsForTexture: _groundPlaneTexture];
+        
         [commandEncoder endEncoding];
         [commandBuffer commit];
     }
@@ -340,19 +369,12 @@ using namespace glm;
         [renderEncoder setRenderPipelineState: _renderPipelineState];
         
         
-        for(MTKMeshBuffer * vertexBuffer in _cityMesh.vertexBuffers) {
-            [renderEncoder setVertexBuffer: vertexBuffer.buffer
-                                    offset: vertexBuffer.offset
-                                   atIndex: VertexBufferIndex];
-        }
-        
-        
         [renderEncoder setVertexBuffer: _frameUniformBuffers[_currentFrame]
                                 offset: 0
                                atIndex: FrameUniformBufferIndex];
     
         
-        //-- Set Diffuse Texture and Sampler:
+        //-- Render City with Texture
         {
             [renderEncoder setFragmentTexture: _cityTexture atIndex:0];
             
@@ -362,22 +384,35 @@ using namespace glm;
             samplerDescriptor.sAddressMode = MTLSamplerAddressModeRepeat;
             samplerDescriptor.tAddressMode = MTLSamplerAddressModeRepeat;
             samplerDescriptor.maxAnisotropy = 8;
-            samplerDescriptor.mipFilter = MTLSamplerMipFilterNotMipmapped;
+            samplerDescriptor.mipFilter = MTLSamplerMipFilterLinear;
             
             auto sampler = [_device newSamplerStateWithDescriptor:samplerDescriptor];
             
             [renderEncoder setFragmentSamplerState:sampler atIndex:0];
+            
+            [_cityMesh renderWithEndcoder:renderEncoder];
+        }
+        
+        //-- Render Ground Plane with Texture
+        {
+            [renderEncoder setFragmentTexture: _groundPlaneTexture atIndex:0];
+            
+            auto samplerDescriptor = [[MTLSamplerDescriptor alloc] init];
+            samplerDescriptor.minFilter = MTLSamplerMinMagFilterLinear;
+            samplerDescriptor.magFilter = MTLSamplerMinMagFilterLinear;
+            samplerDescriptor.sAddressMode = MTLSamplerAddressModeRepeat;
+            samplerDescriptor.tAddressMode = MTLSamplerAddressModeRepeat;
+            samplerDescriptor.maxAnisotropy = 8;
+            samplerDescriptor.mipFilter = MTLSamplerMipFilterLinear;
+            
+            auto sampler = [_device newSamplerStateWithDescriptor:samplerDescriptor];
+            
+            [renderEncoder setFragmentSamplerState:sampler atIndex:0];
+            
+            [_groundPlaneMesh renderWithEndcoder:renderEncoder];
         }
         
         
-        for(MTKSubmesh * subMesh in _cityMesh.submeshes) {
-            [renderEncoder drawIndexedPrimitives: MTLPrimitiveTypeTriangle
-                                      indexCount: subMesh.indexCount
-                                       indexType: subMesh.indexType
-                                     indexBuffer: subMesh.indexBuffer.buffer
-                               indexBufferOffset: subMesh.indexBuffer.offset
-             ];
-        }
         
         [renderEncoder endEncoding];
         [renderEncoder popDebugGroup];

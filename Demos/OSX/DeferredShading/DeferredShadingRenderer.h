@@ -7,7 +7,6 @@
 //
 
 #import <Metal/Metal.h>
-#import <ModelIO/ModelIO.h>
 
 // Forward declaration
 class Camera;

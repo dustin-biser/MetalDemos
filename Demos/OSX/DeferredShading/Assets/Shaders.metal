@@ -19,9 +19,9 @@ constant float3 light_position = float3(-1.0, 2.0, -1.0);
 
 // Input to the vertex shader.
 struct VertexInput {
-    float3 position [[attribute(PositionAttribute)]];
-    float3 normal   [[attribute(NormalAttribute)]];
-    float2 textureCoord   [[attribute(TextureCoordinateAttribute)]];
+    float3 position [[attribute(Position)]];
+    float3 normal   [[attribute(Normal)]];
+    float2 textureCoord   [[attribute(TextureCoordinate)]];
 };
 
 // Output from Vertex shader.

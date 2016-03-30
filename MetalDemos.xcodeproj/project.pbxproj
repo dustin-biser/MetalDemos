@@ -12,6 +12,7 @@
 		0C4271121C93598700F5B519 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C42710E1C93598600F5B519 /* Main.storyboard */; };
 		0C4271181C935A1000F5B519 /* MatrixTransforms.c in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93BC1C88A8D10002A0DA /* MatrixTransforms.c */; };
 		0C42711A1C935A2E00F5B519 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0C4271191C935A2E00F5B519 /* Shaders.metal */; };
+		0C6BC4941CAC850A00DE0B05 /* ShaderResourceIndices.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C6BC4931CAC850A00DE0B05 /* ShaderResourceIndices.cpp */; };
 		0C8E93AE1C88A7AB0002A0DA /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93661C88A70C0002A0DA /* Shaders.metal */; };
 		0C8E93AF1C88A7AB0002A0DA /* InstancingDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E936C1C88A70C0002A0DA /* InstancingDemo.swift */; };
 		0C8E93B01C88A7AB0002A0DA /* MetalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E936D1C88A70C0002A0DA /* MetalRenderer.swift */; };
@@ -36,6 +37,7 @@
 		0C8E93D71C88AD980002A0DA /* MetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93BA1C88A8D10002A0DA /* MetalView.swift */; };
 		0C8E93D81C88AD980002A0DA /* MatrixTransforms.c in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93BC1C88A8D10002A0DA /* MatrixTransforms.c */; };
 		0C8E93D91C88AFD30002A0DA /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0C8E93701C88A70C0002A0DA /* Shaders.metal */; };
+		0C93A23C1CAAF84700BE553E /* Mesh.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C93A23A1CAAF84700BE553E /* Mesh.mm */; };
 		0CC1E3C71CA9CC110085EC76 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0CC1E3C51CA9CC110085EC76 /* Info.plist */; };
 		0CC1E3C91CA9CC1B0085EC76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0CC1E3C61CA9CC110085EC76 /* Main.storyboard */; };
 		0CC1E3CA1CA9CC230085EC76 /* DemoBase.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CE264631C97586D006D6B8F /* DemoBase.mm */; };
@@ -77,6 +79,7 @@
 		0C42710D1C93598600F5B519 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C42710E1C93598600F5B519 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0C4271191C935A2E00F5B519 /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		0C6BC4931CAC850A00DE0B05 /* ShaderResourceIndices.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderResourceIndices.cpp; sourceTree = "<group>"; };
 		0C8E93661C88A70C0002A0DA /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		0C8E936C1C88A70C0002A0DA /* InstancingDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstancingDemo.swift; sourceTree = "<group>"; };
 		0C8E936D1C88A70C0002A0DA /* MetalRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetalRenderer.swift; sourceTree = "<group>"; };
@@ -102,6 +105,8 @@
 		0C8E93CF1C88ACCF0002A0DA /* MetalCubeDemo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalCubeDemo.swift; sourceTree = "<group>"; };
 		0C8E93D11C88AD800002A0DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C8E93D21C88AD800002A0DA /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		0C93A23A1CAAF84700BE553E /* Mesh.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Mesh.mm; sourceTree = "<group>"; };
+		0C93A23B1CAAF84700BE553E /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
 		0CB58F521C5470FD00D5CAD8 /* Instancing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instancing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CB6FD161CA8AF1D00C4E0D0 /* DeferredShading.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeferredShading.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CC1E3C51CA9CC110085EC76 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -589,6 +594,7 @@
 				0C8E93BD1C88A8D10002A0DA /* MatrixTransforms.h */,
 				0CE264771C975978006D6B8F /* DemoCommon.h */,
 				0C8E93BE1C88A8D10002A0DA /* ShaderResourceIndices.h */,
+				0C6BC4931CAC850A00DE0B05 /* ShaderResourceIndices.cpp */,
 				0C8E93BF1C88A8D10002A0DA /* ShaderUniforms.h */,
 				0C02568B1C9A3B58003D61EF /* Camera.cpp */,
 				0C02568C1C9A3B58003D61EF /* Camera.hpp */,
@@ -596,6 +602,8 @@
 				0C032FC71CA4513C00100276 /* InputHandler.hpp */,
 				0CFD20DE1CA877A70044CC94 /* GlmSimdConversion.hpp */,
 				0CFD20DF1CA877C10044CC94 /* GlmSimdConversion.inl */,
+				0C93A23A1CAAF84700BE553E /* Mesh.mm */,
+				0C93A23B1CAAF84700BE553E /* Mesh.h */,
 			);
 			name = Shared;
 			path = Demos/Shared;
@@ -1298,9 +1306,11 @@
 				0CC1E3D21CA9CD450085EC76 /* Shaders.metal in Sources */,
 				0CC1E3D71CA9CD690085EC76 /* DeferredShadingDemo.mm in Sources */,
 				0CC1E3CE1CA9CC3B0085EC76 /* InputHandler.cpp in Sources */,
+				0C93A23C1CAAF84700BE553E /* Mesh.mm in Sources */,
 				0CC1E3CA1CA9CC230085EC76 /* DemoBase.mm in Sources */,
 				0CC1E3D81CA9CD690085EC76 /* DeferredShadingRenderer.mm in Sources */,
 				0CC1E3CB1CA9CC240085EC76 /* AppDelegate.m in Sources */,
+				0C6BC4941CAC850A00DE0B05 /* ShaderResourceIndices.cpp in Sources */,
 				0CC1E3CC1CA9CC270085EC76 /* MetalView.m in Sources */,
 				0CC1E3CF1CA9CC430085EC76 /* main.m in Sources */,
 			);

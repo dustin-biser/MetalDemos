@@ -31,14 +31,14 @@
 
 //---------------------------------------------------------------------------------------
 /// Vertex Attribute Indices:
-int_type PositionAttribute          = 0;
-int_type NormalAttribute            = 1;
-int_type TextureCoordinateAttribute = 2;
+extern int_type Position ;
+extern int_type Normal;
+extern int_type TextureCoordinate;
 
 
 //---------------------------------------------------------------------------------------
 /// Vertex Buffer Indices
-int_type VertexBufferIndex             = 0;
-int_type FrameUniformBufferIndex       = 1;
-int_type InstanceUniformBufferIndex    = 2;
-int_type MaterialUniformBufferIndex    = 3;
+extern int_type VertexBufferIndex;
+extern int_type FrameUniformBufferIndex;
+extern int_type InstanceUniformBufferIndex;
+extern int_type MaterialUniformBufferIndex;
